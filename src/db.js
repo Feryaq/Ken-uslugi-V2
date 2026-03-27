@@ -81,11 +81,57 @@ async function initDB() {
   // Seed initial news if table is empty
   const newsCount = await db.get('SELECT COUNT(*) as count FROM news');
   if (newsCount.count === 0) {
-    const initialNews = require('./data/news'); // get from old in-memory
+    const initialNews = [
+      {
+        id: '1',
+        image: '/images/news8.jpg',
+        date: 'СВЕЖЕЕ',
+        title: '❗️Кендрессии Все Должны❗️',
+        text: 'В Кендуме заявили, что Кендрессия — единственная страна, которая занималась инфраструктурой на спавне. «СТО СОРОК МИЛЛИАРДОВ АЛМАЗОВ! НА СТАТУИ ПОТРАТИЛИ! НА ФИГУЛЬКИ! А НА СПАВНЕ ЧТО?! ПУСТОТА!» — В. В. Кенриновский.',
+        amethyst: 'АметистNews',
+        createdAt: '2026-02-01T00:00:00Z'
+      },
+      {
+        id: '2',
+        image: '/images/news9.jpg',
+        date: 'СВЕЖЕЕ',
+        title: '❗️Страны союзники отказываются платить свои долги❗️',
+        text: 'Внешний долг Дмитрий составляет уже более двухсот пятидесяти Золота 🌕',
+        amethyst: 'АметистNews',
+        createdAt: '2026-02-05T00:00:00Z'
+      },
+      {
+        id: '3',
+        image: '/images/news10.jpg',
+        date: 'СВЕЖЕЕ',
+        title: '❗️ВсеКендрийская революция❗️',
+        text: 'КенФлиш больше не правитель СПБ. С этого дня главным органом власти является «КГБ СПБ». Состав КГБ СПБ: Кен Флиш. Вступление в КГБ СПБ рассматривает Кен Флиш.',
+        amethyst: 'АметистNews',
+        createdAt: '2026-02-10T00:00:00Z'
+      },
+      {
+        id: '4',
+        image: '/images/news11.jpg',
+        date: 'СВЕЖЕЕ',
+        title: '❗️Враги СПБ продолжают снимать пропагандистские видеоролики❗️',
+        text: 'Пропаганда продолжает распространяться. Государство принимает меры.',
+        amethyst: 'АметистNews',
+        createdAt: '2026-02-15T00:00:00Z'
+      },
+      {
+        id: '5',
+        image: '/images/news12.jpg',
+        date: '25.10.2025',
+        title: 'В КенДуме',
+        text: 'Депутат Вольдемар326 предложил новый законопроект.',
+        amethyst: 'АметистNews',
+        createdAt: '2025-10-25T00:00:00Z'
+      }
+    ];
     for (const n of initialNews) {
       await db.run(
         'INSERT INTO news (id, image, date, title, text, amethyst, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [n.id || uuidv4(), n.image, n.date, n.title, n.text, n.amethyst, n.createdAt || new Date().toISOString()]
+        [n.id, n.image, n.date, n.title, n.text, n.amethyst, n.createdAt]
       );
     }
     console.log('Initial news seeded');
