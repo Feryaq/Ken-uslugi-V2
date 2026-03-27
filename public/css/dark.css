@@ -5,17 +5,35 @@
 
 html.dark {
   color-scheme: dark;
-}
 
-/* Переопределяем CSS-переменные */
-html.dark body {
+  /* ── Переопределение CSS-переменных style.css ── */
+  --primary:        #5b7fff;
+  --primary-dark:   #3d5eff;
+  --primary-light:  #0d1530;
+  --secondary:      #28a265;
+  --secondary-light:#0a2a1a;
+  --danger:         #ff4466;
+  --bg:             #0d0d1a;
+  --surface:        #14142a;
+  --header-bg:      #0f0f22;
+  --header-text:    #ffffff;
+  --text:           #dde0f0;
+  --text-muted:     #8888aa;
+  --border:         #2e2e50;
+  --shadow:         0 2px 12px rgba(0,0,0,.4);
+  --shadow-hover:   0 6px 24px rgba(91,127,255,.25);
+
+  /* ── Старые переменные (index.html) ── */
   --blue:       #5b7fff;
   --red:        #ff4466;
   --light-blue: #0d1530;
   --light-red:  #1f0810;
-  --border:     #2e2e50;
-  background:   #0d0d1a !important;
-  color:        #dde0f0 !important;
+}
+
+/* ── Base ── */
+html.dark body {
+  background: var(--bg) !important;
+  color:      var(--text) !important;
 }
 
 /* ── Шапка ── */

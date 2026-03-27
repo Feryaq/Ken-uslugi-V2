@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>КенУслуги | Государственный портал Кендрессии</title>
     <link rel="icon" href="images/kengos-logo.png" type="image/png">
-    <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
-    <link rel="stylesheet" href="/css/dark.css">
     <style>
         * {
             margin: 0;
@@ -15,7 +13,7 @@
         }
 
         body {
-            font-family: 'Roboto', 'Segoe UI', 'Arial', sans-serif;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
             background: #f0f2f5;
             color: #333;
             line-height: 1.5;
@@ -103,45 +101,11 @@
             font-weight: 600;
         }
 
-        .portal-nav {
-            background: var(--gos-blue);
-            position: sticky;
-            top: 38px;
-            z-index: 100;
-        }
-
-        .portal-nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 0;
-        }
-
-        .portal-nav a {
-            display: block;
-            padding: 9px 16px;
-            color: rgba(255,255,255,0.9);
-            text-decoration: none;
-            font-size: 0.82em;
-            font-weight: 600;
-            border-right: 1px solid rgba(255,255,255,0.15);
-            transition: background 0.15s;
-        }
-
-        .portal-nav a:first-child { border-left: 1px solid rgba(255,255,255,0.15); }
-
-        .portal-nav a:hover { background: rgba(255,255,255,0.12); color: white; }
-
-        .portal-nav a[data-auth="guest"] { color: #ffd0d8; }
-
         .nav {
             background: white;
             border-bottom: 2px solid var(--gos-red);
             position: sticky;
-            top: 74px;
+            top: 38px;
             z-index: 99;
         }
 
@@ -817,7 +781,6 @@
             }
         }
     </style>
-  <script src="/js/theme.js"></script>
 </head>
 <body>
     <div class="warning-banner">
@@ -828,7 +791,7 @@
         <header class="header">
             <div class="header-container">
                 <div class="logo-area">
-                    <img src="/images/kengos-logo.png" alt="КенУслуги" class="kengos-logo" onerror="this.style.display='none'">
+                    <img src="images/kengos-logo.png" alt="КенУслуги" class="kengos-logo" onerror="this.style.display='none'">
                     <div class="logo-text">
                         <h1>КенУслуги</h1>
                         <p>Государственный портал Кендрессии</p>
@@ -839,17 +802,6 @@
                 </div>
             </div>
         </header>
-
-        <div class="portal-nav">
-            <div class="portal-nav-inner">
-                <a href="/services.html">Услуги</a>
-                <a href="/applications.html" data-auth="user">Мои заявки</a>
-                <a href="/profile.html" data-auth="user">👤 <span id="nav-user-name">Профиль</span></a>
-                <a href="/admin.html" data-auth="admin" style="background: var(--gos-red); color: white;">🛡 АДМИНКА</a>
-                <a href="/login.html" data-auth="guest">Войти</a>
-                <a href="#" data-auth="user" data-action="logout">Выйти</a>                <button id="theme-toggle" title="Тёмная тема" style="background:none;border:1.5px solid rgba(255,255,255,.5);border-radius:20px;padding:4px 12px;cursor:pointer;font-size:.85em;color:white;margin-left:4px;font-family:inherit;opacity:.85;transition:opacity .2s">🌙</button>
-            </div>
-        </div>
 
         <nav class="nav">
             <ul>
@@ -869,52 +821,24 @@
                 <button class="action-btn" onclick="openCitizenshipModal()">📄 ПОДАТЬ ДОКУМЕНТЫ</button>
             </div>
 
-            <!-- Модальное окно для ПОЛУЧЕНИЯ ГРАЖДАНСТВА / ПОДАЧИ ЗАЯВКИ -->
+            <!-- Модальное окно для ПОЛУЧЕНИЯ ГРАЖДАНСТВА -->
             <div class="modal" id="citizenshipModal" onclick="closeCitizenshipModal(event)">
-                <div class="modal-content" onclick="event.stopPropagation()" style="max-height:90vh;overflow-y:auto">
+                <div class="modal-content" onclick="event.stopPropagation()">
                     <span class="modal-close" onclick="closeCitizenshipModal()">&times;</span>
-                    <h2 class="modal-title">📜 ПОДАТЬ ЗАЯВКУ</h2>
-
-                    <div id="citizen-error" style="display:none;background:#f8d7da;color:#58151c;border:1px solid #f1aeb5;border-radius:10px;padding:12px;margin-bottom:12px"></div>
-                    <div id="citizen-success" style="display:none;background:#d1e7dd;color:#0a3622;border:1px solid #a3cfbb;border-radius:10px;padding:16px;text-align:center;font-weight:600">
-                        ✅ Заявка принята! Ожидайте ответа от представителя власти.
+                    <h2 class="modal-title">📜 ПОЛУЧЕНИЕ ГРАЖДАНСТВА</h2>
+                    <div class="modal-text">
+                        <p>Для получения гражданства Кендрессии необходимо:</p>
+                        <ul class="instruction-list">
+                            <li>Написать боту <strong>@ken_amethyst_bot</strong></li>
+                            <li>Указать свой ник в Minecraft</li>
+                            <li>Указать возраст и город проживания</li>
+                            <li>Дождаться ответа от представителя власти</li>
+                        </ul>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <a href="https://t.me/ken_amethyst_bot" target="_blank" class="bot-link">🤖 Написать боту @ken_amethyst_bot</a>
+                        </div>
+                        <p style="font-size: 0.9em; color: #666;">После проверки данных вам будет выдано гражданство.</p>
                     </div>
-
-                    <form id="citizen-form">
-                        <div style="margin-bottom:14px">
-                            <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--gos-blue)">Тип заявки *</label>
-                            <select name="type" required style="width:100%;padding:10px 14px;border:2px solid #d0d5dd;border-radius:8px;font-size:1em;font-family:inherit">
-                                <option value="">— Выберите —</option>
-                                <option value="citizenship">🏠 Получение гражданства</option>
-                                <option value="service">⚔️ Служба по контракту</option>
-                            </select>
-                        </div>
-                        <div style="margin-bottom:14px">
-                            <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--gos-blue)">Ник в Minecraft *</label>
-                            <input type="text" name="nickname" placeholder="Ваш ник" required style="width:100%;padding:10px 14px;border:2px solid #d0d5dd;border-radius:8px;font-size:1em;font-family:inherit">
-                        </div>
-                        <div style="margin-bottom:14px">
-                            <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--gos-blue)">Возраст</label>
-                            <input type="number" name="age" placeholder="Ваш возраст" min="1" max="99" style="width:100%;padding:10px 14px;border:2px solid #d0d5dd;border-radius:8px;font-size:1em;font-family:inherit">
-                        </div>
-                        <div style="margin-bottom:14px">
-                            <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--gos-blue)">Город проживания</label>
-                            <input type="text" name="city" placeholder="Ваш город" style="width:100%;padding:10px 14px;border:2px solid #d0d5dd;border-radius:8px;font-size:1em;font-family:inherit">
-                        </div>
-                        <div style="margin-bottom:14px">
-                            <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--gos-blue)">Пожелания / Желаемая должность</label>
-                            <textarea name="wish" placeholder="Необязательно" style="width:100%;padding:10px 14px;border:2px solid #d0d5dd;border-radius:8px;font-size:1em;font-family:inherit;resize:vertical;min-height:70px"></textarea>
-                        </div>
-                        <button type="submit" id="citizen-btn" style="width:100%;background:var(--gos-blue);color:white;border:none;padding:14px;font-size:1.1em;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit">
-                            Отправить заявку
-                        </button>
-                    </form>
-
-                    <hr style="border:none;border-top:1px dashed #d0d5dd;margin:18px 0">
-                    <p style="font-size:.9em;color:#666;text-align:center">
-                        Или напишите напрямую:
-                        <a href="https://t.me/ken_amethyst_bot" target="_blank" class="bot-link">🤖 @ken_amethyst_bot</a>
-                    </p>
                 </div>
             </div>
 
@@ -954,7 +878,7 @@
                     <!-- Кен Флиш Сигмославович -->
                     <div class="leader-card">
                         <div class="image-container">
-                            <img src="/images/1chel.png" alt="Кен Флиш" class="leader-card-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSI3NSIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjFjaGVsPC90ZXh0Pjwvc3ZnPg=='>
+                            <img src="images/1chel.png" alt="Кен Флиш" class="leader-card-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSI3NSIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjFjaGVsPC90ZXh0Pjwvc3ZnPg=='>
                         </div>
                         <div class="leader-card-name">Кен Флиш Сигмославович</div>
                         <div class="leader-card-title">Главный и единственный правитель<br>Управляющий Военно-диверсионного корпуса армии СПБ<br>Министр КенПросвещения</div>
@@ -963,7 +887,7 @@
                     <!-- Л. Д. Дундуков -->
                     <div class="leader-card">
                         <div class="image-container">
-                            <img src="/images/2chel.png" alt="Л. Д. Дундуков" class="leader-card-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSI3NSIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjJjaGVsPC90ZXh0Pjwvc3ZnPg=='>
+                            <img src="images/2chel.png" alt="Л. Д. Дундуков" class="leader-card-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSI3NSIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjJjaGVsPC90ZXh0Pjwvc3ZnPg=='>
                         </div>
                         <div class="leader-card-name">Л. Д. Дундуков</div>
                         <div class="leader-card-title">Министр Обороны</div>
@@ -972,7 +896,7 @@
                     <!-- Ж. Супер Пиздабол -->
                     <div class="leader-card">
                         <div class="image-container">
-                            <img src="/images/3chel.png" alt="Ж. Супер Пиздабол" class="leader-card-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSI3NSIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjNjaGVsPC90ZXh0Pjwvc3ZnPg=='>
+                            <img src="images/3chel.png" alt="Ж. Супер Пиздабол" class="leader-card-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSI3NSIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjNjaGVsPC90ZXh0Pjwvc3ZnPg=='>
                         </div>
                         <div class="leader-card-name">Ж. Супер Пиздабол</div>
                         <div class="leader-card-title">Глава иностранных дел</div>
@@ -984,7 +908,7 @@
             <section id="service" class="section">
                 <h2 class="section-title">СЛУЖБА ПО КОНТРАКТУ</h2>
                 <div class="service-section">
-                    <img src="/images/service-photo.png" alt="Служба в СПБ" class="service-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDUwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSIyNTAiIHk9IjE1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+0KHQu9GD0LbQsdCwINCyINCh0J/QkdC70LDRhdCw0YHRgtC4PC90ZXh0Pjwvc3ZnPg=='>
+                    <img src="images/service-photo.png" alt="Служба в СПБ" class="service-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDUwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSIyNTAiIHk9IjE1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+0KHQu9GD0LbQsdCwINCyINCh0J/QkdC70LDRhdCw0YHRgtC4PC90ZXh0Pjwvc3ZnPg=='>
                     <div class="service-text">СЛУЖИ В СПБ</div>
                 </div>
             </section>
@@ -1277,21 +1201,137 @@
 
     <div class="notification" id="notification"></div>
 
-    <script src="/js/api.js"></script>
-    <script src="/js/auth.js"></script>
     <script>
-        // ── Модалки ──────────────────────────────────────────
+        const newsData = [
+            {
+                image: "images/news8.jpg",
+                date: "СВЕЖЕЕ",
+                title: "❗️Кендрессии Все Должны❗️",
+                text: "В Кендуме заявили, что Кендрессия — единственная страна, которая занималась инфраструктурой на спавне. «СТО СОРОК МИЛЛИАРДОВ АЛМАЗОВ! НА СТАТУИ ПОТРАТИЛИ! НА ФИГУЛЬКИ! А НА СПАВНЕ ЧТО?! ПУСТОТА! Я СПРАШИВАЮ, КТО ЭТО РАЗРЕШИЛ?!» — В. В. Кенриновский.",
+                amethyst: "АметистNews"
+            },
+            {
+                image: "images/news9.jpg",
+                date: "СВЕЖЕЕ",
+                title: "❗️Страны союзники отказываться платить свои долги❗️",
+                text: "Внешний долг Дмитрий составляет уже более двухстах пятидесяти Золота🌕",
+                amethyst: "АметистNews"
+            },
+            {
+                image: "images/news10.jpg",
+                date: "СВЕЖЕЕ",
+                title: "❗️ВсеКендрийская революция❗️",
+                text: "КенФлиш больше не правитель СПБ, С этого дня Главным органом власти является 'КГБ СПБ'. Состав КГБ СПБ: Кен Флиш. Вступление В КГБ СПБ Рассматривает Кен Флиш",
+                amethyst: "АметистNews"
+            },
+            {
+                image: "images/news11.jpg",
+                date: "СВЕЖЕЕ",
+                title: "❗️Враги СПБ продолжают снимать пропагандистские видеоролики❗️",
+                text: "Пропаганда продолжает распространяться",
+                amethyst: "АметистNews"
+            },
+            {
+                image: "images/news12.jpg",
+                date: "25.10.2025",
+                title: "В КенДуме",
+                text: "Депутат Вольдемар326 Предложил новый законопроект",
+                amethyst: "АметистNews"
+            }
+        ];
+
+        function createCarousel() {
+            const carousel = document.getElementById('newsCarousel');
+            if (!carousel) return;
+
+            for (let i = 0; i < 3; i++) {
+                newsData.forEach(news => {
+                    const slide = document.createElement('div');
+                    slide.className = 'news-slide';
+                    slide.innerHTML = `
+                        <div class="news-image-container">
+                            <img src="${news.image}" alt="${news.title}" class="news-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzUwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDM1MCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjM1MCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSIxNzUiIHk9IjEwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+0J3QvtCy0L7RgdGC0Yw8L3RleHQ+PC9zdmc+">
+                        </div>
+                        <div class="news-content">
+                            <div class="news-date">${news.date}</div>
+                            <div class="news-title">${news.title}</div>
+                            <div class="news-text">${news.text}</div>
+                            <div class="amethyst-tag">${news.amethyst}</div>
+                        </div>
+                    `;
+                    carousel.appendChild(slide);
+                });
+            }
+        }
+
+        function setupCarouselScroll() {
+            const carousel = document.getElementById('newsCarousel');
+            const container = document.querySelector('.news-container');
+            
+            if (!carousel || !container) return;
+
+            container.addEventListener('wheel', (e) => {
+                if (e.deltaY !== 0) {
+                    e.preventDefault();
+                    carousel.scrollLeft += e.deltaY;
+                }
+            });
+
+            carousel.addEventListener('scroll', () => {
+                const scrollWidth = carousel.scrollWidth;
+                const clientWidth = carousel.clientWidth;
+                const scrollLeft = carousel.scrollLeft;
+
+                if (scrollLeft >= scrollWidth - clientWidth * 2) {
+                    carousel.scrollLeft = scrollWidth / 3;
+                } else if (scrollLeft <= 0) {
+                    carousel.scrollLeft = scrollWidth / 3 * 2 - clientWidth;
+                }
+            });
+
+            setTimeout(() => {
+                carousel.scrollLeft = carousel.scrollWidth / 3;
+            }, 100);
+        }
+
+        function setupActiveNav() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (window.scrollY >= sectionTop - 150) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+
         function openCitizenshipModal() {
             document.getElementById('citizenshipModal').classList.add('active');
         }
+
         function closeCitizenshipModal(e) {
             if (!e || e.target.classList.contains('modal') || e.target.classList.contains('modal-close')) {
                 document.getElementById('citizenshipModal').classList.remove('active');
             }
         }
+
         function openServiceModal() {
             document.getElementById('serviceModal').classList.add('active');
         }
+
         function closeServiceModal(e) {
             if (!e || e.target.classList.contains('modal') || e.target.classList.contains('modal-close')) {
                 document.getElementById('serviceModal').classList.remove('active');
@@ -1302,131 +1342,16 @@
             const notif = document.getElementById('notification');
             notif.textContent = message;
             notif.style.display = 'block';
-            setTimeout(() => { notif.style.display = 'none'; }, 3000);
+            
+            setTimeout(() => {
+                notif.style.display = 'none';
+            }, 3000);
         }
 
-        // ── Новости из API ────────────────────────────────────
-        async function createCarousel() {
-            const carousel = document.getElementById('newsCarousel');
-            if (!carousel) return;
-
-            try {
-                const res  = await fetch('/api/news');
-                const data = await res.json();
-
-                carousel.innerHTML = '';
-
-                for (let i = 0; i < 3; i++) {
-                    data.forEach(news => {
-                        const slide = document.createElement('div');
-                        slide.className = 'news-slide';
-                        slide.innerHTML = `
-                            <div class="news-image-container">
-                                <img src="${news.image}" alt="${news.title}" class="news-image"
-                                     onerror="this.parentElement.style.background='#1936EF'">
-                            </div>
-                            <div class="news-content">
-                                <div class="news-date">${news.date}</div>
-                                <div class="news-title">${news.title}</div>
-                                <div class="news-text">${news.text}</div>
-                                <div class="amethyst-tag">${news.amethyst}</div>
-                            </div>
-                        `;
-                        carousel.appendChild(slide);
-                    });
-                }
-
-                setupCarouselScroll();
-            } catch (err) {
-                carousel.innerHTML = '<div style="padding:30px;color:#666">Ошибка загрузки новостей</div>';
-            }
-        }
-
-        function setupCarouselScroll() {
-            const carousel  = document.getElementById('newsCarousel');
-            const container = document.querySelector('.news-container');
-            if (!carousel || !container) return;
-
-            container.addEventListener('wheel', (e) => {
-                if (e.deltaY !== 0) { e.preventDefault(); carousel.scrollLeft += e.deltaY; }
-            }, { passive: false });
-
-            carousel.addEventListener('scroll', () => {
-                const sw = carousel.scrollWidth, cw = carousel.clientWidth, sl = carousel.scrollLeft;
-                if (sl >= sw - cw * 2)  carousel.scrollLeft = sw / 3;
-                else if (sl <= 0)        carousel.scrollLeft = sw / 3 * 2 - cw;
-            });
-
-            setTimeout(() => { carousel.scrollLeft = carousel.scrollWidth / 3; }, 100);
-        }
-
-        function setupActiveNav() {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(s => {
-                    if (window.scrollY >= s.offsetTop - 150) current = s.getAttribute('id');
-                });
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
-                });
-            });
-        }
-
-        // ── Форма подачи заявки ───────────────────────────────
-        document.addEventListener('DOMContentLoaded', async () => {
-            await updateNavbar();
+        document.addEventListener('DOMContentLoaded', () => {
             createCarousel();
+            setupCarouselScroll();
             setupActiveNav();
-
-            const form   = document.getElementById('citizen-form');
-            const btn    = document.getElementById('citizen-btn');
-            const errBox = document.getElementById('citizen-error');
-            const okBox  = document.getElementById('citizen-success');
-
-            if (!form) return;
-
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                errBox.style.display = 'none';
-
-                const body = {
-                    type:     form.type.value,
-                    nickname: form.nickname.value.trim(),
-                    age:      form.age.value     || null,
-                    city:     form.city.value.trim() || null,
-                    wish:     form.wish.value.trim() || null
-                };
-
-                if (!body.type || !body.nickname) {
-                    errBox.textContent = 'Выберите тип заявки и укажите ник';
-                    errBox.style.display = 'block';
-                    return;
-                }
-
-                btn.disabled = true;
-                btn.textContent = 'Отправляем...';
-
-                try {
-                    const res  = await fetch('/api/citizens', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(body)
-                    });
-                    const data = await res.json();
-                    if (!res.ok) throw new Error(data.error || 'Ошибка');
-                    form.style.display = 'none';
-                    okBox.style.display = 'block';
-                    showNotification('Заявка принята! ✅');
-                } catch (err) {
-                    errBox.textContent = err.message;
-                    errBox.style.display = 'block';
-                    btn.disabled = false;
-                    btn.textContent = 'Отправить заявку';
-                }
-            });
         });
     </script>
 </body>
