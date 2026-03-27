@@ -13,6 +13,7 @@ const servicesRoutes = require('./src/routes/services');
 const applicationsRoutes = require('./src/routes/applications');
 const newsRoutes = require('./src/routes/news');
 const citizensRoutes = require('./src/routes/citizens');
+const usersRoutes = require('./src/routes/users');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -48,6 +49,7 @@ app.use('/api/services', servicesRoutes);
 app.use('/api/applications', applicationsRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/citizens', citizensRoutes);
+app.use('/api/users', usersRoutes);
 
 // ── Health check ───────────────────────────────────────────────────────────────
 

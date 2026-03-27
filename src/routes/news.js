@@ -49,6 +49,27 @@ router.post('/', requireAdmin, async (req, res) => {
   }
 });
 
+// PUT /api/news/:id — edit news (admin only)
+router.put('/:id', requireAdmin, async (req, res) => {
+  try {
+    const { title, text, date, image, amethyst } = req.body;
+    if (!title || !text) return res.status(400).json({ error: 'Нужны title и text' });
+
+    const db = await dbPromise;
+    const result = await db.run(
+      'UPDATE news SET title = ?, text = ?, date = ?, image = ?, amethyst = ? WHERE id = ?',
+      [title, text, date || new Date().toLocaleDateString('ru-RU'),
+       image || '/images/news1.jpg', amethyst || 'АметистNews', req.params.id]
+    );
+    if (result.changes === 0) return res.status(404).json({ error: 'Новость не найдена' });
+    const item = await db.get('SELECT * FROM news WHERE id = ?', [req.params.id]);
+    res.json(item);
+  } catch (err) {
+    console.error('Put news error:', err);
+    res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+  }
+});
+
 // DELETE /api/news/:id (защищено: requireAdmin)
 router.delete('/:id', requireAdmin, async (req, res) => {
   try {

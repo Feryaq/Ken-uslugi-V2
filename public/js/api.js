@@ -78,9 +78,22 @@ const api = {
 
   // ── News ────────────────────────────────────────────────
   news: {
-    list:     ()      => request('GET',    '/news'),
-    create:   (body)  => request('POST',   '/news', body),
-    delete:   (id)    => request('DELETE', `/news/${id}`)
+    list:     ()         => request('GET',    '/news'),
+    create:   (body)     => request('POST',   '/news', body),
+    update:   (id, body) => request('PUT',    `/news/${id}`, body),
+    delete:   (id)       => request('DELETE', `/news/${id}`)
+  },
+
+  // ── Users (admin) ───────────────────────────────────────
+  users: {
+    list:       ()           => request('GET',    '/users'),
+    updateRole: (id, role)   => request('PATCH',  `/users/${id}`, { role }),
+    delete:     (id)         => request('DELETE', `/users/${id}`)
+  },
+
+  // ── Account self-management ─────────────────────────────
+  account: {
+    update: (payload) => request('PATCH', '/auth/me', payload)
   }
 };
 

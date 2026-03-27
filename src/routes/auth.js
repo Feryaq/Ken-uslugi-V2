@@ -83,4 +83,38 @@ router.post('/logout', (req, res) => {
 // GET /api/auth/me
 router.get('/me', requireAuth, (req, res) => res.json({ user: req.user }));
 
+// PATCH /api/auth/me — change own username or password
+router.patch('/me', requireAuth, async (req, res) => {
+  try {
+    const { newUsername, currentPassword, newPassword } = req.body;
+    const db = await dbPromise;
+    const user = await db.get('SELECT * FROM users WHERE id = ?', [req.user.id]);
+
+    if (newPassword !== undefined) {
+      if (!currentPassword) return res.status(400).json({ error: 'Укажите текущий пароль' });
+      const ok = await bcrypt.compare(currentPassword, user.password);
+      if (!ok) return res.status(401).json({ error: 'Неверный текущий пароль' });
+      if (newPassword.length < 6) return res.status(400).json({ error: 'Новый пароль минимум 6 символов' });
+      const hashed = await bcrypt.hash(newPassword, 10);
+      await db.run('UPDATE users SET password = ? WHERE id = ?', [hashed, req.user.id]);
+    }
+
+    if (newUsername !== undefined) {
+      if (newUsername.trim().length < 3) return res.status(400).json({ error: 'Логин минимум 3 символа' });
+      const existing = await db.get(
+        'SELECT id FROM users WHERE LOWER(username) = LOWER(?) AND id != ?',
+        [newUsername.trim(), req.user.id]
+      );
+      if (existing) return res.status(409).json({ error: 'Этот логин уже занят' });
+      await db.run('UPDATE users SET username = ? WHERE id = ?', [newUsername.trim(), req.user.id]);
+    }
+
+    const updated = await db.get('SELECT id, username, role, createdAt FROM users WHERE id = ?', [req.user.id]);
+    res.json({ message: 'Данные обновлены', user: updated });
+  } catch (err) {
+    console.error('Update me error:', err);
+    res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+  }
+});
+
 module.exports = router;

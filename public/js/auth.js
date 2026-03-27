@@ -54,8 +54,7 @@ async function updateNavbar() {
   // Update profile name in nav if element exists
   const navName = document.getElementById('nav-user-name');
   if (navName && user) {
-    const parts = user.fullName.trim().split(' ');
-    navName.textContent = parts[0]; // show first name
+    navName.textContent = user.username;
   }
 
   // Mark active nav link
