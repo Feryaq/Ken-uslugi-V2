@@ -1,0 +1,23 @@
+# Зависимости (Докер должен сам сделать npm install внутри контейнера)
+node_modules/
+npm-debug.log
+*.log
+
+.idea/
+.claude/
+
+# Гит-файлы
+.git/
+.gitignore
+
+
+database.sqlite
+*.sqlite-journal
+
+# Файлы самого Докера (им незачем лежать внутри запущенного контейнера)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Секреты (ключи передаются через переменные окружения, а не копируются файлом)
+.env

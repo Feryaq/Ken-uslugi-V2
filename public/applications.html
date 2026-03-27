@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Мои заявки — КенУслуги</title>
+  <link rel="icon" href="/images/kengos-logo.png" type="image/png">
+  <link rel="stylesheet" href="/css/dark.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue: #1936EF;
+      --red: #DA1748;
+      --light-blue: #e6ecff;
+      --light-red: #ffe6ea;
+      --border: #d0d5dd;
+    }
+
+    body {
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    .warning-banner {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: var(--red);
+      color: white;
+      padding: 8px 0;
+      text-align: center;
+      font-size: 12px;
+      z-index: 1000;
+    }
+
+    .main-content { margin-top: 38px; }
+
+    .header {
+      background: white;
+      border-bottom: 3px solid var(--red);
+      padding: 20px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .logo-area { display: flex; align-items: center; gap: 15px; }
+    .kengos-logo { height: 60px; width: auto; object-fit: contain; }
+    .logo-text h1 { color: var(--blue); font-size: 2em; font-weight: 700; line-height: 1.2; }
+    .logo-text p { color: #666; font-size: 0.9em; }
+
+    .server-badge {
+      margin-left: auto;
+      background: var(--light-blue);
+      padding: 12px 25px;
+      border-radius: 40px;
+      border: 1px solid var(--blue);
+    }
+    .server-badge a { color: var(--blue); text-decoration: none; font-weight: 600; }
+
+    .nav {
+      background: white;
+      border-bottom: 2px solid var(--red);
+      position: sticky;
+      top: 38px;
+      z-index: 99;
+    }
+    .nav ul {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .nav li { margin-right: 5px; }
+    .nav a {
+      display: block;
+      padding: 16px 20px;
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95em;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .nav a:hover {
+      color: var(--red);
+      border-bottom-color: var(--red);
+      background: var(--light-red);
+    }
+
+    /* Page header */
+    .page-header {
+      background: var(--blue);
+      color: white;
+      padding: 30px 20px;
+    }
+    .page-header-inner { max-width: 1200px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.85em; opacity: 0.8; margin-bottom: 8px; }
+    .breadcrumb a { color: white; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-sep { margin: 0 6px; }
+    .page-header h1 { font-size: 1.8em; font-weight: 700; }
+    .page-header p { opacity: 0.85; margin-top: 4px; }
+
+    main { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+
+    .d-none { display: none !important; }
+
+    /* Alerts */
+    .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 0.9em;
+    }
+    .alert-success { background: #d1e7dd; color: #0a3622; border: 1px solid #a3cfbb; }
+    .alert-danger { background: var(--light-red); color: #842029; border: 1px solid #f1aeb5; }
+
+    /* Filter tabs bar */
+    .filter-bar {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .filter-label { font-weight: 700; font-size: 0.9em; color: #333; margin-right: 4px; }
+
+    .tab-btn {
+      padding: 7px 16px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      background: var(--light-blue);
+      color: #444;
+      font-family: inherit;
+      font-size: 0.88em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tab-btn:hover { border-color: var(--blue); color: var(--blue); }
+    .tab-btn.active {
+      background: white;
+      color: var(--blue);
+      border-color: var(--blue);
+      border-bottom: 3px solid var(--blue);
+    }
+
+    .apps-count { margin-left: auto; color: #666; font-size: 0.85em; }
+
+    /* Loading */
+    .loading-overlay {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 40px;
+      color: #666;
+    }
+    .spinner {
+      display: inline-block;
+      width: 24px; height: 24px;
+      border: 3px solid #dee2e6;
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Empty states */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+    .empty-icon { font-size: 3em; margin-bottom: 16px; }
+    .empty-state h3 { font-size: 1.1em; margin-bottom: 8px; color: #333; }
+    .empty-state p { font-size: 0.9em; margin-bottom: 20px; }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.95em;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #1228c8; }
+
+    .btn-outline {
+      display: inline-block;
+      background: white;
+      color: var(--blue);
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.95em;
+      border: 2px solid var(--blue);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--light-blue); }
+
+    /* Table card */
+    .table-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: var(--blue); }
+    thead th {
+      color: white;
+      padding: 13px 16px;
+      text-align: left;
+      font-size: 0.88em;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #fafafa; }
+    tbody td { padding: 12px 16px; font-size: 0.9em; vertical-align: middle; }
+
+    /* Status badges */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 30px;
+      font-size: 0.75em;
+      font-weight: 700;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .badge-pending { background: var(--red); color: white; }
+    .badge-processing { background: #0d6efd; color: white; }
+    .badge-approved { background: #198754; color: white; }
+    .badge-rejected { background: #666; color: white; }
+    .badge-cancelled { background: #999; color: white; }
+
+    /* Category badge */
+    .badge-category {
+      display: inline-block;
+      background: var(--light-blue);
+      color: var(--blue);
+      border: 1px solid var(--blue);
+      padding: 3px 10px;
+      border-radius: 30px;
+      font-size: 0.78em;
+      font-weight: 600;
+    }
+
+    /* Cancel button */
+    .btn-cancel {
+      background: white;
+      color: var(--red);
+      border: 2px solid var(--red);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.82em;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .btn-cancel:hover { background: var(--light-red); }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+    .modal-box h3 { font-size: 1.1em; margin-bottom: 10px; color: #333; }
+    .modal-box p { color: #6c757d; font-size: 0.9em; margin-bottom: 24px; }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+    .btn-modal-no {
+      padding: 9px 20px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      color: #333;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-modal-yes {
+      padding: 9px 20px;
+      border: none;
+      border-radius: 8px;
+      background: var(--red);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-modal-yes:hover { background: #b8133c; }
+    .btn-modal-yes:disabled { opacity: 0.7; cursor: not-allowed; }
+
+    .spinner-sm {
+      display: inline-block;
+      width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    #toast-container {
+      position: fixed;
+      bottom: 20px; right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    footer {
+      background: var(--blue);
+      color: white;
+      padding: 40px 0;
+      margin-top: 50px;
+      text-align: center;
+    }
+    footer p { opacity: 0.9; font-size: 0.95em; }
+  </style>
+  <script src="/js/theme.js"></script>
+</head>
+<body>
+
+<div class="warning-banner">
+  КенУслуги — Государственный портал Кендрессии
+</div>
+
+<div class="main-content">
+<header class="header">
+  <div class="header-container">
+    <div class="logo-area">
+      <img src="/images/kengos-logo.png" alt="КенУслуги" class="kengos-logo" onerror="this.style.display='none'">
+      <div class="logo-text">
+        <h1>КенУслуги</h1>
+        <p>Государственный портал Кендрессии</p>
+      </div>
+    </div>
+    <div class="server-badge">
+      <a href="https://t.me/AmethystSMPChannel" target="_blank">AmethystSMP →</a>
+    </div>
+  </div>
+</header>
+<nav class="nav">
+  <ul>
+    <li><a href="/" class="nav-link">ГЛАВНАЯ</a></li>
+    <li><a href="/services.html" class="nav-link">УСЛУГИ</a></li>
+    <li><a href="/applications.html" class="nav-link" data-auth="user">МОИ ЗАЯВКИ</a></li>
+    <li><a href="/profile.html" class="nav-link" data-auth="user">👤 <span id="nav-user-name">ПРОФИЛЬ</span></a></li>
+    <li><a href="/login.html" class="nav-link" data-auth="guest" style="color:var(--red);font-weight:700">ВОЙТИ</a></li>
+    <li><a href="#" class="nav-link" data-auth="user" data-action="logout">ВЫЙТИ</a></li>
+        <li style="margin-left:auto;display:flex;align-items:center;padding:0 12px"><button id="theme-toggle" title="Темная тема">🌙</button></li>
+    </ul>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="breadcrumb">
+      <a href="/">Главная</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Мои заявки</span>
+    </div>
+    <h1>Мои заявки</h1>
+    <p>Список всех поданных вами заявок на государственные услуги</p>
+  </div>
+</div>
+
+<main>
+
+  <!-- Success notification -->
+  <div id="success-banner" class="alert alert-success d-none">
+    ✅ <strong>Заявка успешно подана!</strong> Вы можете отслеживать её статус ниже.
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <span class="filter-label">Фильтр:</span>
+    <button class="tab-btn active" data-filter="all">Все</button>
+    <button class="tab-btn" data-filter="pending">⏳ На рассмотрении</button>
+    <button class="tab-btn" data-filter="processing">🔄 В обработке</button>
+    <button class="tab-btn" data-filter="approved">✅ Одобрено</button>
+    <button class="tab-btn" data-filter="rejected">❌ Отклонено</button>
+    <button class="tab-btn" data-filter="cancelled">🚫 Отменено</button>
+    <span class="apps-count" id="apps-count"></span>
+  </div>
+
+  <!-- Loading -->
+  <div id="loading-state" class="loading-overlay">
+    <div class="spinner"></div>
+    <span>Загрузка заявок...</span>
+  </div>
+
+  <!-- Empty state -->
+  <div id="empty-state" class="empty-state d-none">
+    <div class="empty-icon">📭</div>
+    <h3>Заявок пока нет</h3>
+    <p>Вы ещё не подавали заявки на государственные услуги</p>
+    <a href="/services.html" class="btn-primary">Перейти к каталогу услуг</a>
+  </div>
+
+  <!-- Filtered empty -->
+  <div id="filtered-empty" class="empty-state d-none">
+    <div class="empty-icon">🔍</div>
+    <h3>Нет заявок с таким статусом</h3>
+    <p>Попробуйте выбрать другой фильтр</p>
+    <button class="btn-outline" onclick="setFilter('all')">Показать все</button>
+  </div>
+
+  <!-- Table -->
+  <div class="table-card" id="apps-table-card" style="display:none">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Номер заявки</th>
+            <th>Услуга</th>
+            <th>Категория</th>
+            <th>Дата подачи</th>
+            <th>Статус</th>
+            <th>Действия</th>
+          </tr>
+        </thead>
+        <tbody id="apps-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2025-2026 КенУслуги | Государственный портал Кендрессии</p>
+  <p style="margin-top:8px;opacity:0.7;font-size:0.85em">Игровой проект. Все события и персонажи вымышлены.</p>
+</footer>
+</div>
+
+<!-- Cancel confirmation modal -->
+<div id="cancel-modal" class="modal-overlay">
+  <div class="modal-box">
+    <h3>Отменить заявку?</h3>
+    <p>Это действие нельзя отменить. Вы уверены, что хотите отменить заявку?</p>
+    <div class="modal-actions">
+      <button class="btn-modal-no" id="cancel-modal-no">Нет</button>
+      <button class="btn-modal-yes" id="cancel-modal-yes">Да, отменить</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script>
+let allApplications  = [];
+let currentFilter    = 'all';
+let pendingCancelId  = null;
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const user = await requireAuth();
+  if (!user) return;
+
+  await updateNavbar();
+
+  // Show success banner if redirected after submit
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('success') === '1') {
+    document.getElementById('success-banner').classList.remove('d-none');
+    // Clean URL
+    window.history.replaceState({}, '', '/applications.html');
+  }
+
+  // Filter buttons
+  document.querySelectorAll('[data-filter]').forEach(btn => {
+    btn.addEventListener('click', () => setFilter(btn.dataset.filter));
+  });
+
+  // Cancel modal
+  document.getElementById('cancel-modal-no').addEventListener('click', closeCancelModal);
+  document.getElementById('cancel-modal-yes').addEventListener('click', confirmCancel);
+
+  await loadApplications();
+
+  // Auto-refresh every 30 seconds to catch status changes
+  setInterval(loadApplications, 30000);
+});
+
+async function loadApplications() {
+  try {
+    const data = await api.applications.list();
+    allApplications = data.applications || [];
+
+    document.getElementById('loading-state').classList.add('d-none');
+    renderApplications();
+  } catch (err) {
+    document.getElementById('loading-state').innerHTML =
+      `<div class="alert alert-danger">Не удалось загрузить заявки. <button class="btn-outline" style="font-size:.85em;padding:6px 12px" onclick="loadApplications()">Повторить</button></div>`;
+    console.error(err);
+  }
+}
+
+function setFilter(filter) {
+  currentFilter = filter;
+
+  document.querySelectorAll('[data-filter]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === filter);
+  });
+
+  renderApplications();
+}
+
+function renderApplications() {
+  const emptyEl         = document.getElementById('empty-state');
+  const filteredEmptyEl = document.getElementById('filtered-empty');
+  const tableCard       = document.getElementById('apps-table-card');
+  const tbody           = document.getElementById('apps-tbody');
+  const countEl         = document.getElementById('apps-count');
+
+  // Hide all states
+  emptyEl.classList.add('d-none');
+  filteredEmptyEl.classList.add('d-none');
+  tableCard.style.display = 'none';
+
+  if (allApplications.length === 0) {
+    emptyEl.classList.remove('d-none');
+    countEl.textContent = '';
+    return;
+  }
+
+  // Filter
+  let filtered = allApplications;
+  if (currentFilter !== 'all') {
+    if (currentFilter === 'pending') {
+      filtered = allApplications.filter(a => ['pending', 'processing'].includes(a.status));
+    } else {
+      filtered = allApplications.filter(a => a.status === currentFilter);
+    }
+  }
+
+  countEl.textContent = `Показано: ${filtered.length} из ${allApplications.length}`;
+
+  if (filtered.length === 0) {
+    filteredEmptyEl.classList.remove('d-none');
+    return;
+  }
+
+  tableCard.style.display = '';
+  tbody.innerHTML = filtered.map(app => {
+    const canCancel = ['pending', 'processing'].includes(app.status);
+    const shortId = app.id.slice(0, 8).toUpperCase();
+
+    return `
+      <tr>
+        <td>
+          <code style="font-size:.8rem;color:#555;background:#f5f5f5;padding:.15rem .4rem;border-radius:4px">#${shortId}</code>
+        </td>
+        <td>
+          <a href="/service.html?id=${escapeHtml(app.serviceId)}" style="font-weight:600;color:var(--blue);text-decoration:none">
+            ${escapeHtml(app.serviceTitle)}
+          </a>
+        </td>
+        <td>
+          <span class="badge-category">${escapeHtml(app.serviceCategory)}</span>
+        </td>
+        <td style="white-space:nowrap;font-size:.85rem">${formatDate(app.createdAt)}</td>
+        <td>${getStatusBadge(app.status)}</td>
+        <td>
+          ${canCancel
+            ? `<button class="btn-cancel" onclick="openCancelModal('${app.id}')">Отменить</button>`
+            : '—'
+          }
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function openCancelModal(appId) {
+  pendingCancelId = appId;
+  document.getElementById('cancel-modal').classList.add('open');
+}
+
+function closeCancelModal() {
+  pendingCancelId = null;
+  document.getElementById('cancel-modal').classList.remove('open');
+}
+
+async function confirmCancel() {
+  if (!pendingCancelId) return;
+
+  const yesBtn = document.getElementById('cancel-modal-yes');
+  yesBtn.disabled = true;
+  yesBtn.innerHTML = '<span class="spinner-sm"></span>';
+
+  try {
+    await api.applications.cancel(pendingCancelId);
+    showToast('Заявка отменена', 'info');
+    closeCancelModal();
+    await loadApplications();
+  } catch (err) {
+    showToast(err.message || 'Ошибка при отмене', 'error');
+  } finally {
+    yesBtn.disabled = false;
+    yesBtn.textContent = 'Да, отменить';
+    closeCancelModal();
+  }
+}
+</script>
+</body>
+</html>

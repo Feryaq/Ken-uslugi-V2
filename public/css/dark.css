@@ -1,0 +1,208 @@
+/* =============================================
+   КенУслуги — Dark Theme
+   Применяется при html.dark
+   ============================================= */
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Переопределяем CSS-переменные */
+html.dark body {
+  --blue:       #5b7fff;
+  --red:        #ff4466;
+  --light-blue: #0d1530;
+  --light-red:  #1f0810;
+  --border:     #2e2e50;
+  background:   #0d0d1a !important;
+  color:        #dde0f0 !important;
+}
+
+/* ── Шапка ── */
+html.dark .warning-banner { background: #9e0f2e !important; }
+
+html.dark .header {
+  background:    #12122a !important;
+  border-bottom-color: #ff4466 !important;
+  box-shadow:    0 2px 16px rgba(0,0,0,.5) !important;
+}
+
+html.dark .logo-text h1 { color: #5b7fff !important; }
+html.dark .logo-text p  { color: #8888aa !important; }
+
+html.dark .server-badge {
+  background: #0d1530 !important;
+  border-color: #5b7fff !important;
+}
+html.dark .server-badge a { color: #5b7fff !important; }
+
+/* ── Навбар ── */
+html.dark .nav {
+  background: #0f0f22 !important;
+  border-bottom-color: #ff4466 !important;
+}
+html.dark .nav a        { color: #c0c0e0 !important; }
+html.dark .nav a:hover,
+html.dark .nav a.active {
+  color:            #ff4466 !important;
+  background:       #1f0810 !important;
+  border-bottom-color: #ff4466 !important;
+}
+
+/* portal-nav (синяя полоска на главной) */
+html.dark .portal-nav {
+  background: #0a0a1e !important;
+  border-bottom-color: #2e2e50 !important;
+}
+html.dark .portal-nav a { color: #b0b8ff !important; }
+html.dark .portal-nav a:hover { color: #fff !important; }
+
+/* ── Секции / карточки ── */
+html.dark .section,
+html.dark .auth-card,
+html.dark .modal-content,
+html.dark .constitution-container,
+html.dark .law-item,
+html.dark .news-slide,
+html.dark .leader-card,
+html.dark .person-card,
+html.dark .service-card,
+html.dark .stat-card,
+html.dark .profile-info,
+html.dark .app-card {
+  background: #14142a !important;
+  border-color: #2e2e50 !important;
+  color: #dde0f0 !important;
+}
+
+html.dark .section-title { color: #5b7fff !important; border-bottom-color: #ff4466 !important; }
+html.dark .section-title::after { background: #5b7fff !important; }
+
+/* ── Info grid ── */
+html.dark .info-grid {
+  background: #0d1530 !important;
+  border-color: #5b7fff !important;
+}
+html.dark .info-block h3 { color: #5b7fff !important; }
+
+/* ── Форма ── */
+html.dark .form-control,
+html.dark input[type="text"],
+html.dark input[type="password"],
+html.dark input[type="number"],
+html.dark input[type="email"],
+html.dark input[type="tel"],
+html.dark select,
+html.dark textarea {
+  background:    #1a1a33 !important;
+  border-color:  #2e2e50 !important;
+  color:         #dde0f0 !important;
+}
+html.dark .form-control:focus,
+html.dark input:focus,
+html.dark select:focus,
+html.dark textarea:focus {
+  border-color: #5b7fff !important;
+  box-shadow: 0 0 0 3px rgba(91,127,255,.15) !important;
+  background: #1e1e3a !important;
+}
+html.dark .form-group label { color: #9090cc !important; }
+
+html.dark .btn-submit,
+html.dark .action-btn,
+html.dark .contact-btn {
+  background: #9e0f2e !important;
+}
+html.dark .btn-submit:hover,
+html.dark .action-btn:hover,
+html.dark .contact-btn:hover {
+  background: #1936EF !important;
+}
+
+/* ── Новости ── */
+html.dark .news-container { background: #0d1530 !important; border-color: #5b7fff !important; }
+html.dark .news-title  { color: #5b7fff !important; }
+html.dark .news-text   { color: #aaaacc !important; }
+html.dark .news-image-container { background: #0d1530 !important; }
+
+/* ── Лидеры ── */
+html.dark .leader-card {
+  background: linear-gradient(135deg, #0d1530 0%, #1f0810 100%) !important;
+  border-color: #5b7fff !important;
+}
+html.dark .leader-card-name  { color: #5b7fff !important; }
+html.dark .leader-card-title { color: #9090cc !important; }
+
+/* ── Служба ── */
+html.dark .service-section {
+  background: linear-gradient(135deg, #0d1530 0%, #1f0810 100%) !important;
+  border-color: #5b7fff !important;
+}
+
+/* ── Конституция ── */
+html.dark .chapter-title        { color: #ff4466 !important; }
+html.dark .constitution-header  { color: #5b7fff !important; }
+html.dark .constitution-part    { border-bottom-color: #ff4466 !important; }
+html.dark .confirmation-stamp   { background: #0d1530 !important; border-color: #5b7fff !important; }
+html.dark .confirmation-stamp .date { color: #ff4466 !important; }
+html.dark .law-item { background: #1f0810 !important; border-left-color: #ff4466 !important; }
+html.dark .law-item h3 { color: #5b7fff !important; }
+
+/* ── Реестр ── */
+html.dark .person-card { background: #1f0810 !important; border-color: #9e0f2e !important; }
+html.dark .person-name { color: #ff4466 !important; }
+html.dark .person-detail { color: #ccccee !important; }
+html.dark .person-detail strong { color: #5b7fff !important; }
+html.dark .category { background: #14142a !important; color: #5b7fff !important; border-color: #5b7fff !important; }
+
+/* ── Модалки ── */
+html.dark .modal-content { background: #14142a !important; border-color: #ff4466 !important; }
+html.dark .modal-title { color: #5b7fff !important; border-bottom-color: #ff4466 !important; }
+html.dark .modal-close { color: #8888aa !important; }
+html.dark .modal-close:hover { color: #ff4466 !important; }
+html.dark .bot-link {
+  background: #0d1530 !important;
+  color: #5b7fff !important;
+  border-color: #5b7fff !important;
+}
+html.dark .bot-link:hover { background: #1936EF !important; color: white !important; }
+
+/* ── Таблицы ── */
+html.dark table { background: #14142a !important; }
+html.dark th { background: #1936EF !important; }
+html.dark td { border-color: #2e2e50 !important; color: #dde0f0 !important; }
+html.dark tr:nth-child(even) td { background: #1a1a33 !important; }
+html.dark tr:hover td { background: #1e1e3a !important; }
+
+/* ── Алерты ── */
+html.dark .alert-danger { background: #2a0810 !important; color: #ff8899 !important; border-color: #9e0f2e !important; }
+html.dark .form-success { background: #0a2a1a !important; color: #88ffaa !important; border-color: #1a6a3a !important; }
+html.dark .form-error-msg { background: #2a0810 !important; color: #ff8899 !important; border-color: #9e0f2e !important; }
+
+/* ── Уведомление (notification) ── */
+html.dark .notification { background: #14142a !important; border-left-color: #ff4466 !important; }
+
+/* ── Футер ── */
+html.dark footer { background: #0a0a1e !important; }
+
+/* ── Кнопка переключения темы ── */
+#theme-toggle {
+  background: none;
+  border: 1.5px solid currentColor;
+  border-radius: 20px;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-size: .85em;
+  font-family: inherit;
+  opacity: .8;
+  transition: opacity .2s;
+  color: inherit;
+  margin-left: 8px;
+}
+#theme-toggle:hover { opacity: 1; }
+
+/* Скроллбар в тёмной теме */
+html.dark ::-webkit-scrollbar { width: 8px; height: 8px; }
+html.dark ::-webkit-scrollbar-track { background: #0d0d1a; }
+html.dark ::-webkit-scrollbar-thumb { background: #2e2e50; border-radius: 4px; }
+html.dark ::-webkit-scrollbar-thumb:hover { background: #5b7fff; }

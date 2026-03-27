@@ -1,0 +1,72 @@
+/**
+ * api.js — Fetch wrapper for ЕГов API calls
+ */
+
+const API_BASE = '/api';
+
+/**
+ * Core request function
+ */
+async function request(method, path, body = null) {
+  const opts = {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'same-origin'
+  };
+
+  if (body !== null) {
+    opts.body = JSON.stringify(body);
+  }
+
+  const res = await fetch(API_BASE + path, opts);
+
+  let data;
+  try {
+    data = await res.json();
+  } catch {
+    data = { error: `Ошибка сервера (${res.status})` };
+  }
+
+  if (!res.ok) {
+    const err = new Error(data.error || `HTTP ${res.status}`);
+    err.status = res.status;
+    err.data = data;
+    throw err;
+  }
+
+  return data;
+}
+
+const api = {
+  // ── Auth ────────────────────────────────────────────────
+  auth: {
+    register: (payload) => request('POST', '/auth/register', payload),
+    login:    (payload) => request('POST', '/auth/login',    payload),
+    logout:   ()        => request('POST', '/auth/logout'),
+    me:       ()        => request('GET',  '/auth/me')
+  },
+
+  // ── Services ────────────────────────────────────────────
+  services: {
+    list:       (params = {}) => {
+      const qs = new URLSearchParams();
+      if (params.category && params.category !== 'all') qs.set('category', params.category);
+      if (params.search)   qs.set('search',   params.search);
+      if (params.popular)  qs.set('popular',  'true');
+      const q = qs.toString();
+      return request('GET', '/services' + (q ? '?' + q : ''));
+    },
+    get:        (id)    => request('GET', `/services/${id}`),
+    categories: ()      => request('GET', '/services/categories')
+  },
+
+  // ── Applications ─────────────────────────────────────────
+  applications: {
+    create:   (payload) => request('POST',  '/applications',       payload),
+    list:     ()        => request('GET',   '/applications'),
+    get:      (id)      => request('GET',   `/applications/${id}`),
+    cancel:   (id)      => request('PATCH', `/applications/${id}/cancel`)
+  }
+};
+
+window.api = api;
