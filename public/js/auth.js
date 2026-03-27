@@ -46,6 +46,8 @@ async function updateNavbar() {
       el.style.display = user ? '' : 'none';
     } else if (role === 'guest') {
       el.style.display = user ? 'none' : '';
+    } else if (role === 'admin') {
+      el.style.display = (user && user.role === 'admin') ? '' : 'none';
     }
   });
 

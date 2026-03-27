@@ -65,7 +65,22 @@ const api = {
     create:   (payload) => request('POST',  '/applications',       payload),
     list:     ()        => request('GET',   '/applications'),
     get:      (id)      => request('GET',   `/applications/${id}`),
-    cancel:   (id)      => request('PATCH', `/applications/${id}/cancel`)
+    cancel:   (id)      => request('PATCH', `/applications/${id}/cancel`),
+    updateStatus: (id, status) => request('PATCH', `/applications/${id}/status`, { status }),
+    listAll:  ()        => request('GET',   '/applications/all')
+  },
+
+  // ── Citizens (City/Citizenship) ──────────────────────────
+  citizens: {
+    list:     ()               => request('GET',   '/citizens'),
+    updateStatus: (id, status) => request('PATCH', `/citizens/${id}/status`, { status })
+  },
+
+  // ── News ────────────────────────────────────────────────
+  news: {
+    list:     ()      => request('GET',    '/news'),
+    create:   (body)  => request('POST',   '/news', body),
+    delete:   (id)    => request('DELETE', `/news/${id}`)
   }
 };
 
