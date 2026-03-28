@@ -1,523 +1,443 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Личный кабинет — КенУслуги</title>
   <link rel="icon" href="/images/kengos-logo.png" type="image/png">
   <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
   <link rel="stylesheet" href="/css/dark.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --blue: #1936EF;
-      --red: #DA1748;
-      --light-blue: #e6ecff;
-      --light-red: #ffe6ea;
-      --border: #d0d5dd;
+      --blue:        #1936EF;
+      --blue-dark:   #1228c8;
+      --blue-light:  #e8edff;
+      --red:         #DA1748;
+      --red-light:   #fce8ed;
+      --bg:          #f0f2f8;
+      --surface:     #ffffff;
+      --border:      #e2e6f0;
+      --text:        #0f1117;
+      --text-muted:  #6b7280;
+      --radius:      14px;
+      --shadow:      0 2px 12px rgba(15,17,40,.08);
+      --shadow-lg:   0 8px 32px rgba(25,54,239,.12);
     }
 
     body {
-      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
-      background: #f0f2f5;
-      color: #333;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.5;
+      min-height: 100vh;
     }
 
+    /* ── Banner ── */
     .warning-banner {
-      position: fixed;
-      top: 0; left: 0; right: 0;
+      position: fixed; top: 0; left: 0; right: 0;
       background: var(--red);
       color: white;
-      padding: 8px 0;
+      padding: 7px 0;
       text-align: center;
-      font-size: 12px;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .02em;
       z-index: 1000;
     }
 
-    .main-content { margin-top: 38px; }
+    .main-content { margin-top: 34px; }
 
+    /* ── Header ── */
     .header {
       background: white;
-      border-bottom: 3px solid var(--red);
-      padding: 20px 0;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      border-bottom: 2.5px solid var(--red);
+      padding: 14px 0;
+      box-shadow: 0 1px 8px rgba(0,0,0,.06);
     }
-
     .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      flex-wrap: wrap;
+      max-width: 1160px; margin: 0 auto;
+      padding: 0 24px;
+      display: flex; align-items: center; gap: 20px;
     }
-
-    .logo-area { display: flex; align-items: center; gap: 15px; }
-    .kengos-logo { height: 60px; width: auto; object-fit: contain; }
-    .logo-text h1 { color: var(--blue); font-size: 2em; font-weight: 700; line-height: 1.2; }
-    .logo-text p { color: #666; font-size: 0.9em; }
-
+    .logo-area { display: flex; align-items: center; gap: 12px; }
+    .kengos-logo { height: 48px; width: auto; }
+    .logo-text h1 { color: var(--blue); font-size: 1.5rem; font-weight: 800; line-height: 1.1; }
+    .logo-text p  { color: var(--text-muted); font-size: .78rem; }
     .server-badge {
       margin-left: auto;
-      background: var(--light-blue);
-      padding: 12px 25px;
+      background: var(--blue-light);
+      padding: 8px 18px;
       border-radius: 40px;
-      border: 1px solid var(--blue);
+      border: 1.5px solid var(--blue);
+      font-size: .85rem;
     }
-    .server-badge a { color: var(--blue); text-decoration: none; font-weight: 600; }
+    .server-badge a { color: var(--blue); font-weight: 700; text-decoration: none; }
 
+    /* ── Nav ── */
     .nav {
       background: white;
       border-bottom: 2px solid var(--red);
-      position: sticky;
-      top: 38px;
-      z-index: 99;
+      position: sticky; top: 34px; z-index: 99;
     }
     .nav ul {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
+      max-width: 1160px; margin: 0 auto;
+      padding: 0 20px; list-style: none;
+      display: flex; flex-wrap: wrap; align-items: center;
     }
-    .nav li { margin-right: 5px; }
     .nav a {
-      display: block;
-      padding: 16px 20px;
-      color: #333;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95em;
-      border-bottom: 3px solid transparent;
-      transition: all 0.2s;
+      display: block; padding: 13px 16px;
+      color: #444; text-decoration: none;
+      font-weight: 600; font-size: .88rem;
+      border-bottom: 2.5px solid transparent;
+      transition: color .18s, background .18s;
     }
     .nav a:hover, .nav a.active {
       color: var(--red);
       border-bottom-color: var(--red);
-      background: var(--light-red);
+      background: var(--red-light);
     }
 
-    .page-header {
-      background: var(--blue);
+    /* ── Page hero ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--blue) 0%, #0e24b8 100%);
       color: white;
-      padding: 30px 20px;
+      padding: 28px 24px;
     }
-    .page-header-inner { max-width: 1200px; margin: 0 auto; }
-    .breadcrumb { font-size: 0.85em; opacity: 0.8; margin-bottom: 8px; }
-    .breadcrumb a { color: white; text-decoration: none; }
+    .page-hero-inner { max-width: 1160px; margin: 0 auto; }
+    .breadcrumb      { font-size: .78rem; opacity: .75; margin-bottom: 6px; }
+    .breadcrumb a    { color: white; text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
-    .breadcrumb-sep { margin: 0 6px; }
-    .page-header h1 { font-size: 1.8em; font-weight: 700; }
-    .page-header p { opacity: 0.85; margin-top: 4px; }
+    .breadcrumb-sep  { margin: 0 6px; }
+    .page-hero h1    { font-size: 1.7rem; font-weight: 800; }
+    .page-hero p     { opacity: .8; margin-top: 4px; font-size: .92rem; }
 
-    main { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-
-    .d-none { display: none !important; }
-
-    .loading-overlay {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 40px;
-      color: #666;
-    }
-    .spinner {
-      display: inline-block;
-      width: 24px; height: 24px;
-      border: 3px solid #dee2e6;
-      border-top-color: var(--blue);
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .profile-layout {
+    /* ── Main layout ── */
+    main {
+      max-width: 1160px;
+      margin: 32px auto;
+      padding: 0 24px;
       display: grid;
-      grid-template-columns: 320px 1fr;
+      grid-template-columns: 280px 1fr;
       gap: 24px;
       align-items: start;
     }
-    @media (max-width: 900px) {
-      .profile-layout { grid-template-columns: 1fr; }
+    @media (max-width: 860px) {
+      main { grid-template-columns: 1fr; }
     }
 
+    /* ── Profile card (left) ── */
     .profile-card {
-      background: var(--light-blue);
-      border: 1px solid var(--blue);
-      border-radius: 16px;
-      padding: 28px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
       text-align: center;
+    }
+
+    .avatar-wrap {
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue) 0%, #6a3de8 100%);
+      color: white;
+      font-size: 1.7rem; font-weight: 800;
+      margin: 0 auto 14px;
+      box-shadow: 0 4px 20px rgba(25,54,239,.35);
+    }
+
+    .profile-username { font-size: 1.25rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+
+    .role-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 14px;
+      border-radius: 30px;
+      font-size: .76rem; font-weight: 700;
+      letter-spacing: .04em;
       margin-bottom: 20px;
     }
-    .avatar {
-      width: 72px; height: 72px;
-      background: var(--blue);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6em;
-      font-weight: 700;
-      margin: 0 auto 16px;
-    }
-    .profile-name { font-size: 1.2em; font-weight: 700; color: var(--blue); margin-bottom: 6px; }
-    .role-badge {
-      display: inline-block;
-      padding: 3px 12px;
-      border-radius: 30px;
-      font-size: 0.8em;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-    .role-admin { background: #fff3cd; color: #856404; border: 1px solid #ffc107; }
-    .role-user  { background: var(--light-blue); color: var(--blue); border: 1px solid var(--blue); }
+    .role-admin { background: #fef3c7; color: #92400e; border: 1.5px solid #f59e0b; }
+    .role-user  { background: var(--blue-light); color: var(--blue); border: 1.5px solid var(--blue); }
 
-    .profile-info-list { text-align: left; }
-    .profile-info-item {
-      display: flex;
-      flex-direction: column;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(25,54,239,0.15);
+    .profile-meta {
+      text-align: left;
+      border-top: 1.5px solid var(--border);
+      padding-top: 16px;
+      display: flex; flex-direction: column; gap: 10px;
     }
-    .profile-info-item:last-child { border-bottom: none; }
-    .profile-info-item dt { font-size: 0.82em; color: #666; margin-bottom: 2px; }
-    .profile-info-item dd { font-weight: 600; color: #333; }
+    .meta-row dt { font-size: .72rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 2px; }
+    .meta-row dd { font-weight: 600; font-size: .92rem; color: var(--text); }
+
+    /* Sidebar actions */
+    .sidebar-actions { display: flex; flex-direction: column; gap: 9px; margin-top: 20px; }
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 700; font-size: .87rem;
+      text-decoration: none; text-align: center;
+      cursor: pointer; transition: all .18s;
+      font-family: inherit; border: none;
+    }
+    .btn-primary { background: var(--blue); color: white; }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+    .btn-ghost { background: transparent; color: var(--text-muted); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { color: var(--red); border-color: var(--red); background: var(--red-light); }
+    .btn-amber { background: #fef3c7; color: #92400e; border: 1.5px solid #f59e0b; }
+    .btn-amber:hover { background: #fde68a; }
+
+    /* ── Right column cards ── */
+    .right-col { display: flex; flex-direction: column; gap: 20px; }
 
     .card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       overflow: hidden;
-      margin-bottom: 20px;
     }
+
     .card-head {
-      background: white;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      font-weight: 700;
-      color: #333;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1.5px solid var(--border);
+      font-weight: 700; font-size: .95rem;
+      color: var(--text);
+      display: flex; align-items: center; gap: 8px;
     }
-    .card-head a { font-size: 0.85rem; font-weight: 600; color: var(--blue); text-decoration: none; }
+    .card-head-icon { font-size: 1rem; }
     .card-body { padding: 20px; }
 
-    .quick-actions { display: flex; flex-direction: column; gap: 8px; }
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.95em;
-      text-decoration: none;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: inherit;
-      border: none;
+    /* Forms */
+    .form-row { display: flex; flex-direction: column; gap: 13px; }
+    .form-field label {
+      display: block;
+      font-size: .75rem; font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: .04em;
+      margin-bottom: 5px;
     }
-    .btn-primary { background: var(--blue); color: white; border: 2px solid var(--blue); }
-    .btn-primary:hover { background: #1228c8; }
-    .btn-outline { background: white; color: var(--blue); border: 2px solid var(--blue); }
-    .btn-outline:hover { background: var(--light-blue); }
-    .btn-danger-outline { background: white; color: var(--red); border: 2px solid var(--red); }
-    .btn-danger-outline:hover { background: var(--light-red); }
-    .btn-sm { padding: 6px 14px; font-size: 0.85em; }
-    .btn-admin { background: #fff3cd; color: #856404; border: 2px solid #ffc107; }
-    .btn-admin:hover { background: #ffeaa0; }
-
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 20px;
+    .form-field input {
+      width: 100%; padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      font-size: .92rem; font-family: inherit;
+      background: var(--bg); color: var(--text);
+      transition: border-color .18s, box-shadow .18s;
     }
-    @media (max-width: 700px) {
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
-    }
-    .stat-card {
+    .form-field input:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(25,54,239,.1);
       background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
     }
-    .stat-num { font-size: 2em; font-weight: 700; color: var(--blue); }
-    .stat-num.green { color: #198754; }
-    .stat-num.yellow { color: #856404; }
-    .stat-num.danger { color: #842029; }
-    .stat-label { font-size: 0.82em; color: #666; margin-top: 4px; }
 
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; }
-    thead tr { background: var(--blue); }
-    thead th {
-      color: white;
-      padding: 12px 16px;
-      text-align: left;
-      font-size: 0.88em;
-      font-weight: 600;
+    .form-msg {
+      font-size: .8rem; padding: 8px 12px;
+      border-radius: 8px; display: none; margin-top: 4px;
     }
-    tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 0.15s; }
-    tbody tr:hover { background: #fafafa; }
-    tbody td { padding: 12px 16px; font-size: 0.9em; vertical-align: middle; }
+    .form-msg.error   { background: var(--red-light); color: #9b1b35; border: 1px solid #f5b8c6; }
+    .form-msg.success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
 
-    .badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 30px;
-      font-size: 0.78em;
-      font-weight: 700;
-      text-transform: uppercase;
+    .btn-submit {
+      width: 100%; padding: 11px;
+      background: var(--blue); color: white;
+      border: none; border-radius: 10px;
+      font-weight: 700; font-size: .92rem;
+      font-family: inherit; cursor: pointer;
+      transition: background .18s, transform .12s;
+      margin-top: 4px;
     }
-    .badge-pending { background: var(--red); color: white; }
-    .badge-processing { background: #0d6efd; color: white; }
-    .badge-approved { background: #198754; color: white; }
-    .badge-rejected { background: #666; color: white; }
-    .badge-cancelled { background: #999; color: white; }
+    .btn-submit:hover  { background: var(--blue-dark); transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+    .btn-submit:disabled { opacity: .55; cursor: default; transform: none; }
 
-    .empty-state {
-      text-align: center;
-      padding: 40px 20px;
-      color: #666;
-    }
-    .empty-state .empty-icon { font-size: 2.5em; margin-bottom: 12px; }
-    .empty-state h3 { font-size: 1em; margin-bottom: 6px; }
-    .empty-state p { font-size: 0.85em; margin-bottom: 16px; }
-
-    /* Account forms */
-    .form-group { margin-bottom: 14px; }
-    .form-group label { display: block; font-size: 0.85em; font-weight: 600; color: #555; margin-bottom: 5px; }
-    .form-group input {
-      width: 100%;
-      padding: 10px 14px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 0.95em;
-      font-family: inherit;
-      background: white;
-      color: #333;
-      transition: border-color 0.2s;
-    }
-    .form-group input:focus { outline: none; border-color: var(--blue); }
-    .form-error { color: var(--red); font-size: 0.82em; margin-top: 8px; display: none; }
-    .form-success { color: #198754; font-size: 0.82em; margin-top: 8px; display: none; }
-
+    /* ── Toast ── */
     #toast-container {
-      position: fixed;
-      bottom: 20px; right: 20px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      position: fixed; bottom: 20px; right: 20px;
+      z-index: 9999; display: flex; flex-direction: column; gap: 8px;
     }
+    .toast {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 18px;
+      background: white; color: #0f1117;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.12);
+      font-size: .88rem; font-weight: 600;
+      animation: toastIn .25s ease;
+      min-width: 220px;
+    }
+    .toast.hiding { animation: toastOut .2s ease forwards; }
+    .toast-success { border-left: 3px solid #10b981; }
+    .toast-error   { border-left: 3px solid var(--red); }
+    .toast-info    { border-left: 3px solid var(--blue); }
+    .toast-close   { margin-left: auto; background: none; border: none; cursor: pointer; color: #9ca3af; font-size: 1rem; padding: 0; }
+    @keyframes toastIn  { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: none; } }
+    @keyframes toastOut { to   { opacity: 0; transform: translateX(20px); } }
 
+    /* ── Loader ── */
+    #loading-state {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; gap: 12px;
+      padding: 60px; color: var(--text-muted); justify-content: center;
+    }
+    .spinner {
+      width: 22px; height: 22px;
+      border: 2.5px solid var(--border);
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .d-none { display: none !important; }
+
+    /* ── Footer ── */
     footer {
       background: var(--blue);
-      color: white;
-      padding: 40px 0;
-      margin-top: 50px;
-      text-align: center;
+      color: white; padding: 32px 0;
+      margin-top: 48px; text-align: center;
+      font-size: .88rem;
     }
-    footer p { opacity: 0.9; font-size: 0.95em; }
+    footer p + p { margin-top: 4px; opacity: .65; font-size: .78rem; }
   </style>
   <script src="/js/theme.js"></script>
 </head>
 <body>
 
-<div class="warning-banner">
-  КенУслуги — Государственный портал Кендрессии
-</div>
+<div class="warning-banner">КенУслуги — Государственный портал Кендрессии</div>
 
 <div class="main-content">
-<header class="header">
-  <div class="header-container">
-    <div class="logo-area">
-      <img src="/images/kengos-logo.png" alt="КенУслуги" class="kengos-logo" onerror="this.style.display='none'">
-      <div class="logo-text">
-        <h1>КенУслуги</h1>
-        <p>Государственный портал Кендрессии</p>
-      </div>
-    </div>
-    <div class="server-badge">
-      <a href="https://t.me/AmethystSMPChannel" target="_blank">AmethystSMP →</a>
-    </div>
-  </div>
-</header>
-<nav class="nav">
-  <ul>
-    <li><a href="/" class="nav-link">ГЛАВНАЯ</a></li>
-    <li><a href="/services.html" class="nav-link">УСЛУГИ</a></li>
-    <li><a href="/applications.html" class="nav-link" data-auth="user">МОИ ЗАЯВКИ</a></li>
-    <li><a href="/profile.html" class="nav-link active" data-auth="user">👤 <span id="nav-user-name">ПРОФИЛЬ</span></a></li>
-    <li><a href="/login.html" class="nav-link" data-auth="guest" style="color:var(--red);font-weight:700">ВОЙТИ</a></li>
-    <li><a href="#" class="nav-link" data-auth="user" data-action="logout">ВЫЙТИ</a></li>
-    <li style="margin-left:auto;display:flex;align-items:center;padding:0 12px">
-      <button id="theme-toggle" title="Темная тема">🌙</button>
-    </li>
-  </ul>
-</nav>
-
-<div class="page-header">
-  <div class="page-header-inner">
-    <div class="breadcrumb">
-      <a href="/">Главная</a>
-      <span class="breadcrumb-sep">›</span>
-      <span>Личный кабинет</span>
-    </div>
-    <h1>Личный кабинет</h1>
-    <p>Управляйте своими данными и заявками</p>
-  </div>
-</div>
-
-<main>
-  <div id="loading-state" class="loading-overlay">
-    <div class="spinner"></div>
-    <span>Загрузка профиля...</span>
-  </div>
-
-  <div id="profile-content" class="d-none">
-    <div class="profile-layout">
-
-      <!-- Left column -->
-      <div>
-        <div class="profile-card">
-          <div class="avatar" id="profile-avatar">👤</div>
-          <div class="profile-name" id="profile-username">—</div>
-          <div id="profile-role-badge"></div>
-          <dl class="profile-info-list">
-            <div class="profile-info-item">
-              <dt>📅 Дата регистрации</dt>
-              <dd id="profile-created">—</dd>
-            </div>
-          </dl>
-        </div>
-
-        <div class="card">
-          <div class="card-head">⚡ Быстрые действия</div>
-          <div class="card-body">
-            <div class="quick-actions">
-              <a href="/admin.html" class="btn btn-admin" id="admin-link" style="display:none">⚙️ Панель администратора</a>
-              <a href="/services.html" class="btn btn-primary">🔍 Найти услугу</a>
-              <a href="/applications.html" class="btn btn-outline">📋 Мои заявки</a>
-              <a href="#" class="btn btn-danger-outline" data-action="logout">🚪 Выйти</a>
-            </div>
-          </div>
+  <header class="header">
+    <div class="header-container">
+      <div class="logo-area">
+        <img src="/images/kengos-logo.png" class="kengos-logo" alt="КенУслуги" onerror="this.style.display='none'">
+        <div class="logo-text">
+          <h1>КенУслуги</h1>
+          <p>Государственный портал Кендрессии</p>
         </div>
       </div>
-
-      <!-- Right column -->
-      <div>
-
-        <!-- Stats -->
-        <div class="stats-row">
-          <div class="stat-card">
-            <div class="stat-num" id="stat-total">0</div>
-            <div class="stat-label">Всего заявок</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num green" id="stat-approved">0</div>
-            <div class="stat-label">Одобрено</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num yellow" id="stat-pending">0</div>
-            <div class="stat-label">На рассмотрении</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num danger" id="stat-rejected">0</div>
-            <div class="stat-label">Отклонено</div>
-          </div>
-        </div>
-
-        <!-- Recent Applications -->
-        <div class="card">
-          <div class="card-head">
-            <span>📋 Последние заявки</span>
-            <a href="/applications.html">Все заявки →</a>
-          </div>
-          <div class="card-body" style="padding:0">
-            <div id="recent-loading" class="loading-overlay" style="padding:2rem">
-              <div class="spinner"></div>
-            </div>
-            <div id="recent-empty" class="empty-state d-none">
-              <div class="empty-icon">📭</div>
-              <h3>Заявок пока нет</h3>
-              <p>Выберите услугу и подайте первую заявку</p>
-              <a href="/services.html" class="btn btn-primary btn-sm">Перейти к услугам</a>
-            </div>
-            <div class="table-wrap" id="recent-table-wrap" style="display:none">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Услуга</th>
-                    <th>Дата</th>
-                    <th>Статус</th>
-                  </tr>
-                </thead>
-                <tbody id="recent-tbody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- Change username -->
-        <div class="card">
-          <div class="card-head">✏️ Изменить логин</div>
-          <div class="card-body">
-            <form id="form-username">
-              <div class="form-group">
-                <label for="new-username">Новый логин</label>
-                <input id="new-username" type="text" placeholder="Минимум 3 символа" autocomplete="username">
-              </div>
-              <div class="form-error" id="username-error"></div>
-              <div class="form-success" id="username-success">Логин успешно изменён</div>
-              <button type="submit" class="btn btn-primary btn-sm" style="width:100%">Сохранить</button>
-            </form>
-          </div>
-        </div>
-
-        <!-- Change password -->
-        <div class="card">
-          <div class="card-head">🔒 Изменить пароль</div>
-          <div class="card-body">
-            <form id="form-password">
-              <div class="form-group">
-                <label for="current-password">Текущий пароль</label>
-                <input id="current-password" type="password" placeholder="Введите текущий пароль" autocomplete="current-password">
-              </div>
-              <div class="form-group">
-                <label for="new-password">Новый пароль</label>
-                <input id="new-password" type="password" placeholder="Минимум 6 символов" autocomplete="new-password">
-              </div>
-              <div class="form-group">
-                <label for="confirm-password">Повторите пароль</label>
-                <input id="confirm-password" type="password" placeholder="Повторите новый пароль" autocomplete="new-password">
-              </div>
-              <div class="form-error" id="password-error"></div>
-              <div class="form-success" id="password-success">Пароль успешно изменён</div>
-              <button type="submit" class="btn btn-primary btn-sm" style="width:100%">Изменить пароль</button>
-            </form>
-          </div>
-        </div>
-
+      <div class="server-badge">
+        <a href="https://t.me/AmethystSMPChannel" target="_blank">AmethystSMP →</a>
       </div>
     </div>
-  </div>
-</main>
+  </header>
 
-<footer>
-  <p>© 2025-2026 КенУслуги | Государственный портал Кендрессии</p>
-  <p style="margin-top:8px;opacity:0.7;font-size:0.85em">Игровой проект. Все события и персонажи вымышлены.</p>
-</footer>
+  <nav class="nav">
+    <ul>
+      <li><a href="/" class="nav-link">ГЛАВНАЯ</a></li>
+      <li><a href="/services.html" class="nav-link">УСЛУГИ</a></li>
+      <li><a href="/applications.html" class="nav-link" data-auth="user">МОИ ЗАЯВКИ</a></li>
+      <li><a href="/profile.html" class="nav-link active" data-auth="user">
+        👤 <span id="nav-user-name">ПРОФИЛЬ</span>
+      </a></li>
+      <li><a href="/login.html" class="nav-link" data-auth="guest" style="color:var(--red);font-weight:700">ВОЙТИ</a></li>
+      <li><a href="#" class="nav-link" data-auth="user" data-action="logout">ВЫЙТИ</a></li>
+      <li style="margin-left:auto;display:flex;align-items:center;padding:0 10px">
+        <button id="theme-toggle" title="Тема">🌙</button>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="breadcrumb">
+        <a href="/">Главная</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Личный кабинет</span>
+      </div>
+      <h1>Личный кабинет</h1>
+      <p>Управляй своим аккаунтом</p>
+    </div>
+  </div>
+
+  <main>
+    <!-- Loading -->
+    <div id="loading-state">
+      <div class="spinner"></div>
+      <span>Загрузка...</span>
+    </div>
+
+    <!-- Left: Profile card -->
+    <div id="left-col" class="d-none">
+      <div class="profile-card">
+        <div class="avatar-wrap" id="profile-avatar">?</div>
+        <div class="profile-username" id="profile-username">—</div>
+        <div id="profile-role-badge"></div>
+
+        <dl class="profile-meta">
+          <div class="meta-row">
+            <dt>Дата регистрации</dt>
+            <dd id="profile-created">—</dd>
+          </div>
+        </dl>
+
+        <div class="sidebar-actions">
+          <a href="/admin.html" class="btn btn-amber" id="admin-link" style="display:none">⚙️ Панель администратора</a>
+          <a href="#" class="btn btn-ghost" data-action="logout">🚪 Выйти</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Account management -->
+    <div id="right-col" class="right-col d-none">
+
+      <!-- Change username -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-head-icon">✏️</span>
+          Изменить логин
+        </div>
+        <div class="card-body">
+          <form id="form-username" class="form-row">
+            <div class="form-field">
+              <label>Новый логин</label>
+              <input id="new-username" type="text" placeholder="Минимум 3 символа" autocomplete="username">
+            </div>
+            <div class="form-msg error"   id="username-error"></div>
+            <div class="form-msg success" id="username-success">Логин успешно изменён</div>
+            <button type="submit" class="btn-submit">Сохранить логин</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Change password -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-head-icon">🔒</span>
+          Изменить пароль
+        </div>
+        <div class="card-body">
+          <form id="form-password" class="form-row">
+            <div class="form-field">
+              <label>Текущий пароль</label>
+              <input id="current-password" type="password" placeholder="Введите текущий пароль" autocomplete="current-password">
+            </div>
+            <div class="form-field">
+              <label>Новый пароль</label>
+              <input id="new-password" type="password" placeholder="Минимум 6 символов" autocomplete="new-password">
+            </div>
+            <div class="form-field">
+              <label>Повторите пароль</label>
+              <input id="confirm-password" type="password" placeholder="Повторите новый пароль" autocomplete="new-password">
+            </div>
+            <div class="form-msg error"   id="password-error"></div>
+            <div class="form-msg success" id="password-success">Пароль успешно изменён</div>
+            <button type="submit" class="btn-submit">Изменить пароль</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025-2026 КенУслуги | Государственный портал Кендрессии</p>
+    <p>Игровой проект. Все события и персонажи вымышлены.</p>
+  </footer>
 </div>
 
 <div id="toast-container"></div>
@@ -531,126 +451,76 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   await updateNavbar();
 
-  // Render user info
+  // Fill profile card
   const initials = user.username.slice(0, 2).toUpperCase();
-  document.getElementById('profile-avatar').textContent = initials;
+  document.getElementById('profile-avatar').textContent   = initials;
   document.getElementById('profile-username').textContent = user.username;
-  document.getElementById('profile-created').textContent = formatDateShort(user.createdAt);
+  document.getElementById('profile-created').textContent  = formatDateShort(user.createdAt);
 
-  const roleBadge = document.getElementById('profile-role-badge');
-  roleBadge.innerHTML = user.role === 'admin'
-    ? '<span class="role-badge role-admin">⭐ Администратор</span>'
-    : '<span class="role-badge role-user">👤 Пользователь</span>';
+  document.getElementById('profile-role-badge').innerHTML = user.role === 'admin'
+    ? '<span class="role-pill role-admin">⭐ Администратор</span>'
+    : '<span class="role-pill role-user">👤 Пользователь</span>';
 
-  if (user.role === 'admin') {
-    document.getElementById('admin-link').style.display = '';
-  }
+  if (user.role === 'admin') document.getElementById('admin-link').style.display = '';
 
   document.getElementById('loading-state').classList.add('d-none');
-  document.getElementById('profile-content').classList.remove('d-none');
+  document.getElementById('left-col').classList.remove('d-none');
+  document.getElementById('right-col').classList.remove('d-none');
 
-  loadRecentApplications();
-
-  // Change username form
+  // ── Change username ──
   document.getElementById('form-username').addEventListener('submit', async (e) => {
     e.preventDefault();
     const errEl = document.getElementById('username-error');
     const okEl  = document.getElementById('username-success');
-    errEl.style.display = 'none';
-    okEl.style.display  = 'none';
+    errEl.style.display = 'none'; okEl.style.display = 'none';
 
     const newUsername = document.getElementById('new-username').value.trim();
-    if (!newUsername) { errEl.textContent = 'Введите новый логин'; errEl.style.display = ''; return; }
+    if (!newUsername) { show(errEl, 'Введите новый логин'); return; }
 
+    const btn = e.target.querySelector('.btn-submit');
+    btn.disabled = true;
     try {
       const res = await api.account.update({ newUsername });
       _currentUser = res.user;
       document.getElementById('profile-username').textContent = res.user.username;
-      document.getElementById('profile-avatar').textContent = res.user.username.slice(0, 2).toUpperCase();
+      document.getElementById('profile-avatar').textContent   = res.user.username.slice(0, 2).toUpperCase();
       document.getElementById('new-username').value = '';
       okEl.style.display = '';
       showToast('Логин изменён', 'success');
     } catch (err) {
-      errEl.textContent = err.message;
-      errEl.style.display = '';
-    }
+      show(errEl, err.message);
+    } finally { btn.disabled = false; }
   });
 
-  // Change password form
+  // ── Change password ──
   document.getElementById('form-password').addEventListener('submit', async (e) => {
     e.preventDefault();
     const errEl = document.getElementById('password-error');
     const okEl  = document.getElementById('password-success');
-    errEl.style.display = 'none';
-    okEl.style.display  = 'none';
+    errEl.style.display = 'none'; okEl.style.display = 'none';
 
     const currentPassword = document.getElementById('current-password').value;
     const newPassword     = document.getElementById('new-password').value;
     const confirmPassword = document.getElementById('confirm-password').value;
 
-    if (!currentPassword || !newPassword || !confirmPassword) {
-      errEl.textContent = 'Заполните все поля'; errEl.style.display = ''; return;
-    }
-    if (newPassword !== confirmPassword) {
-      errEl.textContent = 'Пароли не совпадают'; errEl.style.display = ''; return;
-    }
-    if (newPassword.length < 6) {
-      errEl.textContent = 'Новый пароль минимум 6 символов'; errEl.style.display = ''; return;
-    }
+    if (!currentPassword || !newPassword || !confirmPassword) { show(errEl, 'Заполните все поля'); return; }
+    if (newPassword !== confirmPassword) { show(errEl, 'Пароли не совпадают'); return; }
+    if (newPassword.length < 6)          { show(errEl, 'Минимум 6 символов'); return; }
 
+    const btn = e.target.querySelector('.btn-submit');
+    btn.disabled = true;
     try {
       await api.account.update({ currentPassword, newPassword });
-      document.getElementById('form-password').reset();
+      e.target.reset();
       okEl.style.display = '';
       showToast('Пароль изменён', 'success');
     } catch (err) {
-      errEl.textContent = err.message;
-      errEl.style.display = '';
-    }
+      show(errEl, err.message);
+    } finally { btn.disabled = false; }
   });
 });
 
-async function loadRecentApplications() {
-  const loadingEl   = document.getElementById('recent-loading');
-  const emptyEl     = document.getElementById('recent-empty');
-  const tableWrapEl = document.getElementById('recent-table-wrap');
-  const tbodyEl     = document.getElementById('recent-tbody');
-
-  try {
-    const data = await api.applications.list();
-    const apps = data.applications || [];
-
-    document.getElementById('stat-total').textContent    = apps.length;
-    document.getElementById('stat-approved').textContent = apps.filter(a => a.status === 'approved').length;
-    document.getElementById('stat-pending').textContent  = apps.filter(a => ['pending','processing'].includes(a.status)).length;
-    document.getElementById('stat-rejected').textContent = apps.filter(a => a.status === 'rejected').length;
-
-    loadingEl.classList.add('d-none');
-
-    if (apps.length === 0) {
-      emptyEl.classList.remove('d-none');
-      return;
-    }
-
-    tableWrapEl.style.display = '';
-    tbodyEl.innerHTML = apps.slice(0, 5).map(app => `
-      <tr>
-        <td>
-          <a href="/service.html?id=${escapeHtml(app.serviceId)}" style="font-weight:600;color:var(--blue)">
-            ${escapeHtml(app.serviceTitle)}
-          </a>
-          <div style="font-size:.78rem;color:#6c757d">${escapeHtml(app.serviceCategory)}</div>
-        </td>
-        <td style="white-space:nowrap;font-size:.85rem">${formatDateShort(app.createdAt)}</td>
-        <td>${getStatusBadge(app.status)}</td>
-      </tr>
-    `).join('');
-
-  } catch (err) {
-    loadingEl.innerHTML = `<p style="color:#6c757d;padding:1rem">Не удалось загрузить заявки</p>`;
-    console.error(err);
-  }
-}
+function show(el, msg) { el.textContent = msg; el.style.display = ''; }
 </script>
 </body>
 </html>

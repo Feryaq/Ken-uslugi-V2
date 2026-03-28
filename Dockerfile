@@ -1,31 +1,28 @@
-# Используем LTS версию Node.js
 FROM node:20-slim
 
-# Устанавливаем необходимые зависимости для сборки нативных модулей (sqlite3)
+# Build deps for native sqlite3 module
 RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
 
-# Создаем рабочую директорию
 WORKDIR /app
 
-# Копируем package.json и package-lock.json
 COPY package*.json ./
+RUN npm install --production && npm rebuild sqlite3 --build-from-source
 
-# Устанавливаем зависимости
-RUN npm install --production
-
-# Копируем остальные файлы
 COPY . .
 
-# Создаем пустой файл БД, если его нет, и даем права (для безопасности лучше использовать тома)
-RUN touch database.sqlite && chmod 666 database.sqlite
+# /data — persistent storage dir (Hugging Face Spaces mounts it when enabled)
+RUN mkdir -p /data
 
-# Переменные окружения по умолчанию
-ENV PORT=3000
+# HF Spaces runs containers as uid 1000 — grant write access
+RUN chown -R 1000:1000 /app /data
+
+USER 1000
+
+ENV PORT=7860
 ENV NODE_ENV=production
-ENV SESSION_SECRET=ken-secret-default-change-me
+ENV SESSION_SECRET=ken-secret-change-me-in-hf-secrets
+ENV DB_PATH=/data/database.sqlite
 
-# Открываем порт
-EXPOSE 3000
+EXPOSE 7860
 
-# Запуск приложения
 CMD ["node", "server.js"]

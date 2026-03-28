@@ -5,8 +5,10 @@ const { open } = require('sqlite');
 const bcrypt = require('bcryptjs');
 const { v4: uuidv4 } = require('uuid');
 
+const DB_PATH = process.env.DB_PATH || './database.sqlite';
+
 const dbPromise = open({
-  filename: './database.sqlite',
+  filename: DB_PATH,
   driver: sqlite3.Database
 });
 
