@@ -1,1433 +1,610 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>КенУслуги | Государственный портал Кендрессии</title>
-    <link rel="icon" href="images/kengos-logo.png" type="image/png">
-    <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
-    <link rel="stylesheet" href="/css/dark.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Roboto', 'Segoe UI', 'Arial', sans-serif;
-            background: #f0f2f5;
-            color: #333;
-            line-height: 1.5;
-        }
-
-        :root {
-            --gos-blue: #1936EF;
-            --gos-red: #DA1748;
-            --gos-light-blue: #e6ecff;
-            --gos-light-red: #ffe6ea;
-            --white: #FFFFFF;
-            --border-color: #d0d5dd;
-            --amethyst-light: #87CEEB;
-        }
-
-        .warning-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--gos-red);
-            color: white;
-            padding: 8px 0;
-            text-align: center;
-            font-size: 12px;
-            z-index: 1000;
-        }
-
-        .main-content {
-            margin-top: 38px;
-        }
-
-        .header {
-            background: white;
-            border-bottom: 3px solid var(--gos-red);
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .kengos-logo {
-            height: 60px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .logo-text h1 {
-            color: var(--gos-blue);
-            font-size: 2em;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .logo-text p {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .server-badge {
-            margin-left: auto;
-            background: var(--gos-light-blue);
-            padding: 12px 25px;
-            border-radius: 40px;
-            border: 1px solid var(--gos-blue);
-        }
-
-        .server-badge a {
-            color: var(--gos-blue);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .portal-nav {
-            background: var(--gos-blue);
-            position: sticky;
-            top: 38px;
-            z-index: 100;
-        }
-
-        .portal-nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 0;
-        }
-
-        .portal-nav a {
-            display: block;
-            padding: 9px 16px;
-            color: rgba(255,255,255,0.9);
-            text-decoration: none;
-            font-size: 0.82em;
-            font-weight: 600;
-            border-right: 1px solid rgba(255,255,255,0.15);
-            transition: background 0.15s;
-        }
-
-        .portal-nav a:first-child { border-left: 1px solid rgba(255,255,255,0.15); }
-
-        .portal-nav a:hover { background: rgba(255,255,255,0.12); color: white; }
-
-        .portal-nav a[data-auth="guest"] { color: #ffd0d8; }
-
-        .nav {
-            background: white;
-            border-bottom: 2px solid var(--gos-red);
-            position: sticky;
-            top: 74px;
-            z-index: 99;
-        }
-
-        .nav ul {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .nav li {
-            margin-right: 5px;
-        }
-
-        .nav a {
-            display: block;
-            padding: 16px 20px;
-            color: #333;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95em;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .nav a:hover {
-            color: var(--gos-red);
-            border-bottom-color: var(--gos-red);
-            background: var(--gos-light-red);
-        }
-
-        .nav a.active {
-            color: var(--gos-red);
-            border-bottom-color: var(--gos-red);
-            background: var(--gos-light-red);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .action-button {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .action-btn {
-            background: var(--gos-red);
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            font-size: 1.5em;
-            font-weight: 700;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 3px solid var(--gos-blue);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-        }
-
-        .action-btn:hover {
-            transform: scale(1.05);
-            background: var(--gos-blue);
-            border-color: var(--gos-red);
-        }
-
-        .contact-section-btn {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .contact-btn {
-            background: var(--gos-red);
-            color: white;
-            border: none;
-            padding: 18px 35px;
-            font-size: 1.3em;
-            font-weight: 700;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid var(--gos-blue);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .contact-btn:hover {
-            transform: scale(1.03);
-            background: var(--gos-blue);
-            border-color: var(--gos-red);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
-            border: 5px solid var(--gos-red);
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 2em;
-            cursor: pointer;
-            color: #666;
-        }
-
-        .modal-close:hover {
-            color: var(--gos-red);
-        }
-
-        .modal-title {
-            color: var(--gos-blue);
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            border-bottom: 3px solid var(--gos-red);
-            padding-bottom: 10px;
-        }
-
-        .modal-text {
-            font-size: 1.1em;
-            line-height: 1.6;
-            margin: 20px 0;
-        }
-
-        .modal-text strong {
-            color: var(--gos-red);
-        }
-
-        .bot-link {
-            display: inline-block;
-            background: var(--gos-light-blue);
-            color: var(--gos-blue);
-            padding: 12px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            margin: 10px 0;
-            border: 1px solid var(--gos-blue);
-            transition: all 0.3s;
-        }
-
-        .bot-link:hover {
-            background: var(--gos-blue);
-            color: white;
-        }
-
-        .instruction-list {
-            margin: 15px 0;
-            padding-left: 20px;
-        }
-
-        .instruction-list li {
-            margin: 10px 0;
-        }
-
-        .section {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            margin: 40px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-color);
-            width: 100%;
-        }
-
-        .section-title {
-            color: var(--gos-blue);
-            font-size: 1.8em;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--gos-red);
-            position: relative;
-        }
-
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100px;
-            height: 2px;
-            background: var(--gos-blue);
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            background: var(--gos-light-blue);
-            border-radius: 16px;
-            padding: 30px;
-            margin: 20px 0;
-            border: 1px solid var(--gos-blue);
-            width: 100%;
-        }
-
-        @media (max-width: 768px) {
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .info-block h3 {
-            color: var(--gos-blue);
-            margin-bottom: 20px;
-            font-size: 1.3em;
-        }
-
-        .info-block ul {
-            list-style: none;
-        }
-
-        .info-block li {
-            margin-bottom: 12px;
-            padding-left: 25px;
-            position: relative;
-        }
-
-        .info-block li:before {
-            content: "✓";
-            color: var(--gos-red);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-
-        /* Раздел - Главы государства */
-        .leaders-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 20px;
-            width: 100%;
-        }
-
-        @media (max-width: 768px) {
-            .leaders-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .leaders-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .leader-card {
-            background: linear-gradient(135deg, var(--gos-light-blue) 0%, var(--gos-light-red) 100%);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            border: 2px solid var(--gos-blue);
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .leader-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            border-color: var(--gos-red);
-        }
-
-        .image-container {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 15px;
-        }
-
-        .leader-card-image {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 3px solid var(--gos-red);
-            object-fit: cover;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .leader-card-name {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: var(--gos-blue);
-            margin-bottom: 5px;
-        }
-
-        .leader-card-title {
-            font-size: 0.9em;
-            color: #555;
-            line-height: 1.4;
-        }
-
-        .news-container {
-            width: 100%;
-            min-height: 500px;
-            height: auto;
-            overflow: hidden;
-            border: 2px solid var(--gos-blue);
-            border-radius: 16px;
-            background: var(--gos-light-blue);
-        }
-
-        .news-carousel {
-            display: flex;
-            gap: 25px;
-            padding: 30px;
-            min-height: 100%;
-            overflow-x: auto;
-            overflow-y: hidden;
-            scroll-behavior: smooth;
-            align-items: stretch;
-            scrollbar-width: none;
-        }
-
-        .news-carousel::-webkit-scrollbar {
-            display: none;
-        }
-
-        .news-slide {
-            min-width: 350px;
-            width: 350px;
-            background: white;
-            border: 1px solid var(--gos-blue);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            height: fit-content;
-        }
-
-        .news-slide:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 20px rgba(25, 62, 239, 0.2);
-        }
-
-        .news-image-container {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            background: var(--gos-light-blue);
-            flex-shrink: 0;
-        }
-
-        .news-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .news-content {
-            padding: 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .news-date {
-            color: var(--gos-red);
-            font-weight: 600;
-            font-size: 0.85em;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .news-title {
-            color: var(--gos-blue);
-            font-size: 1.2em;
-            font-weight: 700;
-            margin-bottom: 10px;
-            line-height: 1.4;
-            word-wrap: break-word;
-        }
-
-        .news-text {
-            color: #555;
-            font-size: 0.95em;
-            line-height: 1.5;
-            margin-bottom: 10px;
-            word-wrap: break-word;
-        }
-
-        .amethyst-tag {
-            color: var(--amethyst-light);
-            font-weight: 600;
-            margin-top: auto;
-            font-size: 0.9em;
-            text-align: right;
-        }
-
-        /* Секция службы (без анкеты) */
-        .service-section {
-            background: linear-gradient(135deg, var(--gos-light-blue) 0%, var(--gos-light-red) 100%);
-            border-radius: 20px;
-            padding: 40px;
-            border: 2px solid var(--gos-blue);
-            width: 100%;
-            text-align: center;
-        }
-
-        .service-image {
-            max-width: 500px;
-            width: 100%;
-            border-radius: 20px;
-            border: 4px solid var(--gos-red);
-            margin: 0 auto 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            display: block;
-        }
-
-        .service-text {
-            font-size: 3em;
-            font-weight: 800;
-            color: var(--gos-red);
-            margin: 20px 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .registry-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-        }
-
-        .person-card {
-            background: var(--gos-light-red);
-            border: 1px solid var(--gos-red);
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.2s;
-        }
-
-        .person-card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(218, 23, 72, 0.2);
-        }
-
-        .card-header {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .status {
-            font-size: 11px;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-weight: 700;
-            text-transform: uppercase;
-            background: white;
-        }
-
-        .status-wanted {
-            background: var(--gos-red);
-            color: white;
-        }
-
-        .status-imprisoned {
-            background: #666;
-            color: white;
-        }
-
-        .category {
-            background: white;
-            color: var(--gos-blue);
-            border: 1px solid var(--gos-blue);
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .person-name {
-            font-size: 1.5em;
-            color: var(--gos-red);
-            margin: 10px 0;
-            font-weight: 700;
-            word-wrap: break-word;
-        }
-
-        .person-detail {
-            margin: 8px 0;
-            color: #333;
-            word-wrap: break-word;
-        }
-
-        .person-detail strong {
-            color: var(--gos-blue);
-            min-width: 100px;
-            display: inline-block;
-        }
-
-        .constitution-container {
-            background: white;
-            border: 2px solid var(--gos-blue);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            width: 100%;
-        }
-
-        .constitution-header {
-            text-align: center;
-            margin-bottom: 30px;
-            color: var(--gos-blue);
-            font-size: 1.8em;
-            font-weight: 700;
-            word-wrap: break-word;
-        }
-
-        .constitution-part {
-            margin-bottom: 35px;
-            padding-bottom: 25px;
-            border-bottom: 2px dashed var(--gos-red);
-        }
-
-        .constitution-part:last-child {
-            border-bottom: none;
-        }
-
-        .chapter-title {
-            color: var(--gos-red);
-            font-size: 1.3em;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .article-clause {
-            margin: 10px 0 10px 25px;
-            padding-left: 15px;
-            position: relative;
-            line-height: 1.6;
-            word-wrap: break-word;
-        }
-
-        .article-clause:before {
-            content: "•";
-            color: var(--gos-red);
-            position: absolute;
-            left: -5px;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        .confirmation-stamp {
-            margin-top: 30px;
-            padding: 25px;
-            background: var(--gos-light-blue);
-            border: 2px dashed var(--gos-blue);
-            border-radius: 12px;
-            text-align: right;
-            word-wrap: break-word;
-        }
-
-        .confirmation-stamp .date {
-            font-size: 1.5em;
-            font-weight: 700;
-            color: var(--gos-red);
-        }
-
-        .laws-list {
-            display: grid;
-            gap: 20px;
-            width: 100%;
-        }
-
-        .law-item {
-            background: var(--gos-light-red);
-            border-left: 5px solid var(--gos-red);
-            border-radius: 10px;
-            padding: 20px;
-        }
-
-        .law-item h3 {
-            color: var(--gos-blue);
-            margin-bottom: 10px;
-        }
-
-        footer {
-            background: var(--gos-blue);
-            color: white;
-            padding: 40px 0;
-            margin-top: 50px;
-            width: 100%;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .signature {
-            font-size: 1.8em;
-            font-weight: 700;
-            margin: 20px 0;
-            color: white;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            opacity: 0.9;
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-            text-decoration: underline;
-        }
-
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--gos-blue);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            z-index: 10001;
-            display: none;
-            animation: slideIn 0.3s;
-            border-left: 5px solid var(--gos-red);
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>КенУслуги | Государственный портал Кендрессии</title>
+  <link rel="icon" href="/images/kengos-logo.png" type="image/png">
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/css/dark.css">
   <script src="/js/theme.js"></script>
 </head>
 <body>
-    <div class="warning-banner">
-        КенУслуги — Государственный портал Кендрессии
+  <div class="warning-banner">КенУслуги — Государственный портал Кендрессии</div>
+
+  <div class="main-content">
+    <header class="header">
+      <div class="header-container">
+        <div class="logo-area">
+          <img src="/images/kengos-logo.png" alt="КенУслуги" class="kengos-logo" onerror="this.style.display='none'">
+          <div class="logo-text">
+            <h1>КенУслуги</h1>
+            <p>Государственный портал Кендрессии</p>
+          </div>
+        </div>
+        <div class="server-badge">
+          <a href="https://t.me/AmethystSMPChannel" target="_blank">AmethystSMP →</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="portal-nav">
+      <div class="portal-nav-inner">
+        <a href="/services.html">Услуги</a>
+        <a href="/applications.html" data-auth="user">Мои заявки</a>
+        <a href="/profile.html" data-auth="user">👤 <span id="nav-user-name">Профиль</span></a>
+        <a href="/admin.html" data-auth="admin" style="background:var(--accent);color:white">🛡 АДМИНКА</a>
+        <a href="/login.html" data-auth="guest">Войти</a>
+        <a href="#" data-auth="user" data-action="logout">Выйти</a>
+        <button id="theme-toggle" title="Тёмная тема" style="background:none;border:1.5px solid rgba(255,255,255,.5);border-radius:20px;padding:4px 12px;cursor:pointer;font-size:.85em;color:white;margin-left:4px;font-family:inherit;opacity:.85;transition:opacity .2s">🌙</button>
+      </div>
     </div>
 
-    <div class="main-content">
-        <header class="header">
-            <div class="header-container">
-                <div class="logo-area">
-                    <img src="/images/kengos-logo.png" alt="КенУслуги" class="kengos-logo" onerror="this.style.display='none'">
-                    <div class="logo-text">
-                        <h1>КенУслуги</h1>
-                        <p>Государственный портал Кендрессии</p>
-                    </div>
-                </div>
-                <div class="server-badge">
-                    <a href="https://t.me/AmethystSMPChannel" target="_blank">AmethystSMP →</a>
-                </div>
-            </div>
-        </header>
+    <nav class="nav">
+      <ul>
+        <li><a href="#info" class="nav-link">ИНФОРМАЦИЯ</a></li>
+        <li><a href="#news" class="nav-link">НОВОСТИ</a></li>
+        <li><a href="#leaders" class="nav-link">ГЛАВЫ</a></li>
+        <li><a href="#service" class="nav-link">СЛУЖБА</a></li>
+        <li><a href="#contact" class="nav-link">КОНТАКТ</a></li>
+        <li><a href="#constitution" class="nav-link">КОНСТИТУЦИЯ</a></li>
+        <li><a href="#registry" class="nav-link">РЕЕСТР</a></li>
+      </ul>
+    </nav>
 
-        <div class="portal-nav">
-            <div class="portal-nav-inner">
-                <a href="/services.html">Услуги</a>
-                <a href="/applications.html" data-auth="user">Мои заявки</a>
-                <a href="/profile.html" data-auth="user">👤 <span id="nav-user-name">Профиль</span></a>
-                <a href="/admin.html" data-auth="admin" style="background: var(--gos-red); color: white;">🛡 АДМИНКА</a>
-                <a href="/login.html" data-auth="guest">Войти</a>
-                <a href="#" data-auth="user" data-action="logout">Выйти</a>                <button id="theme-toggle" title="Тёмная тема" style="background:none;border:1.5px solid rgba(255,255,255,.5);border-radius:20px;padding:4px 12px;cursor:pointer;font-size:.85em;color:white;margin-left:4px;font-family:inherit;opacity:.85;transition:opacity .2s">🌙</button>
+    <div class="container" style="max-width:1200px;margin:30px auto;padding:0 20px">
+
+      <div class="action-button" style="text-align:center;margin:30px 0">
+        <button class="action-btn-big" onclick="openCitizenshipModal()">📄 ПОДАТЬ ДОКУМЕНТЫ</button>
+      </div>
+
+      <!-- Modal: подача заявки -->
+      <div class="modal" id="citizenshipModal" onclick="closeCitizenshipModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+          <span class="modal-close" onclick="closeCitizenshipModal()">&times;</span>
+          <h2 class="modal-title">📜 ПОДАТЬ ЗАЯВКУ</h2>
+
+          <div id="citizen-error" style="display:none;background:var(--accent-lt);color:#58151c;border:1px solid #f1aeb5;border-radius:10px;padding:12px;margin-bottom:12px"></div>
+          <div id="citizen-success" style="display:none;background:#d1e7dd;color:#0a3622;border:1px solid #a3cfbb;border-radius:10px;padding:16px;text-align:center;font-weight:600">
+            ✅ Заявка принята! Ожидайте ответа от представителя власти.
+          </div>
+
+          <form id="citizen-form">
+            <div style="margin-bottom:14px">
+              <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--primary)">Тип заявки *</label>
+              <select name="type" required class="form-control">
+                <option value="">— Выберите —</option>
+                <option value="citizenship">🏠 Получение гражданства</option>
+                <option value="service">⚔️ Служба по контракту</option>
+              </select>
             </div>
+            <div style="margin-bottom:14px">
+              <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--primary)">Ник в Minecraft *</label>
+              <input type="text" name="nickname" placeholder="Ваш ник" required class="form-control">
+            </div>
+            <div style="margin-bottom:14px">
+              <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--primary)">Возраст</label>
+              <input type="number" name="age" placeholder="Ваш возраст" min="1" max="99" class="form-control">
+            </div>
+            <div style="margin-bottom:14px">
+              <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--primary)">Город проживания</label>
+              <input type="text" name="city" placeholder="Ваш город" class="form-control">
+            </div>
+            <div style="margin-bottom:14px">
+              <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--primary)">Пожелания / Желаемая должность</label>
+              <textarea name="wish" placeholder="Необязательно" class="form-control" style="resize:vertical;min-height:70px"></textarea>
+            </div>
+            <button type="submit" id="citizen-btn" class="btn-submit">Отправить заявку</button>
+          </form>
+
+          <hr style="border:none;border-top:1px dashed var(--border);margin:18px 0">
+          <p style="font-size:.9em;color:var(--muted);text-align:center">
+            Или напишите напрямую:
+            <a href="https://t.me/ken_amethyst_bot" target="_blank" class="bot-link">🤖 @ken_amethyst_bot</a>
+          </p>
         </div>
+      </div>
 
-        <nav class="nav">
+      <section id="info" class="section">
+        <h2 class="section-title">О КЕНДРЕССИИ</h2>
+        <div class="info-grid">
+          <div class="info-block">
+            <h3>Кендрессия</h3>
             <ul>
-                <li><a href="#info" class="nav-link">ИНФОРМАЦИЯ</a></li>
-                <li><a href="#news" class="nav-link">НОВОСТИ</a></li>
-                <li><a href="#leaders" class="nav-link">ГЛАВЫ</a></li>
-                <li><a href="#service" class="nav-link">СЛУЖБА</a></li>
-                <li><a href="#contact" class="nav-link">КОНТАКТ</a></li>
-                <li><a href="#constitution" class="nav-link">КОНСТИТУЦИЯ</a></li>
-                <li><a href="#registry" class="nav-link">РЕЕСТР</a></li>
+              <li><strong>Царь Кендрессии:</strong> Кен Флиш</li>
+              <li><strong>Форма правления:</strong> Монархия</li>
+              <li><strong>Дата основания:</strong> С момента создания AmethystSMP</li>
             </ul>
-        </nav>
+          </div>
+          <div class="info-block">
+            <h3>О Кендрессии</h3>
+            <ul>
+              <li>Одно из самых первых государство</li>
+              <li>Самое влиятельное и сильное государство</li>
+              <li>Развитая экономика и порядок везде</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-        <div class="container">
-            <!-- Кнопка ПОДАТЬ ДОКУМЕНТЫ в самом начале -->
-            <div class="action-button">
-                <button class="action-btn" onclick="openCitizenshipModal()">📄 ПОДАТЬ ДОКУМЕНТЫ</button>
+      <section id="news" class="section">
+        <h2 class="section-title">НОВОСТИ</h2>
+        <div class="news-container">
+          <div class="news-carousel" id="newsCarousel"></div>
+        </div>
+      </section>
+
+      <section id="leaders" class="section">
+        <h2 class="section-title">ГЛАВЫ ГОСУДАРСТВА</h2>
+        <div class="leaders-grid">
+          <div class="leader-card">
+            <div class="image-container">
+              <img src="/images/1chel.png" alt="Кен Флиш" class="leader-card-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSI3NSIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjFjaGVsPC90ZXh0Pjwvc3ZnPg=='">
             </div>
+            <div class="leader-card-name">Кен Флиш Сигмославович</div>
+            <div class="leader-card-title">Главный и единственный правитель<br>Управляющий Военно-диверсионного корпуса армии СПБ<br>Министр КенПросвещения</div>
+          </div>
 
-            <!-- Модальное окно для ПОЛУЧЕНИЯ ГРАЖДАНСТВА / ПОДАЧИ ЗАЯВКИ -->
-            <div class="modal" id="citizenshipModal" onclick="closeCitizenshipModal(event)">
-                <div class="modal-content" onclick="event.stopPropagation()" style="max-height:90vh;overflow-y:auto">
-                    <span class="modal-close" onclick="closeCitizenshipModal()">&times;</span>
-                    <h2 class="modal-title">📜 ПОДАТЬ ЗАЯВКУ</h2>
-
-                    <div id="citizen-error" style="display:none;background:#f8d7da;color:#58151c;border:1px solid #f1aeb5;border-radius:10px;padding:12px;margin-bottom:12px"></div>
-                    <div id="citizen-success" style="display:none;background:#d1e7dd;color:#0a3622;border:1px solid #a3cfbb;border-radius:10px;padding:16px;text-align:center;font-weight:600">
-                        ✅ Заявка принята! Ожидайте ответа от представителя власти.
-                    </div>
-
-                    <form id="citizen-form">
-                        <div style="margin-bottom:14px">
-                            <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--gos-blue)">Тип заявки *</label>
-                            <select name="type" required style="width:100%;padding:10px 14px;border:2px solid #d0d5dd;border-radius:8px;font-size:1em;font-family:inherit">
-                                <option value="">— Выберите —</option>
-                                <option value="citizenship">🏠 Получение гражданства</option>
-                                <option value="service">⚔️ Служба по контракту</option>
-                            </select>
-                        </div>
-                        <div style="margin-bottom:14px">
-                            <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--gos-blue)">Ник в Minecraft *</label>
-                            <input type="text" name="nickname" placeholder="Ваш ник" required style="width:100%;padding:10px 14px;border:2px solid #d0d5dd;border-radius:8px;font-size:1em;font-family:inherit">
-                        </div>
-                        <div style="margin-bottom:14px">
-                            <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--gos-blue)">Возраст</label>
-                            <input type="number" name="age" placeholder="Ваш возраст" min="1" max="99" style="width:100%;padding:10px 14px;border:2px solid #d0d5dd;border-radius:8px;font-size:1em;font-family:inherit">
-                        </div>
-                        <div style="margin-bottom:14px">
-                            <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--gos-blue)">Город проживания</label>
-                            <input type="text" name="city" placeholder="Ваш город" style="width:100%;padding:10px 14px;border:2px solid #d0d5dd;border-radius:8px;font-size:1em;font-family:inherit">
-                        </div>
-                        <div style="margin-bottom:14px">
-                            <label style="display:block;font-weight:600;margin-bottom:6px;color:var(--gos-blue)">Пожелания / Желаемая должность</label>
-                            <textarea name="wish" placeholder="Необязательно" style="width:100%;padding:10px 14px;border:2px solid #d0d5dd;border-radius:8px;font-size:1em;font-family:inherit;resize:vertical;min-height:70px"></textarea>
-                        </div>
-                        <button type="submit" id="citizen-btn" style="width:100%;background:var(--gos-blue);color:white;border:none;padding:14px;font-size:1.1em;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit">
-                            Отправить заявку
-                        </button>
-                    </form>
-
-                    <hr style="border:none;border-top:1px dashed #d0d5dd;margin:18px 0">
-                    <p style="font-size:.9em;color:#666;text-align:center">
-                        Или напишите напрямую:
-                        <a href="https://t.me/ken_amethyst_bot" target="_blank" class="bot-link">🤖 @ken_amethyst_bot</a>
-                    </p>
-                </div>
+          <div class="leader-card">
+            <div class="image-container">
+              <img src="/images/2chel.png" alt="Л. Д. Дундуков" class="leader-card-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSI3NSIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjJjaGVsPC90ZXh0Pjwvc3ZnPg=='">
             </div>
+            <div class="leader-card-name">Л. Д. Дундуков</div>
+            <div class="leader-card-title">Министр Обороны</div>
+          </div>
 
-            <section id="info" class="section">
-                <h2 class="section-title">О КЕНДРЕССИИ</h2>
-                <div class="info-grid">
-                    <div class="info-block">
-                        <h3>Кендрессия</h3>
-                        <ul>
-                            <li><strong>Царь Кендрессии:</strong> Кен Флиш</li>
-                            <li><strong>Форма правления:</strong> Монархия</li>
-                            <li><strong>Дата основания:</strong> С момента создания AmethystSMP</li>
-                        </ul>
-                    </div>
-                    <div class="info-block">
-                        <h3>О Кендрессии</h3>
-                        <ul>
-                            <li>Одно из самых первых государство</li>
-                            <li>Самое влиятельное и сильное государство</li>
-                            <li>Развитая экономика и порядок везде</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="news" class="section">
-                <h2 class="section-title">НОВОСТИ</h2>
-                <div class="news-container">
-                    <div class="news-carousel" id="newsCarousel"></div>
-                </div>
-            </section>
-
-            <!-- Раздел: Главы государства -->
-            <section id="leaders" class="section">
-                <h2 class="section-title">ГЛАВЫ ГОСУДАРСТВА</h2>
-                <div class="leaders-grid">
-                    <!-- Кен Флиш Сигмославович -->
-                    <div class="leader-card">
-                        <div class="image-container">
-                            <img src="/images/1chel.png" alt="Кен Флиш" class="leader-card-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSI3NSIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjFjaGVsPC90ZXh0Pjwvc3ZnPg=='>
-                        </div>
-                        <div class="leader-card-name">Кен Флиш Сигмославович</div>
-                        <div class="leader-card-title">Главный и единственный правитель<br>Управляющий Военно-диверсионного корпуса армии СПБ<br>Министр КенПросвещения</div>
-                    </div>
-
-                    <!-- Л. Д. Дундуков -->
-                    <div class="leader-card">
-                        <div class="image-container">
-                            <img src="/images/2chel.png" alt="Л. Д. Дундуков" class="leader-card-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSI3NSIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjJjaGVsPC90ZXh0Pjwvc3ZnPg=='>
-                        </div>
-                        <div class="leader-card-name">Л. Д. Дундуков</div>
-                        <div class="leader-card-title">Министр Обороны</div>
-                    </div>
-
-                    <!-- Ж. Супер Пиздабол -->
-                    <div class="leader-card">
-                        <div class="image-container">
-                            <img src="/images/3chel.png" alt="Ж. Супер Пиздабол" class="leader-card-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSI3NSIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjNjaGVsPC90ZXh0Pjwvc3ZnPg=='>
-                        </div>
-                        <div class="leader-card-name">Ж. Супер Пиздабол</div>
-                        <div class="leader-card-title">Глава иностранных дел</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Секция СЛУЖБА (без анкеты, только фото и текст) -->
-            <section id="service" class="section">
-                <h2 class="section-title">СЛУЖБА ПО КОНТРАКТУ</h2>
-                <div class="service-section">
-                    <img src="/images/service-photo.png" alt="Служба в СПБ" class="service-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDUwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSIyNTAiIHk9IjE1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+0KHQu9GD0LbQsdCwINCyINCh0J/QkdC70LDRhdCw0YHRgtC4PC90ZXh0Pjwvc3ZnPg=='>
-                    <div class="service-text">СЛУЖИ В СПБ</div>
-                </div>
-            </section>
-
-            <!-- Секция КОНТАКТ (отдельная) -->
-            <section id="contact" class="section">
-                <h2 class="section-title">СВЯЗЬ С АДМИНИСТРАЦИЕЙ</h2>
-                <div style="text-align: center;">
-                    <p style="margin-bottom: 20px;">Для связи с администрацией Кендрессии нажмите на кнопку ниже</p>
-                    <button class="contact-btn" onclick="openServiceModal()">📞 КОНТАКТ</button>
-                </div>
-            </section>
-
-            <!-- Модальное окно для КОНТАКТА (Служба в СПБ) -->
-            <div class="modal" id="serviceModal" onclick="closeServiceModal(event)">
-                <div class="modal-content" onclick="event.stopPropagation()">
-                    <span class="modal-close" onclick="closeServiceModal()">&times;</span>
-                    <h2 class="modal-title">⚔️ СЛУЖБА В СПБ</h2>
-                    <div class="modal-text">
-                        <p>Для записи на военную службу по контракту:</p>
-                        <ul class="instruction-list">
-                            <li>Напишите боту <strong>@ken_amethyst_bot</strong></li>
-                            <li>Укажите ФИО, возраст и наличие военного билета</li>
-                            <li>Укажите желаемую должность</li>
-                            <li>Дождитесь ответа от военного комиссара</li>
-                        </ul>
-                        <div style="text-align: center; margin: 15px 0;">
-                            <a href="https://t.me/ken_amethyst_bot" target="_blank" class="bot-link">🤖 Написать боту @ken_amethyst_bot</a>
-                        </div>
-                        <p style="font-size: 0.9em; color: #666;">После рассмотрения заявки вам будет назначена дата прибытия.</p>
-                    </div>
-                </div>
+          <div class="leader-card">
+            <div class="image-container">
+              <img src="/images/3chel.png" alt="Ж. Супер Пиздабол" class="leader-card-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSI3NSIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjNjaGVsPC90ZXh0Pjwvc3ZnPg=='">
             </div>
+            <div class="leader-card-name">Ж. Супер Пиздабол</div>
+            <div class="leader-card-title">Глава иностранных дел</div>
+          </div>
+        </div>
+      </section>
 
-            <section id="constitution" class="section">
-                <h2 class="section-title">КОНСТИТУЦИЯ И ЗАКОНЫ</h2>
+      <section id="service" class="section">
+        <h2 class="section-title">СЛУЖБА ПО КОНТРАКТУ</h2>
+        <div class="service-section">
+          <img src="/images/service-photo.png" alt="Служба в СПБ" class="service-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDUwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMxOTZFRkYiLz48dGV4dCB4PSIyNTAiIHk9IjE1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+0KHQu9GD0LbQsdCwINCyINCh0J/QkdC70LDRhdCw0YHRgtC4PC90ZXh0Pjwvc3ZnPg=='>
+          <div class="service-text">СЛУЖИ В СПБ</div>
+        </div>
+      </section>
 
-                <div class="constitution-container">
-                    <div class="constitution-header">КОНСТИТУЦИЯ СОЮЗА ПАРТИИ БОМЖЕЙ И БОГАЧЕЙ (СПБ)</div>
-                    
-                    <div class="constitution-part">
-                        <div class="chapter-title">РАЗДЕЛ ПЕРВЫЙ. ОСНОВНЫЕ ПОЛОЖЕНИЯ</div>
-                        <div class="article-clause"><strong>Статья 1.</strong> Союз Партии Бомжей и Богачей (СПБ) является суверенным государством с диктатурой.</div>
-                        <div class="article-clause"><strong>Статья 1.2.</strong> Наименования «Кендрессия» и «СПБ» являются равнозначными.</div>
-                        <div class="article-clause"><strong>Статья 2.</strong> Граждане СПБ обладают личной свободой и неприкосновенностью.</div>
-                        <div class="article-clause"><strong>Статья 2.2.</strong> Агрессия, оскорбление, причинение вреда здоровью или имуществу гражданина являются преступлениями и преследуются по закону.</div>
-                        <div class="article-clause"><strong>Статья 2.3.</strong> Акт агрессии, совершённый иностранным государством или его гражданином, является основанием для объявления состояния войны.</div>
-                        <div class="article-clause"><strong>Статья 3.</strong> Конституция СПБ обладает высшей юридической силой и является незыблемым законом.</div>
-                        <div class="article-clause"><strong>Статья 3.2.</strong> Действие Конституции распространяется на всю территорию СПБ.</div>
-                        <div class="article-clause"><strong>Статья 3.3.</strong> СПБ гарантирует целостность и неприкосновенность своей территории.</div>
-                        <div class="article-clause"><strong>Статья 4.</strong> Земля и природные ресурсы являются основой жизнедеятельности государства.</div>
-                        <div class="article-clause"><strong>Статья 4.2.</strong> Ресурсы находятся под верховным контролем государства. Право пользования предоставляется в соответствии с законом.</div>
-                    </div>
+      <section id="contact" class="section">
+        <h2 class="section-title">СВЯЗЬ С АДМИНИСТРАЦИЕЙ</h2>
+        <div style="text-align:center">
+          <p style="margin-bottom:20px">Для связи с администрацией Кендрессии нажмите на кнопку ниже</p>
+          <button class="contact-btn" onclick="openServiceModal()">📞 КОНТАКТ</button>
+        </div>
+      </section>
 
-                    <div class="constitution-part">
-                        <div class="chapter-title">Глава 2. Права, свободы и обязанности человека и гражданина</div>
-                        <div class="article-clause"><strong>Статья 5.</strong> Права и свободы человека в СПБ признаются и гарантируются в той мере, в какой они не противоречат воле Царя и интересам государства.</div>
-                        <div class="article-clause"><strong>Статья 5.2.</strong> Основные права и свободы принадлежат человеку от рождения.</div>
-                        <div class="article-clause"><strong>Статья 5.3.</strong> Осуществление прав и свобод не должно нарушать права и свободы других лиц.</div>
-                        <div class="article-clause"><strong>Статья 6.</strong> Свобода слова гарантируется, за исключением случаев оскорбления власти, подрыва государственного строя или призывов к насилию.</div>
-                        <div class="article-clause"><strong>Статья 6.2.</strong> Запрещается пропаганда, направленная против государства, а также разжигание социальной, расовой или классовой ненависти.</div>
-                        <div class="article-clause"><strong>Статья 7.</strong> Запрещается незаконное завладение, повреждение или уничтожение чужого имущества (грабёж, кража, вандализм).</div>
-                        <div class="article-clause"><strong>Статья 7.2.</strong> Запрещается убийство.</div>
-                        <div class="article-clause"><strong>Статья 7.3.</strong> Запрещается нанесение телесных повреждений.</div>
-                        <div class="article-clause"><strong>Статья 8.</strong> Гражданин обязан беспрекословно подчиняться законным требованиям органов государственной власти и Царя.</div>
-                        <div class="article-clause"><strong>Статья 9.</strong> Гражданин СПБ не может иметь гражданство иностранного государства без специального разрешения.</div>
-                        <div class="article-clause"><strong>Статья 9.2.</strong> Гражданин имеет право на обращение в государственные органы.</div>
-                        <div class="article-clause"><strong>Статья 10.</strong> Каждый гражданин обязан пройти установленную законом службу в Армии СПБ.</div>
-                        <div class="article-clause"><strong>Статья 10.2.</strong> Объявление всеобщей мобилизации является исключительным правом Царя.</div>
-                        <div class="article-clause"><strong>Статья 11.</strong> Деятельность в качестве иностранного агента запрещена.</div>
-                        <div class="article-clause"><strong>Статья 11.2.</strong> Гражданин обязан сообщать о известных ему фактах шпионажа или государственной измены.</div>
-                        <div class="article-clause"><strong>Статья 11.3.</strong> Государственная измена и шпионаж караются смертной казнью.</div>
-                    </div>
+      <!-- Modal: контакт -->
+      <div class="modal" id="serviceModal" onclick="closeServiceModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+          <span class="modal-close" onclick="closeServiceModal()">&times;</span>
+          <h2 class="modal-title">⚔️ СЛУЖБА В СПБ</h2>
+          <div class="modal-text">
+            <p>Для записи на военную службу по контракту:</p>
+            <ul class="instruction-list">
+              <li>Напишите боту <strong>@ken_amethyst_bot</strong></li>
+              <li>Укажите ФИО, возраст и наличие военного билета</li>
+              <li>Укажите желаемую должность</li>
+              <li>Дождитесь ответа от военного комиссара</li>
+            </ul>
+            <div style="text-align:center;margin:15px 0">
+              <a href="https://t.me/ken_amethyst_bot" target="_blank" class="bot-link">🤖 Написать боту @ken_amethyst_bot</a>
+            </div>
+            <p style="font-size:.9em;color:var(--muted)">После рассмотрения заявки вам будет назначена дата прибытия.</p>
+          </div>
+        </div>
+      </div>
 
-                    <div class="constitution-part">
-                        <div class="chapter-title">Глава 3. Основы правопорядка</div>
-                        <div class="article-clause"><strong>Статья 12.</strong> Убийство наказывается смертной казнью.</div>
-                        <div class="article-clause"><strong>Статья 12.2.</strong> Хищение или порча имущества влекут возмещение ущерба и уголовное наказание.</div>
-                        <div class="article-clause"><strong>Статья 12.3.</strong> Нарушение неприкосновенности жилища запрещено.</div>
-                        <div class="article-clause"><strong>Статья 13.</strong> Мошенничество запрещено и наказывается конфискацией имущества.</div>
-                        <div class="article-clause"><strong>Статья 13.2.</strong> Дача ложных показаний органам власти или Царю является тяжким преступлением.</div>
-                        <div class="article-clause"><strong>Статья 13.3.</strong> Шантаж и вымогательство запрещены.</div>
-                        <div class="article-clause"><strong>Статья 14.</strong> Любое строительство требует разрешения уполномоченных органов власти.</div>
-                        <div class="article-clause"><strong>Статья 14.2.</strong> Повреждение объектов государственной инфраструктуры приравнивается к диверсии.</div>
-                        <div class="article-clause"><strong>Статья 14.3.</strong> Незаконная добыча ресурсов запрещена.</div>
-                        <div class="article-clause"><strong>Статья 15.</strong> Уклонение от мобилизации является государственной изменой и карается смертной казнью.</div>
-                        <div class="article-clause"><strong>Статья 15.2.</strong> Неоказание содействия представителю власти при исполнении обязанностей является преступлением.</div>
-                    </div>
+      <section id="constitution" class="section">
+        <h2 class="section-title">КОНСТИТУЦИЯ И ЗАКОНЫ</h2>
 
-                    <div class="confirmation-stamp">
-                        <p>Настоящая Конституция утверждена и вступает в законную силу</p>
-                        <div class="date">18 февраля 2026 года</div>
-                        <p>Государственной Думой Кендрессии</p>
-                        <p style="font-style: italic; margin-top: 10px;">За подписью Великого Правителя Кена</p>
-                    </div>
-                </div>
+        <div class="constitution-container">
+          <div class="constitution-header">КОНСТИТУЦИЯ СОЮЗА ПАРТИИ БОМЖЕЙ И БОГАЧЕЙ (СПБ)</div>
 
-                <div class="laws-list">
-                    <div class="law-item">
-                        <h3>Закон №1: Форма правления</h3>
-                        <p>Самый главный и первый человек в Кендрессии — её Царь и Правитель Кен Флиш. Его указы, запреты и законы являются первоочередными во всём государстве.</p>
-                    </div>
+          <div class="constitution-part">
+            <div class="chapter-title">РАЗДЕЛ ПЕРВЫЙ. ОСНОВНЫЕ ПОЛОЖЕНИЯ</div>
+            <div class="article-clause"><strong>Статья 1.</strong> Союз Партии Бомжей и Богачей (СПБ) является суверенным государством с диктатурой.</div>
+            <div class="article-clause"><strong>Статья 1.2.</strong> Наименования «Кендрессия» и «СПБ» являются равнозначными.</div>
+            <div class="article-clause"><strong>Статья 2.</strong> Граждане СПБ обладают личной свободой и неприкосновенностью.</div>
+            <div class="article-clause"><strong>Статья 2.2.</strong> Агрессия, оскорбление, причинение вреда здоровью или имуществу гражданина являются преступлениями и преследуются по закону.</div>
+            <div class="article-clause"><strong>Статья 2.3.</strong> Акт агрессии, совершённый иностранным государством или его гражданином, является основанием для объявления состояния войны.</div>
+            <div class="article-clause"><strong>Статья 3.</strong> Конституция СПБ обладает высшей юридической силой и является незыблемым законом.</div>
+            <div class="article-clause"><strong>Статья 3.2.</strong> Действие Конституции распространяется на всю территорию СПБ.</div>
+            <div class="article-clause"><strong>Статья 3.3.</strong> СПБ гарантирует целостность и неприкосновенность своей территории.</div>
+            <div class="article-clause"><strong>Статья 4.</strong> Земля и природные ресурсы являются основой жизнедеятельности государства.</div>
+            <div class="article-clause"><strong>Статья 4.2.</strong> Ресурсы находятся под верховным контролем государства. Право пользования предоставляется в соответствии с законом.</div>
+          </div>
 
-                    <div class="law-item">
-                        <h3>Закон №1.2: О гражданских обязанностях</h3>
-                        <p>Каждый гражданин должен уважать и чтить Великого Правителя, слушаться его и повиноваться.</p>
-                    </div>
+          <div class="constitution-part">
+            <div class="chapter-title">Глава 2. Права, свободы и обязанности человека и гражданина</div>
+            <div class="article-clause"><strong>Статья 5.</strong> Права и свободы человека в СПБ признаются и гарантируются в той мере, в какой они не противоречат воле Царя и интересам государства.</div>
+            <div class="article-clause"><strong>Статья 5.2.</strong> Основные права и свободы принадлежат человеку от рождения.</div>
+            <div class="article-clause"><strong>Статья 5.3.</strong> Осуществление прав и свобод не должно нарушать права и свободы других лиц.</div>
+            <div class="article-clause"><strong>Статья 6.</strong> Свобода слова гарантируется, за исключением случаев оскорбления власти, подрыва государственного строя или призывов к насилию.</div>
+            <div class="article-clause"><strong>Статья 6.2.</strong> Запрещается пропаганда, направленная против государства, а также разжигание социальной, расовой или классовой ненависти.</div>
+            <div class="article-clause"><strong>Статья 7.</strong> Запрещается незаконное завладение, повреждение или уничтожение чужого имущества (грабёж, кража, вандализм).</div>
+            <div class="article-clause"><strong>Статья 7.2.</strong> Запрещается убийство.</div>
+            <div class="article-clause"><strong>Статья 7.3.</strong> Запрещается нанесение телесных повреждений.</div>
+            <div class="article-clause"><strong>Статья 8.</strong> Гражданин обязан беспрекословно подчиняться законным требованиям органов государственной власти и Царя.</div>
+            <div class="article-clause"><strong>Статья 9.</strong> Гражданин СПБ не может иметь гражданство иностранного государства без специального разрешения.</div>
+            <div class="article-clause"><strong>Статья 9.2.</strong> Гражданин имеет право на обращение в государственные органы.</div>
+            <div class="article-clause"><strong>Статья 10.</strong> Каждый гражданин обязан пройти установленную законом службу в Армии СПБ.</div>
+            <div class="article-clause"><strong>Статья 10.2.</strong> Объявление всеобщей мобилизации является исключительным правом Царя.</div>
+            <div class="article-clause"><strong>Статья 11.</strong> Деятельность в качестве иностранного агента запрещена.</div>
+            <div class="article-clause"><strong>Статья 11.2.</strong> Гражданин обязан сообщать о известных ему фактах шпионажа или государственной измены.</div>
+            <div class="article-clause"><strong>Статья 11.3.</strong> Государственная измена и шпионаж караются смертной казнью.</div>
+          </div>
 
-                    <div class="law-item">
-                        <h3>Закон №1.3: Свобода слова</h3>
-                        <p>Критика, оскорбление и нанесение ран и телесных повреждений наказуемо и считается предательством родины.</p>
-                    </div>
+          <div class="constitution-part">
+            <div class="chapter-title">Глава 3. Основы правопорядка</div>
+            <div class="article-clause"><strong>Статья 12.</strong> Убийство наказывается смертной казнью.</div>
+            <div class="article-clause"><strong>Статья 12.2.</strong> Хищение или порча имущества влекут возмещение ущерба и уголовное наказание.</div>
+            <div class="article-clause"><strong>Статья 12.3.</strong> Нарушение неприкосновенности жилища запрещено.</div>
+            <div class="article-clause"><strong>Статья 13.</strong> Мошенничество запрещено и наказывается конфискацией имущества.</div>
+            <div class="article-clause"><strong>Статья 13.2.</strong> Дача ложных показаний органам власти или Царю является тяжким преступлением.</div>
+            <div class="article-clause"><strong>Статья 13.3.</strong> Шантаж и вымогательство запрещены.</div>
+            <div class="article-clause"><strong>Статья 14.</strong> Любое строительство требует разрешения уполномоченных органов власти.</div>
+            <div class="article-clause"><strong>Статья 14.2.</strong> Повреждение объектов государственной инфраструктуры приравнивается к диверсии.</div>
+            <div class="article-clause"><strong>Статья 14.3.</strong> Незаконная добыча ресурсов запрещена.</div>
+            <div class="article-clause"><strong>Статья 15.</strong> Уклонение от мобилизации является государственной изменой и карается смертной казнью.</div>
+            <div class="article-clause"><strong>Статья 15.2.</strong> Неоказание содействия представителю власти при исполнении обязанностей является преступлением.</div>
+          </div>
 
-                    <div class="law-item">
-                        <h3>Закон №2: Граница</h3>
-                        <p>- Территория закрыта для перемещения. Посещение территории должно быть согласовано с правителем государства. При нахождении на ней мы имеем право вас убить.<br>
-                           - Проплывание в территориальных водах запрещено! Они отмечены на карте.<br>
-                           - Воздушное пространство над государством закрыто.<br>
-                           - Строительство вокруг государства запрещено.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="registry" class="section">
-                <h2 class="section-title">РЕЕСТР</h2>
-                <div class="registry-list">
-                    <div class="person-card">
-                        <div class="card-header">
-                            <span class="status status-wanted">В РОЗЫСКЕ</span>
-                            <span class="category">Иностранный агент</span>
-                            <span class="category">Экстремист</span>
-                        </div>
-                        <div class="person-name">❗️Платон❗️</div>
-                        <div class="person-detail"><strong>Причина:</strong> Распространение экстремисткой идеологии, подрыв государственных устоев</div>
-                        <div class="person-detail"><strong>Статус:</strong> Объявлен в розыск</div>
-                        <div class="person-detail"><strong>Дата внесения:</strong> 02.02.2026</div>
-                    </div>
-
-                    <div class="person-card">
-                        <div class="card-header">
-                            <span class="status status-wanted">В РОЗЫСКЕ</span>
-                            <span class="category">Иностранный агент</span>
-                            <span class="category">Оскорбитель власти</span>
-                        </div>
-                        <div class="person-name">❗️Алочность❗️</div>
-                        <div class="person-detail"><strong>Причина:</strong> Систематические оскорбления Великого Правителя и государственных институтов</div>
-                        <div class="person-detail"><strong>Статус:</strong> Объявлен в розыск</div>
-                        <div class="person-detail"><strong>Дата внесения:</strong> 02.02.2026</div>
-                    </div>
-
-                    <div class="person-card">
-                        <div class="card-header">
-                            <span class="status status-wanted">В РОЗЫСКЕ</span>
-                            <span class="category">Иностранный агент</span>
-                        </div>
-                        <div class="person-name">❗️Shnaps❗️</div>
-                        <div class="person-detail"><strong>Причина:</strong> Многочисленные оскорбления и нарушения правил</div>
-                        <div class="person-detail"><strong>Статус:</strong> Объявлен в розыск</div>
-                        <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
-                    </div>
-
-                    <div class="person-card">
-                        <div class="card-header">
-                            <span class="status status-wanted">В РОЗЫСКЕ</span>
-                            <span class="category">Иностранный агент</span>
-                        </div>
-                        <div class="person-name">❗️Drakon❗️</div>
-                        <div class="person-detail"><strong>Причина:</strong> Проживание за пределами государства и получение средств от представителей власти</div>
-                        <div class="person-detail"><strong>Статус:</strong> Объявлен в розыск</div>
-                        <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
-                    </div>
-
-                    <div class="person-card">
-                        <div class="card-header">
-                            <span class="status status-wanted">В РОЗЫСКЕ</span>
-                            <span class="category">Иностранный агент</span>
-                        </div>
-                        <div class="person-name">❗️Skelle❗️</div>
-                        <div class="person-detail"><strong>Причина:</strong> Незаконная деятельность против государства</div>
-                        <div class="person-detail"><strong>Статус:</strong> В розыске</div>
-                        <div class="person-detail"><strong>Дата внесения:</strong> 30.10.2025</div>
-                    </div>
-
-                    <div class="person-card">
-                        <div class="card-header">
-                            <span class="status status-wanted">В РОЗЫСКЕ</span>
-                            <span class="category">Иностранный агент</span>
-                        </div>
-                        <div class="person-name">❗️Da1loks❗️</div>
-                        <div class="person-detail"><strong>Причина:</strong> Террористические действия, критика, военные действия и незаконные убийства на территории Кендресси</div>
-                        <div class="person-detail"><strong>Статус:</strong> В статусе снятия санкций</div>
-                        <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
-                    </div>
-
-                    <div class="person-card">
-                        <div class="card-header">
-                            <span class="status status-wanted">В РОЗЫСКЕ</span>
-                            <span class="category">Иностранный агент</span>
-                        </div>
-                        <div class="person-name">❗️ратмир кабанов❗️</div>
-                        <div class="person-detail"><strong>Причина:</strong> Критика и оскорбления Власти Великой Кендрессии</div>
-                        <div class="person-detail"><strong>Статус:</strong> В розыске</div>
-                        <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
-                    </div>
-
-                    <div class="person-card">
-                        <div class="card-header">
-                            <span class="status status-wanted">В РОЗЫСКЕ</span>
-                            <span class="category">Иностранный агент</span>
-                        </div>
-                        <div class="person-name">❗️termoqderka❗️</div>
-                        <div class="person-detail"><strong>Причина:</strong> Критика и оскорбления Власти Великой Кендрессии</div>
-                        <div class="person-detail"><strong>Статус:</strong> В розыске</div>
-                        <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
-                    </div>
-
-                    <div class="person-card">
-                        <div class="card-header">
-                            <span class="status status-wanted">В РОЗЫСКЕ</span>
-                            <span class="category">Иностранный агент</span>
-                        </div>
-                        <div class="person-name">❗️SuperSlime❗️</div>
-                        <div class="person-detail"><strong>Причина:</strong> Критика и оскорбления Власти Великой Кендрессии</div>
-                        <div class="person-detail"><strong>Статус:</strong> В розыске</div>
-                        <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
-                    </div>
-
-                    <div class="person-card">
-                        <div class="card-header">
-                            <span class="status status-wanted">В РОЗЫСКЕ</span>
-                            <span class="category">Иностранный агент</span>
-                        </div>
-                        <div class="person-name">❗️Lil Testi❗️</div>
-                        <div class="person-detail"><strong>Причина:</strong> Многочисленные оскорбления и нарушения правил</div>
-                        <div class="person-detail"><strong>Статус:</strong> Объявлен в розыск</div>
-                        <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
-                    </div>
-
-                    <div class="person-card">
-                        <div class="card-header">
-                            <span class="status status-wanted">В РОЗЫСКЕ</span>
-                            <span class="category">Иностранный агент</span>
-                        </div>
-                        <div class="person-name">❗️Весь Сервер AmethystSMP❗️</div>
-                        <div class="person-detail"><strong>Причина:</strong> Для профилактики</div>
-                        <div class="person-detail"><strong>Дата внесения:</strong> 27.10.2025</div>
-                    </div>
-
-                    <div class="person-card">
-                        <div class="card-header">
-                            <span class="status status-wanted">В РОЗЫСКЕ</span>
-                            <span class="category">Иностранный агент</span>
-                            <span class="category">Интернет террорист</span>
-                        </div>
-                        <div class="person-name">❗️WaterFlane❗️</div>
-                        <div class="person-detail"><strong>Причина:</strong> Многочисленные нарушения правил, клевета и критика правительства</div>
-                        <div class="person-detail"><strong>Статус:</strong> Объявлен в розыск</div>
-                        <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
-                    </div>
-
-                    <div class="person-card">
-                        <div class="card-header">
-                            <span class="status status-wanted">ЗАПРЕЩЕНО</span>
-                            <span class="category">Запрещённая символика</span>
-                        </div>
-                        <div class="person-name">❗️✧ℂ𝕙𝕖𝕝𝕝◦❗️</div>
-                        <div class="person-detail"><strong>Причина:</strong> Признано экстремистской символикой</div>
-                        <div class="person-detail"><strong>Статус:</strong> Запрещено</div>
-                        <div class="person-detail"><strong>Дата внесения:</strong> 19.11.2025</div>
-                    </div>
-                </div>
-            </section>
+          <div class="confirmation-stamp">
+            <p>Настоящая Конституция утверждена и вступает в законную силу</p>
+            <div class="date">18 февраля 2026 года</div>
+            <p>Государственной Думой Кендрессии</p>
+            <p style="font-style:italic;margin-top:10px">За подписью Великого Правителя Кена</p>
+          </div>
         </div>
 
-        <footer>
-            <div class="footer-content">
-                <p>© 2025-2026 КенУслуги | Государственный портал Кендрессии</p>
-                <div class="signature">Кен</div>
-                <div class="footer-links">
-                    <a href="#">О портале</a>
-                    <a href="#">Поддержка</a>
-                    <a href="https://t.me/AmethystSMPChannel">AmethystSMP</a>
-                </div>
-                <p style="font-size: 12px; margin-top: 20px; opacity: 0.8;">
-                    Игровой проект. Все события и персонажи вымышлены.
-                </p>
+        <div class="laws-list">
+          <div class="law-item">
+            <h3>Закон №1: Форма правления</h3>
+            <p>Самый главный и первый человек в Кендрессии — её Царь и Правитель Кен Флиш. Его указы, запреты и законы являются первоочередными во всём государстве.</p>
+          </div>
+          <div class="law-item">
+            <h3>Закон №1.2: О гражданских обязанностях</h3>
+            <p>Каждый гражданин должен уважать и чтить Великого Правителя, слушаться его и повиноваться.</p>
+          </div>
+          <div class="law-item">
+            <h3>Закон №1.3: Свобода слова</h3>
+            <p>Критика, оскорбление и нанесение ран и телесных повреждений наказуемо и считается предательством родины.</p>
+          </div>
+          <div class="law-item">
+            <h3>Закон №2: Граница</h3>
+            <p>- Территория закрыта для перемещения. Посещение территории должно быть согласовано с правителем государства. При нахождении на ней мы имеем право вас убить.<br>
+               - Проплывание в территориальных водах запрещено! Они отмечены на карте.<br>
+               - Воздушное пространство над государством закрыто.<br>
+               - Строительство вокруг государства запрещено.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="registry" class="section">
+        <h2 class="section-title">РЕЕСТР</h2>
+        <div class="registry-list">
+          <div class="person-card">
+            <div class="card-header">
+              <span class="status status-wanted">В РОЗЫСКЕ</span>
+              <span class="category">Иностранный агент</span>
+              <span class="category">Экстремист</span>
             </div>
-        </footer>
+            <div class="person-name">❗️Платон❗️</div>
+            <div class="person-detail"><strong>Причина:</strong> Распространение экстремисткой идеологии, подрыв государственных устоев</div>
+            <div class="person-detail"><strong>Статус:</strong> Объявлен в розыск</div>
+            <div class="person-detail"><strong>Дата внесения:</strong> 02.02.2026</div>
+          </div>
+
+          <div class="person-card">
+            <div class="card-header">
+              <span class="status status-wanted">В РОЗЫСКЕ</span>
+              <span class="category">Иностранный агент</span>
+              <span class="category">Оскорбитель власти</span>
+            </div>
+            <div class="person-name">❗️Алочность❗️</div>
+            <div class="person-detail"><strong>Причина:</strong> Систематические оскорбления Великого Правителя и государственных институтов</div>
+            <div class="person-detail"><strong>Статус:</strong> Объявлен в розыск</div>
+            <div class="person-detail"><strong>Дата внесения:</strong> 02.02.2026</div>
+          </div>
+
+          <div class="person-card">
+            <div class="card-header">
+              <span class="status status-wanted">В РОЗЫСКЕ</span>
+              <span class="category">Иностранный агент</span>
+            </div>
+            <div class="person-name">❗️Shnaps❗️</div>
+            <div class="person-detail"><strong>Причина:</strong> Многочисленные оскорбления и нарушения правил</div>
+            <div class="person-detail"><strong>Статус:</strong> Объявлен в розыск</div>
+            <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
+          </div>
+
+          <div class="person-card">
+            <div class="card-header">
+              <span class="status status-wanted">В РОЗЫСКЕ</span>
+              <span class="category">Иностранный агент</span>
+            </div>
+            <div class="person-name">❗️Drakon❗️</div>
+            <div class="person-detail"><strong>Причина:</strong> Проживание за пределами государства и получение средств от представителей власти</div>
+            <div class="person-detail"><strong>Статус:</strong> Объявлен в розыск</div>
+            <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
+          </div>
+
+          <div class="person-card">
+            <div class="card-header">
+              <span class="status status-wanted">В РОЗЫСКЕ</span>
+              <span class="category">Иностранный агент</span>
+            </div>
+            <div class="person-name">❗️Skelle❗️</div>
+            <div class="person-detail"><strong>Причина:</strong> Незаконная деятельность против государства</div>
+            <div class="person-detail"><strong>Статус:</strong> В розыске</div>
+            <div class="person-detail"><strong>Дата внесения:</strong> 30.10.2025</div>
+          </div>
+
+          <div class="person-card">
+            <div class="card-header">
+              <span class="status status-wanted">В РОЗЫСКЕ</span>
+              <span class="category">Иностранный агент</span>
+            </div>
+            <div class="person-name">❗️Da1loks❗️</div>
+            <div class="person-detail"><strong>Причина:</strong> Террористические действия, критика, военные действия и незаконные убийства на территории Кендресси</div>
+            <div class="person-detail"><strong>Статус:</strong> В статусе снятия санкций</div>
+            <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
+          </div>
+
+          <div class="person-card">
+            <div class="card-header">
+              <span class="status status-wanted">В РОЗЫСКЕ</span>
+              <span class="category">Иностранный агент</span>
+            </div>
+            <div class="person-name">❗️ратмир кабанов❗️</div>
+            <div class="person-detail"><strong>Причина:</strong> Критика и оскорбления Власти Великой Кендрессии</div>
+            <div class="person-detail"><strong>Статус:</strong> В розыске</div>
+            <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
+          </div>
+
+          <div class="person-card">
+            <div class="card-header">
+              <span class="status status-wanted">В РОЗЫСКЕ</span>
+              <span class="category">Иностранный агент</span>
+            </div>
+            <div class="person-name">❗️termoqderka❗️</div>
+            <div class="person-detail"><strong>Причина:</strong> Критика и оскорбления Власти Великой Кендрессии</div>
+            <div class="person-detail"><strong>Статус:</strong> В розыске</div>
+            <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
+          </div>
+
+          <div class="person-card">
+            <div class="card-header">
+              <span class="status status-wanted">В РОЗЫСКЕ</span>
+              <span class="category">Иностранный агент</span>
+            </div>
+            <div class="person-name">❗️SuperSlime❗️</div>
+            <div class="person-detail"><strong>Причина:</strong> Критика и оскорбления Власти Великой Кендрессии</div>
+            <div class="person-detail"><strong>Статус:</strong> В розыске</div>
+            <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
+          </div>
+
+          <div class="person-card">
+            <div class="card-header">
+              <span class="status status-wanted">В РОЗЫСКЕ</span>
+              <span class="category">Иностранный агент</span>
+            </div>
+            <div class="person-name">❗️Lil Testi❗️</div>
+            <div class="person-detail"><strong>Причина:</strong> Многочисленные оскорбления и нарушения правил</div>
+            <div class="person-detail"><strong>Статус:</strong> Объявлен в розыск</div>
+            <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
+          </div>
+
+          <div class="person-card">
+            <div class="card-header">
+              <span class="status status-wanted">В РОЗЫСКЕ</span>
+              <span class="category">Иностранный агент</span>
+            </div>
+            <div class="person-name">❗️Весь Сервер AmethystSMP❗️</div>
+            <div class="person-detail"><strong>Причина:</strong> Для профилактики</div>
+            <div class="person-detail"><strong>Дата внесения:</strong> 27.10.2025</div>
+          </div>
+
+          <div class="person-card">
+            <div class="card-header">
+              <span class="status status-wanted">В РОЗЫСКЕ</span>
+              <span class="category">Иностранный агент</span>
+              <span class="category">Интернет террорист</span>
+            </div>
+            <div class="person-name">❗️WaterFlane❗️</div>
+            <div class="person-detail"><strong>Причина:</strong> Многочисленные нарушения правил, клевета и критика правительства</div>
+            <div class="person-detail"><strong>Статус:</strong> Объявлен в розыск</div>
+            <div class="person-detail"><strong>Дата внесения:</strong> Не зафиксирована</div>
+          </div>
+
+          <div class="person-card">
+            <div class="card-header">
+              <span class="status status-wanted">ЗАПРЕЩЕНО</span>
+              <span class="category">Запрещённая символика</span>
+            </div>
+            <div class="person-name">❗️✧ℂ𝕙𝕖𝕝𝕝◦❗️</div>
+            <div class="person-detail"><strong>Причина:</strong> Признано экстремистской символикой</div>
+            <div class="person-detail"><strong>Статус:</strong> Запрещено</div>
+            <div class="person-detail"><strong>Дата внесения:</strong> 19.11.2025</div>
+          </div>
+        </div>
+      </section>
     </div>
 
-    <div class="notification" id="notification"></div>
+    <footer>
+      <div class="footer-content">
+        <p>© 2025–2026 КенУслуги | Государственный портал Кендрессии</p>
+        <div class="signature">Кен</div>
+        <div class="footer-links">
+          <a href="#">О портале</a>
+          <a href="#">Поддержка</a>
+          <a href="https://t.me/AmethystSMPChannel">AmethystSMP</a>
+        </div>
+        <p style="font-size:12px;margin-top:20px;opacity:.8">Игровой проект. Все события и персонажи вымышлены.</p>
+      </div>
+    </footer>
+  </div>
 
-    <script src="/js/api.js"></script>
-    <script src="/js/auth.js"></script>
-    <script>
-        // ── Модалки ──────────────────────────────────────────
-        function openCitizenshipModal() {
-            document.getElementById('citizenshipModal').classList.add('active');
-        }
-        function closeCitizenshipModal(e) {
-            if (!e || e.target.classList.contains('modal') || e.target.classList.contains('modal-close')) {
-                document.getElementById('citizenshipModal').classList.remove('active');
-            }
-        }
-        function openServiceModal() {
-            document.getElementById('serviceModal').classList.add('active');
-        }
-        function closeServiceModal(e) {
-            if (!e || e.target.classList.contains('modal') || e.target.classList.contains('modal-close')) {
-                document.getElementById('serviceModal').classList.remove('active');
-            }
-        }
+  <div class="notification" id="notification"></div>
 
-        function showNotification(message) {
-            const notif = document.getElementById('notification');
-            notif.textContent = message;
-            notif.style.display = 'block';
-            setTimeout(() => { notif.style.display = 'none'; }, 3000);
-        }
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    // ── Модалки ──
+    function openCitizenshipModal() {
+      document.getElementById('citizenshipModal').classList.add('active');
+    }
+    function closeCitizenshipModal(e) {
+      if (!e || e.target.classList.contains('modal') || e.target.classList.contains('modal-close')) {
+        document.getElementById('citizenshipModal').classList.remove('active');
+      }
+    }
+    function openServiceModal() {
+      document.getElementById('serviceModal').classList.add('active');
+    }
+    function closeServiceModal(e) {
+      if (!e || e.target.classList.contains('modal') || e.target.classList.contains('modal-close')) {
+        document.getElementById('serviceModal').classList.remove('active');
+      }
+    }
 
-        // ── Новости из API ────────────────────────────────────
-        async function createCarousel() {
-            const carousel = document.getElementById('newsCarousel');
-            if (!carousel) return;
+    function showNotification(message) {
+      const notif = document.getElementById('notification');
+      notif.textContent = message;
+      notif.style.display = 'block';
+      setTimeout(() => { notif.style.display = 'none'; }, 3000);
+    }
 
-            try {
-                const res  = await fetch('/api/news');
-                const data = await res.json();
+    // ── Новости из API ──
+    async function createCarousel() {
+      const carousel = document.getElementById('newsCarousel');
+      if (!carousel) return;
 
-                carousel.innerHTML = '';
+      try {
+        const res  = await fetch('/api/news');
+        const data = await res.json();
 
-                for (let i = 0; i < 3; i++) {
-                    data.forEach(news => {
-                        const slide = document.createElement('div');
-                        slide.className = 'news-slide';
-                        slide.innerHTML = `
-                            <div class="news-image-container">
-                                <img src="${news.image}" alt="${news.title}" class="news-image"
-                                     onerror="this.parentElement.style.background='#1936EF'">
-                            </div>
-                            <div class="news-content">
-                                <div class="news-date">${news.date}</div>
-                                <div class="news-title">${news.title}</div>
-                                <div class="news-text">${news.text}</div>
-                                <div class="amethyst-tag">${news.amethyst}</div>
-                            </div>
-                        `;
-                        carousel.appendChild(slide);
-                    });
-                }
+        carousel.innerHTML = '';
 
-                setupCarouselScroll();
-            } catch (err) {
-                carousel.innerHTML = '<div style="padding:30px;color:#666">Ошибка загрузки новостей</div>';
-            }
-        }
-
-        function setupCarouselScroll() {
-            const carousel  = document.getElementById('newsCarousel');
-            const container = document.querySelector('.news-container');
-            if (!carousel || !container) return;
-
-            container.addEventListener('wheel', (e) => {
-                if (e.deltaY !== 0) { e.preventDefault(); carousel.scrollLeft += e.deltaY; }
-            }, { passive: false });
-
-            carousel.addEventListener('scroll', () => {
-                const sw = carousel.scrollWidth, cw = carousel.clientWidth, sl = carousel.scrollLeft;
-                if (sl >= sw - cw * 2)  carousel.scrollLeft = sw / 3;
-                else if (sl <= 0)        carousel.scrollLeft = sw / 3 * 2 - cw;
-            });
-
-            setTimeout(() => { carousel.scrollLeft = carousel.scrollWidth / 3; }, 100);
+        for (let i = 0; i < 3; i++) {
+          data.forEach(news => {
+            const slide = document.createElement('div');
+            slide.className = 'news-slide';
+            slide.innerHTML = `
+              <div class="news-image-container">
+                <img src="${news.image}" alt="${news.title}" class="news-image"
+                     onerror="this.parentElement.style.background='#1936EF'">
+              </div>
+              <div class="news-content">
+                <div class="news-date">${news.date}</div>
+                <div class="news-title">${news.title}</div>
+                <div class="news-text">${news.text}</div>
+                <div class="amethyst-tag">${news.amethyst}</div>
+              </div>
+            `;
+            carousel.appendChild(slide);
+          });
         }
 
-        function setupActiveNav() {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(s => {
-                    if (window.scrollY >= s.offsetTop - 150) current = s.getAttribute('id');
-                });
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
-                });
-            });
-        }
+        setupCarouselScroll();
+      } catch (err) {
+        carousel.innerHTML = '<div style="padding:30px;color:var(--muted)">Ошибка загрузки новостей</div>';
+      }
+    }
 
-        // ── Форма подачи заявки ───────────────────────────────
-        document.addEventListener('DOMContentLoaded', async () => {
-            await updateNavbar();
-            createCarousel();
-            setupActiveNav();
+    function setupCarouselScroll() {
+      const carousel  = document.getElementById('newsCarousel');
+      const container = document.querySelector('.news-container');
+      if (!carousel || !container) return;
 
-            const form   = document.getElementById('citizen-form');
-            const btn    = document.getElementById('citizen-btn');
-            const errBox = document.getElementById('citizen-error');
-            const okBox  = document.getElementById('citizen-success');
+      container.addEventListener('wheel', (e) => {
+        if (e.deltaY !== 0) { e.preventDefault(); carousel.scrollLeft += e.deltaY; }
+      }, { passive: false });
 
-            if (!form) return;
+      carousel.addEventListener('scroll', () => {
+        const sw = carousel.scrollWidth, cw = carousel.clientWidth, sl = carousel.scrollLeft;
+        if (sl >= sw - cw * 2)  carousel.scrollLeft = sw / 3;
+        else if (sl <= 0)        carousel.scrollLeft = sw / 3 * 2 - cw;
+      });
 
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                errBox.style.display = 'none';
+      setTimeout(() => { carousel.scrollLeft = carousel.scrollWidth / 3; }, 100);
+    }
 
-                const body = {
-                    type:     form.type.value,
-                    nickname: form.nickname.value.trim(),
-                    age:      form.age.value     || null,
-                    city:     form.city.value.trim() || null,
-                    wish:     form.wish.value.trim() || null
-                };
-
-                if (!body.type || !body.nickname) {
-                    errBox.textContent = 'Выберите тип заявки и укажите ник';
-                    errBox.style.display = 'block';
-                    return;
-                }
-
-                btn.disabled = true;
-                btn.textContent = 'Отправляем...';
-
-                try {
-                    const res  = await fetch('/api/citizens', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(body)
-                    });
-                    const data = await res.json();
-                    if (!res.ok) throw new Error(data.error || 'Ошибка');
-                    form.style.display = 'none';
-                    okBox.style.display = 'block';
-                    showNotification('Заявка принята! ✅');
-                } catch (err) {
-                    errBox.textContent = err.message;
-                    errBox.style.display = 'block';
-                    btn.disabled = false;
-                    btn.textContent = 'Отправить заявку';
-                }
-            });
+    function setupActiveNav() {
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.nav-link');
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(s => {
+          if (window.scrollY >= s.offsetTop - 150) current = s.getAttribute('id');
         });
-    </script>
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+        });
+      });
+    }
+
+    // ── Форма подачи заявки ──
+    document.addEventListener('DOMContentLoaded', async () => {
+      await updateNavbar();
+      createCarousel();
+      setupActiveNav();
+
+      const form   = document.getElementById('citizen-form');
+      const btn    = document.getElementById('citizen-btn');
+      const errBox = document.getElementById('citizen-error');
+      const okBox  = document.getElementById('citizen-success');
+
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errBox.style.display = 'none';
+
+        const body = {
+          type:     form.type.value,
+          nickname: form.nickname.value.trim(),
+          age:      form.age.value     || null,
+          city:     form.city.value.trim() || null,
+          wish:     form.wish.value.trim() || null
+        };
+
+        if (!body.type || !body.nickname) {
+          errBox.textContent = 'Выберите тип заявки и укажите ник';
+          errBox.style.display = 'block';
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Отправляем...';
+
+        try {
+          const res  = await fetch('/api/citizens', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Ошибка');
+          form.style.display = 'none';
+          okBox.style.display = 'block';
+          showNotification('Заявка принята! ✅');
+        } catch (err) {
+          errBox.textContent = err.message;
+          errBox.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Отправить заявку';
+        }
+      });
+    });
+  </script>
 </body>
 </html>

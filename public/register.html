@@ -6,59 +6,8 @@
   <title>Регистрация — КенУслуги</title>
   <link rel="icon" href="/images/kengos-logo.png" type="image/png">
   <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="/css/site.css">
   <link rel="stylesheet" href="/css/dark.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    :root{--blue:#1936EF;--red:#DA1748;--light-blue:#e6ecff;--light-red:#ffe6ea;--border:#d0d5dd}
-    body{font-family:'Roboto','Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#333;line-height:1.5;min-height:100vh;display:flex;flex-direction:column}
-    .warning-banner{position:fixed;top:0;left:0;right:0;background:var(--red);color:white;padding:8px 0;text-align:center;font-size:12px;z-index:1000;font-weight:500}
-    .main-content{margin-top:38px;flex:1;display:flex;flex-direction:column}
-    .header{background:white;border-bottom:3px solid var(--red);padding:16px 0;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-    .header-container{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:20px}
-    .logo-area{display:flex;align-items:center;gap:12px;text-decoration:none}
-    .kengos-logo{height:48px;width:auto;object-fit:contain}
-    .logo-text h1{color:var(--blue);font-size:1.6em;font-weight:700;line-height:1.1}
-    .logo-text p{color:#888;font-size:.8em}
-    .server-badge{margin-left:auto;background:var(--light-blue);padding:8px 20px;border-radius:40px;border:1px solid var(--blue)}
-    .server-badge a{color:var(--blue);text-decoration:none;font-weight:600;font-size:.9em}
-    .nav{background:white;border-bottom:2px solid var(--red);position:sticky;top:38px;z-index:99}
-    .nav ul{max-width:1200px;margin:0 auto;padding:0 20px;list-style:none;display:flex;flex-wrap:wrap}
-    .nav a{display:block;padding:14px 18px;color:#333;text-decoration:none;font-weight:600;font-size:.9em;border-bottom:3px solid transparent;transition:all .2s}
-    .nav a:hover,.nav a.active{color:var(--red);border-bottom-color:var(--red);background:var(--light-red)}
-    .auth-page{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px}
-    .auth-card{background:white;border-radius:20px;padding:44px 40px;max-width:420px;width:100%;box-shadow:0 8px 40px rgba(25,54,239,.12);border-top:4px solid var(--blue)}
-    .auth-logo{text-align:center;margin-bottom:32px}
-    .auth-logo img{height:56px;margin:0 auto 14px;display:block}
-    .auth-logo h1{color:var(--blue);font-size:1.7em;font-weight:700;margin-bottom:4px}
-    .auth-logo p{color:#888;font-size:.88em}
-    .form-group{margin-bottom:20px}
-    .form-group label{display:block;color:#444;font-weight:600;margin-bottom:7px;font-size:.9em}
-    .form-control{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:10px;font-size:1em;font-family:inherit;transition:border-color .2s,box-shadow .2s;outline:none;background:#fafafa}
-    .form-control:focus{border-color:var(--blue);background:white;box-shadow:0 0 0 3px rgba(25,54,239,.08)}
-    .form-control.error{border-color:var(--red)}
-    .form-error{display:none;color:var(--red);font-size:.8em;margin-top:5px}
-    .form-error.visible{display:block}
-    .alert-danger{background:#fff0f3;color:#c0392b;border:1.5px solid #f5c6cb;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:.9em;display:none}
-    .pwd-wrap{position:relative}
-    .pwd-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#aaa;font-size:1.1em;padding:4px;transition:color .2s}
-    .pwd-toggle:hover{color:var(--blue)}
-    .btn-submit{width:100%;background:var(--red);color:white;border:none;padding:14px;font-size:1.05em;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;transition:background .2s,transform .1s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px}
-    .btn-submit:hover{background:var(--blue)}
-    .btn-submit:active{transform:scale(.98)}
-    .btn-submit:disabled{opacity:.65;cursor:not-allowed;transform:none}
-    .divider{border:none;border-top:1px solid #eee;margin:24px 0}
-    .auth-footer{text-align:center;font-size:.88em;color:#888}
-    .auth-footer a{color:var(--blue);font-weight:600;text-decoration:none}
-    .auth-footer a:hover{text-decoration:underline}
-    .spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .6s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    footer{background:var(--blue);color:white;padding:28px 0;text-align:center}
-    footer p{opacity:.85;font-size:.88em}
-    footer p+p{margin-top:4px;opacity:.6;font-size:.8em}
-    #toast-container{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px}
-  </style>
   <script src="/js/theme.js"></script>
 </head>
 <body>
@@ -79,9 +28,9 @@
       <li><a href="/services.html" class="nav-link">УСЛУГИ</a></li>
       <li><a href="/applications.html" class="nav-link" data-auth="user">МОИ ЗАЯВКИ</a></li>
       <li><a href="/profile.html" class="nav-link" data-auth="user">👤 <span id="nav-user-name">ПРОФИЛЬ</span></a></li>
-      <li><a href="/login.html" class="nav-link" data-auth="guest" style="color:var(--red)">ВОЙТИ</a></li>
+      <li><a href="/login.html" class="nav-link" data-auth="guest" style="color:var(--accent)">ВОЙТИ</a></li>
       <li><a href="#" class="nav-link" data-auth="user" data-action="logout">ВЫЙТИ</a></li>
-          <li style="margin-left:auto;display:flex;align-items:center;padding:0 12px"><button id="theme-toggle" title="Темная тема">🌙</button></li>
+      <li style="margin-left:auto;display:flex;align-items:center;padding:0 12px"><button id="theme-toggle" title="Тема">🌙</button></li>
     </ul>
   </nav>
 
@@ -92,7 +41,7 @@
         <h1>Регистрация</h1>
         <p>Портал Кендрессии</p>
       </div>
-      <div id="reg-error" class="alert-danger"></div>
+      <div id="reg-error" class="alert-danger" style="margin-bottom:16px"></div>
       <form id="register-form" novalidate>
         <div class="form-group">
           <label for="username">Логин (ник)</label>
@@ -156,14 +105,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const password = form.password.value;
     const confirm  = form.confirm.value;
     let bad = false;
-
     if (username.length < 3) { showE(form.username, 'username-error'); bad = true; }
     if (password.length < 6)  { showE(pwdInput, 'password-error'); bad = true; }
     if (password !== confirm)  { showE(form.confirm, 'confirm-error'); bad = true; }
     if (bad) return;
 
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Создаём...';
+    btn.innerHTML = '<span class="spinner-sm"></span> Создаём...';
     try {
       await api.auth.register({ username, password });
       showToast('Аккаунт создан!', 'success');

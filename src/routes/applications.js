@@ -95,8 +95,13 @@ router.post('/', async (req, res) => {
 router.get('/all', requireAdmin, async (req, res) => {
   try {
     const db = await dbPromise;
-    const allApps = await db.all('SELECT * FROM applications ORDER BY createdAt DESC');
-    
+    const allApps = await db.all(
+      `SELECT a.*, u.username
+       FROM applications a
+       LEFT JOIN users u ON a.userId = u.id
+       ORDER BY a.createdAt DESC`
+    );
+
     const formattedApps = allApps.map(a => ({
       ...a,
       formData: JSON.parse(a.formData),

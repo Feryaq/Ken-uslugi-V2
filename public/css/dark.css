@@ -1,259 +1,197 @@
-/* =============================================
-   КенУслуги — Dark Theme
-   Применяется при html.dark
-   ============================================= */
+/* КенУслуги — Dark Theme  |  html.dark */
 
 html.dark {
   color-scheme: dark;
-
-  --primary:        #4f72ff;
-  --primary-dark:   #3a5ae0;
-  --primary-light:  #0d1230;
-  --secondary:      #28a265;
-  --secondary-light:#081e12;
-  --danger:         #f04060;
-  --bg:             #0c0e1a;
-  --surface:        #151827;
-  --surface2:       #1c2033;
-  --header-bg:      #10121e;
-  --header-text:    #ffffff;
-  --text:           #e8eaf0;
-  --text-muted:     #8890aa;
-  --border:         #252840;
-  --shadow:         0 2px 16px rgba(0,0,0,.5);
-  --shadow-hover:   0 6px 28px rgba(79,114,255,.2);
-
-  --blue:       #4f72ff;
-  --red:        #f04060;
-  --light-blue: #0d1230;
-  --light-red:  #1a0810;
+  --primary:    #5b7fff;   /* ярче и читаемее на тёмном */
+  --primary-dk: #4468f0;
+  --primary-lt: #0f1640;
+  --accent:     #f0365a;
+  --accent-lt:  #20040c;
+  --green:      #34d399;
+  --green-lt:   #052e16;
+  --amber:      #fbbf24;
+  --amber-lt:   #1e1000;
+  --bg:         #090d1a;   /* почти чёрно-синий, не серый */
+  --surface:    #111828;
+  --border:     #1e2640;
+  --text:       #edf0fc;
+  --text-2:     #b8c0dc;
+  --muted:      #6878a8;
+  --shadow:     0 2px 12px rgba(0,0,0,.5);
+  --shadow-md:  0 6px 28px rgba(91,127,255,.22);
 }
 
-/* ── Base ── */
-html.dark body {
-  background: var(--bg) !important;
-  color:      var(--text) !important;
-}
+html.dark body { background: var(--bg); color: var(--text); }
 
-/* ── Шапка ── */
+/* Banner */
 html.dark .warning-banner { background: #8a0a26 !important; }
 
-html.dark .header {
-  background:          #10121e !important;
-  border-bottom-color: #f04060 !important;
-  box-shadow:          0 2px 20px rgba(0,0,0,.6) !important;
+/* Header */
+html.dark .header { background: #10121e !important; border-bottom-color: var(--accent) !important; }
+html.dark .logo-text h1 { color: var(--primary) !important; }
+html.dark .logo-text p  { color: var(--muted)   !important; }
+html.dark .server-badge { background: var(--primary-lt) !important; border-color: var(--primary) !important; }
+html.dark .server-badge a { color: var(--primary) !important; }
+
+/* Portal nav */
+html.dark .portal-nav { background: #1228c8 !important; }
+
+/* Section nav */
+html.dark .nav { background: #10121e !important; border-bottom-color: var(--accent) !important; }
+html.dark .nav a, html.dark .nav-link { color: #b0b8d8 !important; }
+html.dark .nav a:hover, html.dark .nav a.active,
+html.dark .nav-link:hover, html.dark .nav-link.active {
+  color: var(--accent) !important; background: var(--accent-lt) !important;
+  border-bottom-color: var(--accent) !important;
 }
 
-html.dark .logo-text h1 { color: #4f72ff !important; }
-html.dark .logo-text p  { color: var(--text-muted) !important; }
-
-html.dark .server-badge {
-  background:   #0d1230 !important;
-  border-color: #4f72ff !important;
+/* Cards / surfaces */
+html.dark .card, html.dark .auth-card, html.dark .sidebar,
+html.dark .table-card, html.dark .filter-bar, html.dark .section,
+html.dark .modal-box {
+  background: var(--surface) !important; border-color: var(--border) !important;
 }
-html.dark .server-badge a { color: #4f72ff !important; }
+html.dark .card-head { background: var(--surface) !important; border-color: var(--border) !important; }
+html.dark .modal-content { background: var(--surface) !important; border-color: var(--accent) !important; }
+html.dark .modal-title { color: var(--primary) !important; border-color: var(--accent) !important; }
 
-/* ── Навбар ── */
-html.dark .nav {
-  background:          #10121e !important;
-  border-bottom-color: #f04060 !important;
+/* Forms */
+html.dark .form-control, html.dark .f-control,
+html.dark input[type="text"], html.dark input[type="password"],
+html.dark input[type="email"], html.dark input[type="number"],
+html.dark input[type="tel"], html.dark input[type="date"],
+html.dark select, html.dark textarea {
+  background: #1c2040 !important; border-color: var(--border) !important; color: var(--text) !important;
 }
-html.dark .nav a        { color: #b8bcd8 !important; }
-html.dark .nav a:hover,
-html.dark .nav a.active {
-  color:               #f04060 !important;
-  background:          #1a0810 !important;
-  border-bottom-color: #f04060 !important;
+html.dark .form-control:focus, html.dark .f-control:focus,
+html.dark input:focus, html.dark select:focus, html.dark textarea:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(79,114,255,.15) !important;
+  background: #1e2448 !important;
 }
+html.dark label { color: var(--muted) !important; }
+html.dark .form-group label { color: var(--primary) !important; }
+html.dark select.form-control, html.dark select.f-control { background: #1c2040 !important; }
 
-html.dark .portal-nav {
-  background:          #0a0c18 !important;
-  border-bottom-color: #252840 !important;
-}
-html.dark .portal-nav a       { color: #a0a8d8 !important; }
-html.dark .portal-nav a:hover { color: #fff !important; }
+/* Buttons */
+html.dark .btn-ghost { border-color: var(--border) !important; color: var(--text-2) !important; }
+html.dark .btn-ghost:hover { color: var(--accent) !important; border-color: var(--accent) !important; background: var(--accent-lt) !important; }
+html.dark .btn-cancel { background: var(--surface) !important; border-color: var(--accent) !important; color: var(--accent) !important; }
+html.dark .btn-modal-no { background: var(--surface) !important; border-color: var(--border) !important; color: var(--text-2) !important; }
+html.dark .btn-modal-no:hover { background: var(--bg) !important; }
+html.dark .btn-submit { background: var(--primary) !important; }
+html.dark .btn-submit:hover { background: var(--primary-dk) !important; }
 
-/* ── Карточки / секции ── */
-html.dark .section,
-html.dark .auth-card,
-html.dark .modal-content,
-html.dark .constitution-container,
-html.dark .law-item,
-html.dark .news-slide,
-html.dark .leader-card,
-html.dark .person-card,
-html.dark .service-card,
-html.dark .stat-card,
-html.dark .profile-info,
-html.dark .app-card,
-html.dark .card {
-  background:   var(--surface) !important;
-  border-color: var(--border) !important;
-  color:        var(--text) !important;
-}
+/* Auth */
+html.dark .auth-card { border-top-color: var(--primary) !important; }
 
-html.dark .card-head {
-  background:   var(--surface) !important;
-  border-color: var(--border) !important;
-  color:        var(--text) !important;
-}
+/* Tables */
+html.dark table { background: var(--surface) !important; }
+html.dark thead th { background: #1228c8 !important; }
+html.dark tbody td { color: var(--text) !important; border-color: var(--border) !important; }
+html.dark tbody tr:nth-child(even) td { background: #181c30 !important; }
+html.dark tbody tr:hover td { background: #1a1e38 !important; }
+html.dark .status-select { background: var(--surface) !important; border-color: var(--border) !important; color: var(--text) !important; }
 
-html.dark .section-title { color: #4f72ff !important; border-bottom-color: #f04060 !important; }
-html.dark .section-title::after { background: #4f72ff !important; }
+/* Filter */
+html.dark .filter-item { background: var(--primary-lt) !important; color: var(--text-2) !important; }
+html.dark .filter-item:hover, html.dark .filter-item.active { background: var(--primary) !important; color: white !important; }
+html.dark .tab-btn-filter { background: var(--primary-lt) !important; border-color: var(--border) !important; color: var(--text-2) !important; }
+html.dark .tab-btn-filter.active { background: var(--surface) !important; color: var(--primary) !important; border-color: var(--primary) !important; }
+html.dark .filter-label { color: var(--text-2) !important; }
 
-/* ── Info ── */
-html.dark .info-grid   { background: #0d1230 !important; border-color: #4f72ff !important; }
-html.dark .info-block h3 { color: #4f72ff !important; }
+/* Service cards */
+html.dark .service-card, html.dark a.service-card { background: var(--surface) !important; border-color: var(--border) !important; color: var(--text) !important; }
+html.dark .service-card h3 { color: var(--primary) !important; }
+html.dark .service-card p  { color: var(--muted)   !important; }
+html.dark .service-card:hover, html.dark a.service-card:hover { box-shadow: var(--shadow-md) !important; }
 
-/* ── Формы ── */
-html.dark .form-control,
-html.dark input[type="text"],
-html.dark input[type="password"],
-html.dark input[type="number"],
-html.dark input[type="email"],
-html.dark input[type="tel"],
-html.dark select,
-html.dark textarea {
-  background:   #1c2033 !important;
-  border-color: #252840 !important;
-  color:        var(--text) !important;
-}
-html.dark .form-control:focus,
-html.dark input:focus,
-html.dark select:focus,
-html.dark textarea:focus {
-  border-color: #4f72ff !important;
-  box-shadow:   0 0 0 3px rgba(79,114,255,.15) !important;
-  background:   #202440 !important;
-}
-html.dark .form-group label { color: var(--text-muted) !important; }
-html.dark label              { color: var(--text-muted) !important; }
+/* Page header */
+html.dark .page-header { background: linear-gradient(135deg, #0e1a8a 0%, #0a0f50 100%) !important; }
 
-html.dark .btn-submit,
-html.dark .contact-btn {
-  background: #8a0a26 !important;
-}
-html.dark .btn-submit:hover,
-html.dark .contact-btn:hover {
-  background: #1936EF !important;
-}
+/* Toast */
+html.dark .toast { background: #1c2040 !important; border-color: var(--border) !important; color: var(--text) !important; }
 
-/* ── Profile page ── */
-html.dark .profile-card {
-  background:   linear-gradient(135deg, #0d1230, #1a0812) !important;
-  border-color: #252840 !important;
-}
-html.dark .profile-name { color: #4f72ff !important; }
-html.dark .profile-info-item { border-bottom-color: rgba(79,114,255,.12) !important; }
-html.dark .profile-info-item dt { color: var(--text-muted) !important; }
-html.dark .profile-info-item dd { color: var(--text) !important; }
+/* Index sections */
+html.dark .section { background: var(--surface) !important; border-color: var(--border) !important; }
+html.dark .section-title { color: var(--primary) !important; }
+html.dark .section-title::after { background: var(--accent) !important; }
+html.dark .info-grid { background: var(--primary-lt) !important; border-color: var(--primary) !important; }
+html.dark .info-block h3 { color: var(--primary) !important; }
+html.dark .leader-card { background: linear-gradient(135deg, var(--primary-lt) 0%, var(--accent-lt) 100%) !important; border-color: var(--primary) !important; }
+html.dark .leader-card:hover { border-color: var(--accent) !important; }
+html.dark .leader-card-name  { color: var(--primary) !important; }
+html.dark .leader-card-title { color: var(--muted) !important; }
+html.dark .news-container { background: var(--primary-lt) !important; border-color: var(--primary) !important; }
+html.dark .news-slide { background: var(--surface) !important; border-color: var(--border) !important; }
+html.dark .news-title { color: var(--primary) !important; }
+html.dark .news-text  { color: var(--muted)   !important; }
+html.dark .news-image-container { background: var(--primary-lt) !important; }
+html.dark .service-section { background: linear-gradient(135deg, var(--primary-lt) 0%, var(--accent-lt) 100%) !important; border-color: var(--primary) !important; }
+html.dark .constitution-container { background: var(--surface) !important; border-color: var(--primary) !important; }
+html.dark .constitution-header { color: var(--primary) !important; }
+html.dark .chapter-title { color: var(--accent) !important; }
+html.dark .constitution-part { border-bottom-color: var(--accent) !important; }
+html.dark .confirmation-stamp { background: var(--primary-lt) !important; border-color: var(--primary) !important; }
+html.dark .confirmation-stamp .date { color: var(--accent) !important; }
+html.dark .law-item { background: var(--accent-lt) !important; border-left-color: var(--accent) !important; }
+html.dark .law-item h3 { color: var(--primary) !important; }
+html.dark .person-card { background: var(--accent-lt) !important; border-color: var(--accent) !important; }
+html.dark .person-name { color: var(--accent) !important; }
+html.dark .person-detail { color: var(--text-2) !important; }
+html.dark .person-detail strong { color: var(--primary) !important; }
+html.dark .category { background: var(--surface) !important; color: var(--primary) !important; border-color: var(--primary) !important; }
+html.dark .bot-link { background: var(--primary-lt) !important; color: var(--primary) !important; border-color: var(--primary) !important; }
+html.dark .bot-link:hover { background: var(--primary) !important; color: white !important; }
 
-/* ── Новости ── */
-html.dark .news-container   { background: #0d1230 !important; border-color: #4f72ff !important; }
-html.dark .news-title        { color: #4f72ff !important; }
-html.dark .news-text         { color: var(--text-muted) !important; }
-html.dark .news-image-container { background: #0d1230 !important; }
-
-/* ── Лидеры ── */
-html.dark .leader-card {
-  background:   linear-gradient(135deg, #0d1230 0%, #1a0810 100%) !important;
-  border-color: #4f72ff !important;
-}
-html.dark .leader-card-name  { color: #4f72ff !important; }
-html.dark .leader-card-title { color: var(--text-muted) !important; }
-
-/* ── Служба ── */
-html.dark .service-section {
-  background:   linear-gradient(135deg, #0d1230 0%, #1a0810 100%) !important;
-  border-color: #4f72ff !important;
-}
-
-/* ── Конституция ── */
-html.dark .chapter-title        { color: #f04060 !important; }
-html.dark .constitution-header  { color: #4f72ff !important; }
-html.dark .constitution-part    { border-bottom-color: #f04060 !important; }
-html.dark .confirmation-stamp   { background: #0d1230 !important; border-color: #4f72ff !important; }
-html.dark .confirmation-stamp .date { color: #f04060 !important; }
-html.dark .law-item  { background: #1a0810 !important; border-left-color: #f04060 !important; }
-html.dark .law-item h3 { color: #4f72ff !important; }
-
-/* ── Реестр ── */
-html.dark .person-card   { background: #1a0810 !important; border-color: #7a0a22 !important; }
-html.dark .person-name   { color: #f04060 !important; }
-html.dark .person-detail { color: #c8ccdc !important; }
-html.dark .person-detail strong { color: #4f72ff !important; }
-html.dark .category {
-  background:   var(--surface) !important;
-  color:        #4f72ff !important;
-  border-color: #4f72ff !important;
-}
-
-/* ── Модалки ── */
-html.dark .modal-content  { background: #151827 !important; border-color: #f04060 !important; }
-html.dark .modal-title    { color: #4f72ff !important; border-bottom-color: #f04060 !important; }
-html.dark .modal-close    { color: var(--text-muted) !important; }
-html.dark .modal-close:hover { color: #f04060 !important; }
-html.dark .bot-link {
-  background:   #0d1230 !important;
-  color:        #4f72ff !important;
-  border-color: #4f72ff !important;
-}
-html.dark .bot-link:hover { background: #1936EF !important; color: white !important; }
-
-/* ── Таблицы ── */
-html.dark table              { background: var(--surface) !important; }
-html.dark th                 { background: #1936EF !important; }
-html.dark td                 { border-color: var(--border) !important; color: var(--text) !important; }
-html.dark tr:nth-child(even) td { background: #181b2c !important; }
-html.dark tr:hover           td { background: #1e2238 !important; }
-
-/* ── Алерты ── */
-html.dark .alert-danger    { background: #1a0810 !important; color: #ff8898 !important; border-color: #7a0a22 !important; }
-html.dark .form-success    { background: #081e12 !important; color: #6ee08a !important; border-color: #1a5c30 !important; }
-html.dark .form-error-msg  { background: #1a0810 !important; color: #ff8898 !important; border-color: #7a0a22 !important; }
-
-/* ── Уведомление ── */
-html.dark .notification { background: #151827 !important; border-left-color: #f04060 !important; }
-
-/* ── Футер ── */
-html.dark footer { background: #08091a !important; }
-
-/* ── Toast ── */
-html.dark .toast {
-  background:   #1c2033 !important;
-  border-color: #252840 !important;
-  color:        var(--text) !important;
-}
+/* Footer */
+html.dark footer, html.dark .site-footer { background: #0a0c1a !important; }
 
 /* ── Admin panel ── */
-html.dark .admin-section { background: var(--surface) !important; }
-html.dark .admin-nav-btn { background: var(--surface) !important; color: var(--text) !important; border-color: var(--border) !important; }
-html.dark .admin-nav-btn.active { background: #4f72ff !important; color: #fff !important; border-color: #4f72ff !important; }
-html.dark .news-preview   { background: var(--surface) !important; border-color: var(--border) !important; }
-html.dark .image-picker   { background: #10121e !important; border-color: var(--border) !important; }
-html.dark .preview-body   { color: var(--text) !important; }
-html.dark .preview-text   { color: var(--text-muted) !important; }
-html.dark .preview-label  { color: var(--text-muted) !important; border-color: var(--border) !important; }
-html.dark .edit-mode-banner { background: #1e1800 !important; border-color: #806000 !important; color: #d4a800 !important; }
+html.dark .tab-btn { background: var(--surface) !important; border-color: var(--border) !important; color: var(--muted) !important; }
+html.dark .tab-btn:hover { color: var(--primary) !important; border-color: var(--primary) !important; background: var(--primary-lt) !important; }
+html.dark .tab-btn.active { background: var(--primary) !important; color: white !important; border-color: var(--primary) !important; }
+html.dark .tab-panel { background: var(--surface) !important; border-color: var(--border) !important; }
+html.dark .panel-title { border-color: var(--border) !important; }
+html.dark .img-picker-box { background: var(--bg) !important; border-color: var(--border) !important; }
+html.dark .preview-card { background: var(--surface) !important; border-color: var(--border) !important; }
+html.dark .preview-badge { background: var(--bg) !important; border-color: var(--border) !important; color: var(--muted) !important; }
+html.dark .preview-body { color: var(--text) !important; }
+html.dark .preview-text { color: var(--muted) !important; }
+html.dark .edit-banner { background: #1a1200 !important; border-color: #806000 !important; color: var(--amber) !important; }
+html.dark .f-input, html.dark .f-textarea { background: #1c2040 !important; border-color: var(--border) !important; color: var(--text) !important; }
+html.dark .f-input:focus, html.dark .f-textarea:focus { border-color: var(--primary) !important; background: #1e2448 !important; }
+html.dark .f-label { color: var(--muted) !important; }
+html.dark .btn-publish { background: var(--primary) !important; }
+html.dark .btn-publish:hover { background: var(--primary-dk) !important; }
+html.dark .btn-cancel-edit { color: var(--muted) !important; border-color: var(--border) !important; }
+html.dark .section-divider { border-color: var(--border) !important; }
+html.dark .admin-welcome { background: var(--surface) !important; border-color: var(--border) !important; border-left-color: var(--primary) !important; }
+html.dark .admin-welcome h2 span { color: var(--primary) !important; }
+html.dark .admin-welcome small  { color: var(--muted) !important; }
 
-/* ── Кнопка темы ── */
-#theme-toggle {
-  background:    none;
-  border:        1.5px solid currentColor;
-  border-radius: 20px;
-  padding:       4px 12px;
-  cursor:        pointer;
-  font-size:     .85em;
-  font-family:   inherit;
-  opacity:       .75;
-  transition:    opacity .2s;
-  color:         inherit;
-  margin-left:   8px;
-}
-#theme-toggle:hover { opacity: 1; }
+/* ── Role badges (admin.js) ── */
+html.dark .role-admin, html.dark .badge-admin { background: #1e1200 !important; border-color: #806000 !important; color: var(--amber) !important; }
+html.dark .role-user,  html.dark .badge-user  { background: var(--primary-lt) !important; border-color: var(--primary) !important; color: var(--primary) !important; }
 
-/* ── Скроллбар ── */
-html.dark ::-webkit-scrollbar        { width: 6px; height: 6px; }
-html.dark ::-webkit-scrollbar-track  { background: #0c0e1a; }
-html.dark ::-webkit-scrollbar-thumb  { background: #252840; border-radius: 4px; }
-html.dark ::-webkit-scrollbar-thumb:hover { background: #4f72ff; }
+/* ── Profile ── */
+html.dark .profile-card { background: var(--surface) !important; border-color: var(--border) !important; }
+html.dark .profile-username { color: var(--text) !important; }
+html.dark .profile-meta { border-color: var(--border) !important; }
+html.dark .meta-row dt { color: var(--muted) !important; }
+html.dark .meta-row dd { color: var(--text) !important; }
+html.dark .form-field input, html.dark .form-field select { background: #1c2040 !important; border-color: var(--border) !important; color: var(--text) !important; }
+html.dark .form-field input:focus, html.dark .form-field select:focus { border-color: var(--primary) !important; background: #1e2448 !important; }
+html.dark .form-field label { color: var(--muted) !important; }
+html.dark .form-msg.error   { background: var(--accent-lt) !important; border-color: var(--accent) !important; }
+html.dark .form-msg.success { background: #052e16 !important; border-color: #10b981 !important; color: #34d399 !important; }
+
+/* ── Admin: btn-back / btn-logout ── */
+html.dark .btn-back   { background: var(--surface) !important; border-color: var(--border) !important; color: var(--text-2) !important; }
+html.dark .btn-back:hover { background: var(--bg) !important; }
+
+/* Scrollbar */
+html.dark ::-webkit-scrollbar { width: 6px; height: 6px; }
+html.dark ::-webkit-scrollbar-track { background: var(--bg); }
+html.dark ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+html.dark ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
