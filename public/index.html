@@ -16,41 +16,41 @@
   <div class="main-content">
     <header class="header">
       <div class="header-container">
-        <div class="logo-area">
+        <a href="/" class="logo-area">
           <img src="/images/kengos-logo.png" alt="КенУслуги" class="kengos-logo" onerror="this.style.display='none'">
           <div class="logo-text">
             <h1>КенУслуги</h1>
             <p>Государственный портал Кендрессии</p>
           </div>
-        </div>
-        <div class="server-badge">
-          <a href="https://t.me/AmethystSMPChannel" target="_blank">AmethystSMP →</a>
+        </a>
+
+        <nav class="h-nav" id="h-nav">
+          <a href="/services.html" class="h-nav-link">Услуги</a>
+          <a href="/applications.html" class="h-nav-link" data-auth="user">Мои заявки</a>
+          <a href="/messenger.html" class="h-nav-link" data-auth="user">💬 Чат</a>
+          <a href="/profile.html" class="h-nav-link" data-auth="user">👤 <span id="nav-user-name">Профиль</span></a>
+          <a href="/admin.html" class="h-nav-link h-nav-admin" data-auth="admin">🛡 Админка</a>
+        </nav>
+
+        <div class="header-actions">
+          <a href="https://t.me/AmethystSMPChannel" target="_blank" class="server-badge">AmethystSMP →</a>
+          <a href="/login.html" class="btn btn-primary btn-sm" data-auth="guest">Войти</a>
+          <a href="#" class="h-nav-link" data-auth="user" data-action="logout" style="margin-left:2px">Выйти</a>
+          <button id="theme-toggle" title="Тема">🌙</button>
         </div>
       </div>
     </header>
 
-    <div class="portal-nav">
-      <div class="portal-nav-inner">
-        <a href="/services.html">Услуги</a>
-        <a href="/applications.html" data-auth="user">Мои заявки</a>
-        <a href="/profile.html" data-auth="user">👤 <span id="nav-user-name">Профиль</span></a>
-        <a href="/admin.html" data-auth="admin" style="background:var(--accent);color:white">🛡 АДМИНКА</a>
-        <a href="/login.html" data-auth="guest">Войти</a>
-        <a href="#" data-auth="user" data-action="logout">Выйти</a>
-        <button id="theme-toggle" title="Тёмная тема" style="background:none;border:1.5px solid rgba(255,255,255,.5);border-radius:20px;padding:4px 12px;cursor:pointer;font-size:.85em;color:white;margin-left:4px;font-family:inherit;opacity:.85;transition:opacity .2s">🌙</button>
+    <nav class="anchor-nav">
+      <div class="anchor-nav-inner">
+        <a href="#info" class="anchor-link">ИНФОРМАЦИЯ</a>
+        <a href="#news" class="anchor-link">НОВОСТИ</a>
+        <a href="#leaders" class="anchor-link">ГЛАВЫ</a>
+        <a href="#service" class="anchor-link">СЛУЖБА</a>
+        <a href="#contact" class="anchor-link">КОНТАКТ</a>
+        <a href="#constitution" class="anchor-link">КОНСТИТУЦИЯ</a>
+        <a href="#registry" class="anchor-link">РЕЕСТР</a>
       </div>
-    </div>
-
-    <nav class="nav">
-      <ul>
-        <li><a href="#info" class="nav-link">ИНФОРМАЦИЯ</a></li>
-        <li><a href="#news" class="nav-link">НОВОСТИ</a></li>
-        <li><a href="#leaders" class="nav-link">ГЛАВЫ</a></li>
-        <li><a href="#service" class="nav-link">СЛУЖБА</a></li>
-        <li><a href="#contact" class="nav-link">КОНТАКТ</a></li>
-        <li><a href="#constitution" class="nav-link">КОНСТИТУЦИЯ</a></li>
-        <li><a href="#registry" class="nav-link">РЕЕСТР</a></li>
-      </ul>
     </nav>
 
     <div class="container" style="max-width:1200px;margin:30px auto;padding:0 20px">

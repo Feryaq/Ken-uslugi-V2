@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
   currentAdminId = user.id;
+  document.getElementById('admin-page').style.display = '';
   document.getElementById('admin-name').textContent = user.username;
 
   document.getElementById('last-update').textContent = 'Обновлено: ' + new Date().toLocaleTimeString('ru-RU');
@@ -159,6 +160,25 @@ function setupNewsBuilder() {
   const imgGrid   = document.getElementById('image-grid');
   const imgUrlIn  = document.getElementById('image-url');
   const cancelBtn = document.getElementById('cancel-edit-btn');
+
+  // File upload
+  const fileInput    = document.getElementById('image-file');
+  const uploadStatus = document.getElementById('upload-status');
+  fileInput.addEventListener('change', async () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+    uploadStatus.textContent = '⏳ Загрузка...';
+    try {
+      const { url } = await api.upload.image(file);
+      imgUrlIn.value = url;
+      imgGrid.querySelectorAll('.img-thumb').forEach(t => t.classList.remove('selected'));
+      uploadStatus.textContent = '✅ Загружено';
+      updatePreview();
+    } catch (err) {
+      uploadStatus.textContent = '❌ ' + err.message;
+    }
+    fileInput.value = '';
+  });
 
   // Build image grid
   NEWS_IMAGES.forEach(src => {

@@ -3,7 +3,22 @@
 const express = require('express');
 const router = express.Router();
 const dbPromise = require('../db');
-const { requireAdmin } = require('../middleware/auth');
+const { requireAdmin, requireAuth } = require('../middleware/auth');
+
+// GET /api/users/directory — public users list for messaging (auth required)
+router.get('/directory', requireAuth, async (req, res) => {
+  try {
+    const db = await dbPromise;
+    const users = await db.all(
+      'SELECT id, username, avatar, lastSeen FROM users WHERE id != ? ORDER BY username ASC',
+      [req.user.id]
+    );
+    res.json(users);
+  } catch (err) {
+    console.error('Directory error:', err);
+    res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+  }
+});
 
 // GET /api/users — list all users (admin only)
 router.get('/', requireAdmin, async (req, res) => {

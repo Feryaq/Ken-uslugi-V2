@@ -69,6 +69,29 @@ async function initDB() {
     )
   `);
 
+  // Create Messages table
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS messages (
+      id         TEXT PRIMARY KEY,
+      userId     TEXT NOT NULL,
+      receiverId TEXT,
+      text       TEXT NOT NULL,
+      read       INTEGER DEFAULT 0,
+      createdAt  TEXT NOT NULL,
+      FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE
+    )
+  `);
+
+  // Migrations — safe to run multiple times
+  try { await db.exec(`ALTER TABLE users    ADD COLUMN avatar          TEXT`);              } catch (_) {}
+  try { await db.exec(`ALTER TABLE users    ADD COLUMN lastSeen        TEXT`);              } catch (_) {}
+  try { await db.exec(`ALTER TABLE messages ADD COLUMN receiverId      TEXT`);              } catch (_) {}
+  try { await db.exec(`ALTER TABLE messages ADD COLUMN read            INTEGER DEFAULT 0`); } catch (_) {}
+  try { await db.exec(`ALTER TABLE messages ADD COLUMN attachmentUrl   TEXT`);              } catch (_) {}
+  try { await db.exec(`ALTER TABLE messages ADD COLUMN attachmentName  TEXT`);              } catch (_) {}
+  // Mark old global messages
+  await db.run(`UPDATE messages SET receiverId = 'global' WHERE receiverId IS NULL`);
+
   // Seed default admin if not exists
   const admin = await db.get('SELECT * FROM users WHERE username = ?', ['admin']);
   if (!admin) {

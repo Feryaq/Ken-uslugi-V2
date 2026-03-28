@@ -25,11 +25,14 @@ async function getCurrentUser(force = false) {
  * Call at top of protected pages.
  */
 async function requireAuth() {
+  // Hide body immediately to prevent flash of protected content
+  document.body.style.visibility = 'hidden';
   const user = await getCurrentUser();
   if (!user) {
     window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
     return null;
   }
+  document.body.style.visibility = '';
   return user;
 }
 

@@ -20,6 +20,12 @@ async function requireAuth(req, res, next) {
       return res.status(401).json({ error: 'Сессия истекла. Войдите снова.' });
     }
 
+    // Update lastSeen (fire-and-forget, throttled to once per 30s)
+    const now = Date.now();
+    if (!user.lastSeen || now - new Date(user.lastSeen).getTime() > 30000) {
+      db.run('UPDATE users SET lastSeen = ? WHERE id = ?', [new Date(now).toISOString(), user.id]).catch(() => {});
+    }
+
     // Attach user without password
     const { password, ...safeUser } = user;
     req.user = safeUser;

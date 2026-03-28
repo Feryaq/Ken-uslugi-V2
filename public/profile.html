@@ -35,6 +35,7 @@
       <li><a href="/" class="nav-link">ГЛАВНАЯ</a></li>
       <li><a href="/services.html" class="nav-link">УСЛУГИ</a></li>
       <li><a href="/applications.html" class="nav-link" data-auth="user">МОИ ЗАЯВКИ</a></li>
+      <li><a href="/messenger.html" class="nav-link" data-auth="user">💬 ЧАТ</a></li>
       <li><a href="/profile.html" class="nav-link active" data-auth="user">👤 <span id="nav-user-name">ПРОФИЛЬ</span></a></li>
       <li><a href="/login.html" class="nav-link" data-auth="guest" style="color:var(--accent);font-weight:700">ВОЙТИ</a></li>
       <li><a href="#" class="nav-link" data-auth="user" data-action="logout">ВЫЙТИ</a></li>
@@ -66,7 +67,11 @@
       <!-- Left: Profile card -->
       <div>
         <div class="profile-card">
-          <div class="avatar-wrap" id="profile-avatar" style="margin:0 auto 14px">?</div>
+          <div class="avatar-upload-wrap" style="margin:0 auto 14px;display:block;width:80px" title="Нажми, чтобы сменить аватар">
+            <div class="avatar-wrap" id="profile-avatar" style="width:80px;height:80px;font-size:1.7rem;font-weight:800">?</div>
+            <div class="avatar-upload-overlay">📷<br>Сменить</div>
+            <input type="file" id="avatar-input" accept="image/jpeg,image/png,image/gif,image/webp" style="display:none">
+          </div>
           <div class="profile-username" id="profile-username">—</div>
           <div id="profile-role-badge" style="margin-bottom:4px"></div>
 
@@ -148,8 +153,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   await updateNavbar();
 
   // Fill profile card
-  const initials = user.username.slice(0, 2).toUpperCase();
-  document.getElementById('profile-avatar').textContent   = initials;
+  function renderProfileAvatar(u) {
+    const el = document.getElementById('profile-avatar');
+    if (u.avatar) {
+      el.style.background = 'none';
+      el.innerHTML = `<img src="${u.avatar}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--border)" alt="" onerror="this.parentElement.textContent='${u.username.slice(0,2).toUpperCase()}'">`;
+    } else {
+      el.style.background = '';
+      el.textContent = u.username.slice(0, 2).toUpperCase();
+    }
+  }
+
+  renderProfileAvatar(user);
   document.getElementById('profile-username').textContent = user.username;
   document.getElementById('profile-created').textContent  = formatDateShort(user.createdAt);
 
@@ -161,6 +176,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.getElementById('loading-state').classList.add('d-none');
   document.getElementById('profile-grid').classList.remove('d-none');
+
+  // ── Avatar upload ──
+  const avatarWrap  = document.querySelector('.avatar-upload-wrap');
+  const avatarInput = document.getElementById('avatar-input');
+  avatarWrap.addEventListener('click', () => avatarInput.click());
+  avatarInput.addEventListener('change', async () => {
+    const file = avatarInput.files[0];
+    if (!file) return;
+    try {
+      const { url } = await api.upload.avatar(file);
+      renderProfileAvatar({ ...user, avatar: url });
+      showToast('Аватар обновлён', 'success');
+    } catch (err) {
+      showToast(err.message, 'error');
+    }
+    avatarInput.value = '';
+  });
 
   // ── Change username ──
   document.getElementById('form-username').addEventListener('submit', async (e) => {

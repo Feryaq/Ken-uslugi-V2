@@ -30,7 +30,7 @@
   </div>
 </header>
 
-<div class="admin-page">
+<div class="admin-page" id="admin-page" style="display:none">
   <div class="admin-welcome">
     <div>
       <h2>Добро пожаловать, <span id="admin-name">Администратор</span></h2>
@@ -76,7 +76,15 @@
           <div class="img-picker-box">
             <label class="f-label">Картинка</label>
             <div class="img-grid" id="image-grid"></div>
-            <label class="f-label" style="margin-top:8px">Или URL</label>
+            <label class="f-label" style="margin-top:8px">Загрузить свою</label>
+            <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+              <label style="flex:none;padding:7px 14px;background:var(--primary);color:white;border-radius:9px;font-size:.82rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px">
+                📁 Выбрать файл
+                <input type="file" id="image-file" accept="image/jpeg,image/png,image/gif,image/webp" style="display:none">
+              </label>
+              <span id="upload-status" style="font-size:.8rem;color:var(--muted)"></span>
+            </div>
+            <label class="f-label">Или URL</label>
             <input class="f-input" type="text" id="image-url" placeholder="/images/news1.jpg">
           </div>
           <div class="builder-actions">

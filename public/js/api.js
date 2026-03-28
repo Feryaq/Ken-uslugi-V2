@@ -94,7 +94,51 @@ const api = {
   // ── Account self-management ─────────────────────────────
   account: {
     update: (payload) => request('PATCH', '/auth/me', payload)
-  }
+  },
+
+  // ── Upload (multipart) ───────────────────────────────────
+  upload: {
+    image: async (file) => {
+      const fd = new FormData();
+      fd.append('image', file);
+      const res = await fetch('/api/upload/image', { method: 'POST', credentials: 'same-origin', body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Ошибка загрузки');
+      return data;
+    },
+    avatar: async (file) => {
+      const fd = new FormData();
+      fd.append('avatar', file);
+      const res = await fetch('/api/upload/avatar', { method: 'POST', credentials: 'same-origin', body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Ошибка загрузки');
+      return data;
+    },
+    attachment: async (file) => {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/upload/attachment', { method: 'POST', credentials: 'same-origin', body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Ошибка загрузки');
+      return data; // { url, name }
+    }
+  },
+
+  // ── Messages ────────────────────────────────────────────
+  messages: {
+    conversations: ()           => request('GET',   '/messages/conversations'),
+    unread:        ()           => request('GET',   '/messages/unread'),
+    global:        (after)      => request('GET',   '/messages/global' + (after ? `?after=${encodeURIComponent(after)}` : '')),
+    sendGlobal:    (text, attachmentUrl, attachmentName) => request('POST',  '/messages/global', { text, attachmentUrl, attachmentName }),
+    dm:            (uid, after) => request('GET',   `/messages/dm/${uid}` + (after ? `?after=${encodeURIComponent(after)}` : '')),
+    sendDm:        (uid, text, attachmentUrl, attachmentName) => request('POST',  `/messages/dm/${uid}`, { text, attachmentUrl, attachmentName }),
+    edit:          (id, text)   => request('PUT',   `/messages/${id}`, { text }),
+    markRead:      (uid)        => request('PATCH', `/messages/read/${uid}`),
+    delete:        (id)         => request('DELETE',`/messages/${id}`)
+  },
+
+  // ── Users directory ─────────────────────────────────────
+  directory: () => request('GET', '/users/directory')
 };
 
 window.api = api;
