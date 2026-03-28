@@ -674,6 +674,23 @@ footer p+p, .site-footer p+p { margin-top: 4px; opacity: .65; font-size: .8rem; 
 .news-thumb { width: 52px; height: 33px; object-fit: cover; border-radius: 4px; }
 .section-divider { border: none; border-top: 1.5px solid var(--border); margin: 22px 0; }
 
+/* ── GitHub floating badge ── */
+.gh-badge {
+  position: fixed; bottom: 22px; left: 22px; z-index: 9000;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #1a1e27; color: white;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 3px 14px rgba(0,0,0,.28);
+  transition: transform var(--t), box-shadow var(--t);
+  text-decoration: none;
+}
+.gh-badge:hover {
+  transform: scale(1.12) translateY(-2px);
+  box-shadow: 0 6px 22px rgba(0,0,0,.38);
+  text-decoration: none;
+}
+.gh-badge svg { width: 22px; height: 22px; fill: white; flex-shrink: 0; }
+
 /* ── Utils ── */
 .d-none { display: none !important; }
 .d-flex { display: flex; }

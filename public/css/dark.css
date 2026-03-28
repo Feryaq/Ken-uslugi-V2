@@ -190,6 +190,10 @@ html.dark .form-msg.success { background: #052e16 !important; border-color: #10b
 html.dark .btn-back   { background: var(--surface) !important; border-color: var(--border) !important; color: var(--text-2) !important; }
 html.dark .btn-back:hover { background: var(--bg) !important; }
 
+/* ── GitHub badge ── */
+html.dark .gh-badge { background: #2d333b; box-shadow: 0 3px 14px rgba(0,0,0,.5); }
+html.dark .gh-badge:hover { box-shadow: 0 6px 22px rgba(0,0,0,.65); }
+
 /* Scrollbar */
 html.dark ::-webkit-scrollbar { width: 6px; height: 6px; }
 html.dark ::-webkit-scrollbar-track { background: var(--bg); }
